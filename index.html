@@ -86,8 +86,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>注册表：</p>
-<p>​    数据类型：</p>
+        <h4 id="注册表："><a href="#注册表：" class="headerlink" title="注册表："></a>注册表：</h4><p>​    数据类型：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">REG_SZ：字符串：文本字符串</span><br><span class="line">REG_MULTI_SZ：多字符串值：含有多个文本值的字符串</span><br><span class="line">REG_BINARY：二进制数：二进制值，以十六进制显示，</span><br><span class="line">REG_DWORD：双字值；一个32位的二进制值，显示为8位的十六进制值</span><br></pre></td></tr></table></figure>
 
 <p>​    创建注册表：   regedit</p>
@@ -100,15 +99,14 @@
 <p>服务配置：win + R –&gt;msconfig</p>
 <p>UAC：user account control（用户账户控制）</p>
 <p>​        最底下：默认以管理员权限运行</p>
-<p>粘滞键后门：</p>
-<p>​    原理：通过覆盖sethc.exe文件运行cmd</p>
+<h4 id="粘滞键后门："><a href="#粘滞键后门：" class="headerlink" title="粘滞键后门："></a>粘滞键后门：</h4><p>​    原理：通过覆盖sethc.exe文件运行cmd</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. takeown &#x2F;F c:\windwos\system32\* &#x2F;A &#x2F;R</span><br><span class="line"></span><br><span class="line">2.cacls c:\windwos\system32\\* &#x2F;T &#x2F;E &#x2F;G administrators:F</span><br><span class="line"></span><br><span class="line">3.copy cmd.exe sethc.exe</span><br><span class="line"></span><br><span class="line">4.连续按5次shift键呼出cmd</span><br></pre></td></tr></table></figure>
 
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckr01zoau0006fkvjc73zfanp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckr02hfid00059kvjf2h5afaf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -185,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckr01zoaq0005fkvjglc04877" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckr02hfid00049kvjee1v7mx5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -222,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckr01zoao0003fkvjdm0m798v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckr02hfib00029kvjbqut99xq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -259,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckr01zoan0002fkvjd2v0f51d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckr02hfic00039kvjgoj228p6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -327,7 +325,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckr01zoag0000fkvj3ow8bxev" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckr02hfia00019kvj5h8p7cee" class="article-share-link">Share</a>
       
       
     </footer>
@@ -364,7 +362,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckr01zoal0001fkvj383p5y7d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckr02hfi500009kvj6hvn859c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -413,7 +411,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckr01zoao0004fkvje7n574mc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckr02hfii00069kvjen8najk9" class="article-share-link">Share</a>
       
       
     </footer>
