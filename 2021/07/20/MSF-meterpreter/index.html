@@ -15,7 +15,7 @@
 <meta property="og:description" content="碰到powershell无法执行脚本的情况:   执行脚本权限（策略）  Restricted    受限制  allsigned      已分配  Unrestricted 不受限制  remotesigned 远程分配  查看执行策略  Get-ExecutionPolicy   修改执行策略(需要管理员)  Set-ExecutionPolicy unrestricted  绕过执行">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-07-20T12:12:07.000Z">
-<meta property="article:modified_time" content="2021-07-20T12:29:37.066Z">
+<meta property="article:modified_time" content="2021-07-24T01:08:04.646Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -160,11 +160,21 @@
 <p>kill    pid                                                    杀死进程</p>
 <p>execute <code>-i -H  -f cmd</code>                            执行指令                </p>
 <p>upload    local_file     remote_path                上传文件            </p>
+<p>download remote_file local_path\save_filename                 下载文件</p>
+<p>show_mount                                             磁盘信息</p>
+<p>Core Commands:</p>
+<p>background | bg                                    返回控制台</p>
+<p>get_timeouts                                            获取session超时时间</p>
+<p>linux:.elf,.sh</p>
+<p>linux执行文件:</p>
+<p>./ —&gt; 有可执行的权限,chmod u+x file —&gt; ./file</p>
+<p>bash file</p>
+<p>windows:bat,exe,hta</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckrc1cup10003h0vjf1ra9bha" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckrh2thnz0001ocvjgxsaf05t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -172,6 +182,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          meterpreter与提权
+        
+      </div>
+    </a>
   
   
     <a href="/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
@@ -213,6 +232,10 @@
       <ul>
         
           <li>
+            <a href="/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/">meterpreter与提权</a>
+          </li>
+        
+          <li>
             <a href="/2021/07/20/MSF-meterpreter/">MSF--meterpreter</a>
           </li>
         
@@ -226,10 +249,6 @@
         
           <li>
             <a href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">信息搜集</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">注册表自启动和粘滞键后门</a>
           </li>
         
       </ul>
