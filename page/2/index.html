@@ -64,6 +64,83 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-基础命令" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time datetime="2021-07-10T04:11:26.000Z" itemprop="datePublished">2021-07-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>net user                                      查看用户</p>
+<p>net user 用户名 密码                更改密码</p>
+<p>net user 用户名 密码 /add        创建用户</p>
+<p>net user 用户名 /active:yes       激活用户</p>
+<p>ipconfig                                     查看网络配置</p>
+<p>ipconfig /all</p>
+<p>ipconfig /release                        释放当前IP</p>
+<p>ipconfig /renew                          重新获取IP</p>
+<p>ipconfig /flushdns                      清除DNS缓存</p>
+<p>net localgroup                            查看本地用户组</p>
+<p>net localgroup 组名                   查看组下的成员信息</p>
+<p>netsh wlan show profiles wifi名 key=clear    查看wifi密码</p>
+<p>net start                                      查看运行的服务</p>
+<p>tasklist                                        查看进程列表</p>
+<p>taskkill                                        操作进程</p>
+<p>​        /IM    利用程序名杀死进程</p>
+<p>​        /PID   利用进程ID杀死进程</p>
+<p>​        /F        强制杀死进程</p>
+<p>​        /T        同时杀死子进程</p>
+<p>netstat -ano                                查看端口开放信息</p>
+<p>管道符：|</p>
+<p>重定向符：&gt;（重定向输入输出）、&gt;&gt;(追加)</p>
+<p>echo ‘’&gt; 文件名                                生成文件</p>
+<p>type 文件名                                     查看文件内容</p>
+<p>systeminfo                                       查看操作系统的基本配置</p>
+<p>findstr                                              匹配字符串</p>
+<p>at 时间点 命令                                计划任务</p>
+<p>chdir                                                 列出当前路径</p>
+<p><strong>windows不区分大小写，linux严格遵循大小写</strong></p>
+<p>whoami            看当前用户</p>
+<p>whoami /user   看用户的sid</p>
+<p>​    500：代表管理员</p>
+<p>​    1000+：普通用户</p>
+<p>常用端口：3306 – mysql数据库–&gt;php</p>
+<p>​                    445 – smb服务</p>
+<p>​                    80 – http（明文传输）</p>
+<p>​                    443 – https（加密传输）</p>
+<p>​                    21 – ftp</p>
+<p>​                    22 – ssh（加密传输）</p>
+<p>​                    23 – telnet （明文传输）</p>
+<p>​                    3389 – RDP（远程桌面协议）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckrvj968c000e08vj5gu19wrj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-SQLlow等级手工注入" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" class="article-date">
@@ -91,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckrsvrhx90005u0vjdqug0n9y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckrvj967k000508vjczeq01m3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -128,7 +205,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckrsvrhx80004u0vj8fm35wda" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckrvj967i000408vj5vq09efy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -196,7 +273,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckrsvrhx50003u0vjhoytgi59" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckrvj967g000308vjf76l24lw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -233,7 +310,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckrsvrhwx0000u0vj9r4abfdj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckrvj966m000008vj7cmpbv6a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -282,7 +359,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckrsvrhxb0008u0vjduq964x9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckrvj9682000708vjdhybhgfj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -328,6 +405,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/">linux后门植入</a>
+          </li>
+        
+          <li>
             <a href="/2021/08/01/linux%E6%8F%90%E6%9D%83/">linux提权</a>
           </li>
         
@@ -341,10 +422,6 @@ default:
         
           <li>
             <a href="/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/">meterpreter与提权</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/20/MSF-meterpreter/">MSF--meterpreter</a>
           </li>
         
       </ul>

