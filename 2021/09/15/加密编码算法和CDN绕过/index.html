@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>加密编码算法和CDN绕过 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="常见加密编码等算法解析1、MD5：不可逆算法，最常用的算法之一，70-80%的网站管理员密码都是采用md5，网上解密的方法是采用枚举的方法(0-9，a-z的随机组合)，32位2、SHA：其中包括SHA1、SHA256、SHA384、SHA512，数字越大密文越长(0-9，a-z的随机组合)3、ASCII：ASCII码4、进制：计算机进制数5、时间戳：计算机不会自己读取当前时间，而是采用对当前时间进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="加密编码算法和CDN绕过">
+<meta property="og:url" content="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="常见加密编码等算法解析1、MD5：不可逆算法，最常用的算法之一，70-80%的网站管理员密码都是采用md5，网上解密的方法是采用枚举的方法(0-9，a-z的随机组合)，32位2、SHA：其中包括SHA1、SHA256、SHA384、SHA512，数字越大密文越长(0-9，a-z的随机组合)3、ASCII：ASCII码4、进制：计算机进制数5、时间戳：计算机不会自己读取当前时间，而是采用对当前时间进">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-15T00:45:34.000Z">
+<meta property="article:modified_time" content="2021-09-15T00:50:53.117Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-加密编码算法和CDN绕过" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" class="article-date">
+  <time datetime="2021-09-15T00:45:34.000Z" itemprop="datePublished">2021-09-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      加密编码算法和CDN绕过
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="常见加密编码等算法解析"><a href="#常见加密编码等算法解析" class="headerlink" title="常见加密编码等算法解析"></a>常见加密编码等算法解析</h3><p>1、MD5：不可逆算法，最常用的算法之一，70-80%的网站管理员密码都是采用md5，网上解密的方法是采用枚举的方法(0-9，a-z的随机组合)，32位<br>2、SHA：其中包括SHA1、SHA256、SHA384、SHA512，数字越大密文越长(0-9，a-z的随机组合)<br>3、ASCII：ASCII码<br>4、进制：计算机进制数<br>5、时间戳：计算机不会自己读取当前时间，而是采用对当前时间进行加密的时间戳供计算机来识别<br>6、URL：访问网站的地址信息  %20：[空格]  %23：#<br>7、BASE64：很多采用base64加密后的密文后面都是两个==，且=如果出现就必须在结尾出现<br>8、Unescape：%u+4位数字依次加密<br>9、AES：更高级更安全的加密方式，其中包含四个因素：填充、数据块、密码、偏移量，如果采用base64解密类似这种密文后是乱码，则很可能是采取Aes方式进行加密的，解密Aes方式的必须要知道密码和偏移量这两个前提<br>10、DES：和AES类似<br>11、带Salt：MD5+salt<br>12、自定义组合</p>
+<p><a target="_blank" rel="noopener" href="http://www.techen.cn/about_us.php?ID=MSBhbmQgMT0xIA==">http://www.techen.cn/about_us.php?ID=MSBhbmQgMT0xIA==</a><br><a target="_blank" rel="noopener" href="http://www.techen.cn/about_us.php?ID=1">http://www.techen.cn/about_us.php?ID=1</a> and 1=1  带入数据库查询</p>
+<p>d0a8730cb57cecabbfac98036f5b2fbf   解密出来不是admin@123<br>d0a8730cb57cecabbfac98036f5b2fbf:9cf1d9   admin@123</p>
+<h3 id="CDN绕过"><a href="#CDN绕过" class="headerlink" title="CDN绕过"></a>CDN绕过</h3><p>CDN 的全称是 Content Delivery Network，即内容分发网络。CDN 是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。但在安全测试过程中，若目标存在 CDN 服务，将会影响到后续的安全测试过程。<br>1、为什么要对CDN进行绕过？<br>2、如何判断目标存在 CDN 服务？<br>      利用多节点技术进行请求返回判断<br>3、CDN 对于安全测试有那些影响？<br>4、目前常见的 CDN 绕过技术有哪些？<br>      ①子域名查询<br>    <a target="_blank" rel="noopener" href="http://www.yucedu.com/">www.yucedu.com</a>  39.98.190.77<br>    yucedu.com 39.98.190.77<br>    x.yucedu.com   39.98.190.77 / 同网段 39.98.190.12 / 不同网段<br>      ②邮件服务查询  host文件手工捆绑确认<br>      ③国外地址请求<br>      ④扫描全网<br>         扫描工具：w8fuckcdn、zmap等<br>    w8fuckcdn使用说明：如果发现报错，类似\devices\npf adapter，推荐把虚拟网卡关闭<br>      ⑤黑暗引擎搜索特定文件<br>      ⑥dns 历史记录，以量打量</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>① 利用子域名请求获取真实 IP    学而思网站<br>②利用DNS历史记录(第三方接口)查询获取真实IP   sp910.com<br>③利用国外地址请求获取真实IP    m.sp910.com  软件：789VPN(要钱)<br>④利用邮件服务器接口获取真实IP   mozhe–人工地区识别/修改host手工绑定<br>⑤利用黑暗引擎搜索特定文件获取真实IP    shodan搜指定hash文件  <a target="_blank" rel="noopener" href="http://www.foxuc.com/">http://www.foxuc.com/</a></p>
+<p>#Python2 开发的执行环境<br>#安装 mmh3 失败记得先安装下#Microsoft Visual C++ 14.0<br>#<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/12TcFkZ6KFLhofCT-osJOSg">https://pan.baidu.com/s/12TcFkZ6KFLhofCT-osJOSg</a> 提取码：wkgv</p>
+<p>favicon.ico：WEB上存在的特有文件<br>代码：<br>import mmh3<br>import requests<br>response = requests.get(‘<a target="_blank" rel="noopener" href="http://www.xx.com/favicon.ico&#39;">http://www.xx.com/favicon.ico&#39;</a>)</p>
+<p><a target="_blank" rel="noopener" href="https://www.naver.com/favicon.ico">https://www.naver.com/favicon.ico</a></p>
+<p>favicon = response.content.encode(‘base64’)<br>hash = mmh3.hash(favicon)<br>print ‘http.favicon.hash:’+str(hash)</p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.cr173.com/soft/21692.html">https://www.cr173.com/soft/21692.html</a>  超级加解密转换工具<br><a target="_blank" rel="noopener" href="https://gitee.com/Discuz/DiscuzX">https://gitee.com/Discuz/DiscuzX</a>   discuz论坛源码<br><a target="_blank" rel="noopener" href="https://www.17ce.com/">https://www.17ce.com/</a>    多地ping<br><a target="_blank" rel="noopener" href="https://get-site-ip.com/">https://get-site-ip.com/</a>   查看真实IP地址<br><a target="_blank" rel="noopener" href="https://x.threatbook.cn/">https://x.threatbook.cn/</a>    微步<br><a target="_blank" rel="noopener" href="https://get-site-ip.com/">https://get-site-ip.com/</a>   查看真实IP地址<br><a target="_blank" rel="noopener" href="https://github.com/boy-hack/w8fuckcdn">https://github.com/boy-hack/w8fuckcdn</a>   w8fuckcdn<br><a target="_blank" rel="noopener" href="https://www.isc.org/downloads/">https://www.isc.org/downloads/</a>      dig工具</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="cktksgdhs000nwkvj5i1449hr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Web网站框架安全</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/">加密编码算法和CDN绕过</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">Web网站框架安全</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/">网站数据包结构分析</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">WEB安全基础</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/">横向移动</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
