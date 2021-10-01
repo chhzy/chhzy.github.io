@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>高低权限注入和敏感文件读写 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="高权限注入及低权限注入高用户权限和低用户权限的不同 跨库查询思路  前提：拥有高权限 文件读写操作MySQL特有的函数前提条件：在mysql.ini配置文件添加参数secure_file_priv &#x3D; [空]1、load_file()   — 读取函数2、into outfile 或 into dumpfile — 导出函数 ​     路径获取常见方法​     报错显示，遗留文件  phpin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高低权限注入和敏感文件读写">
+<meta property="og:url" content="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="高权限注入及低权限注入高用户权限和低用户权限的不同 跨库查询思路  前提：拥有高权限 文件读写操作MySQL特有的函数前提条件：在mysql.ini配置文件添加参数secure_file_priv &#x3D; [空]1、load_file()   — 读取函数2、into outfile 或 into dumpfile — 导出函数 ​     路径获取常见方法​     报错显示，遗留文件  phpin">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-10-01T00:56:26.000Z">
+<meta property="article:modified_time" content="2021-10-01T01:02:33.404Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-sql高低权限注入和敏感文件读写" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" class="article-date">
+  <time datetime="2021-10-01T00:56:26.000Z" itemprop="datePublished">2021-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      高低权限注入和敏感文件读写
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="高权限注入及低权限注入"><a href="#高权限注入及低权限注入" class="headerlink" title="高权限注入及低权限注入"></a>高权限注入及低权限注入</h4><p>高用户权限和低用户权限的不同</p>
+<p>跨库查询思路  前提：拥有高权限</p>
+<h4 id="文件读写操作"><a href="#文件读写操作" class="headerlink" title="文件读写操作"></a>文件读写操作</h4><h5 id="MySQL特有的函数"><a href="#MySQL特有的函数" class="headerlink" title="MySQL特有的函数"></a>MySQL特有的函数</h5><p>前提条件：在mysql.ini配置文件添加参数secure_file_priv = [空]<br>1、load_file()   — 读取函数<br>2、into outfile 或 into dumpfile — 导出函数</p>
+<p>​    </p>
+<h5 id="路径获取常见方法"><a href="#路径获取常见方法" class="headerlink" title="路径获取常见方法"></a>路径获取常见方法</h5><p>​     报错显示，遗留文件  phpinfo.php，漏洞报错，平台配置文件，爆破等</p>
+<p>常见读取文件列表：常见写入文件问题：魔术引号开关<br>magic_quotes_gpc<br>魔术引号：php内置的一个安全机制，默认是开启的，当打开时，所有的 ‘（单引号），”（双引号），\（反斜线）和 NULL 字符都会被自动加上一个反斜线进行转义<br>5.4.0版本以上的把这个功能撤除了。<br>类似PHP中的addslashes()函数</p>
+<h5 id="魔术引号绕过方法"><a href="#魔术引号绕过方法" class="headerlink" title="魔术引号绕过方法"></a>魔术引号绕过方法</h5><p>1、编码绕过<br>2、宽字节绕过(前提数据库编码是gbk)<br>%df’<br>%df%5c%27 = 縗  失去转义效果<br>show variables like ‘%char%’;  查看编码系统字符集设置<br>set character_set_client = gbk; 修改字符集编码方式<br>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46091464/article/details/105893529">https://blog.csdn.net/qq_46091464/article/details/105893529</a></p>
+<p>​    低版本注入配合读取或暴力<br>​     通过字典跑或猜再进行读取</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>高权限注入跨库查询操作测试<br>高权限注入文件读写操作测试<br>魔术引号开启后相关操作测试  宽字节绕过：<a target="_blank" rel="noopener" href="http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1">http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1</a> 在线靶场</p>
+<h5 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30292843/article/details/99381669">https://blog.csdn.net/weixin_30292843/article/details/99381669</a>   常见的load_file()读取的敏感信息</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="cku7nx95n000hfsvj6n6xemvw" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">sql注入请求方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">高低权限注入和敏感文件读写</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">sql注入请求方法</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">sql注入基础</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/">信息资产收集</a>
+          </li>
+        
+          <li>
+            <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/">加密编码算法和CDN绕过</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
