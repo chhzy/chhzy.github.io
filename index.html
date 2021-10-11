@@ -64,6 +64,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-文件上传漏洞的利用和验证过滤" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" class="article-date">
+  <time datetime="2021-10-11T12:35:57.000Z" itemprop="datePublished">2021-10-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/">文件上传漏洞的利用和验证过滤</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="什么是文件上传漏洞"><a href="#什么是文件上传漏洞" class="headerlink" title="什么是文件上传漏洞"></a>什么是文件上传漏洞</h4><p>文件上传漏洞是指由于程序员未对上传的文件进行严格的验证和过滤,而导致的用户可以越过其本身权限向服务器上上传可执行的动态脚本文件。</p>
+<h4 id="文件上传漏洞有哪些危害"><a href="#文件上传漏洞有哪些危害" class="headerlink" title="文件上传漏洞有哪些危害"></a>文件上传漏洞有哪些危害</h4><p>这里上传的文件可以是木马,病毒,恶意脚本或者WebShell等。这种攻击方式是最为直接和有效的，获取权限</p>
+<h4 id="文件上传漏洞如何查找及判断"><a href="#文件上传漏洞如何查找及判断" class="headerlink" title="文件上传漏洞如何查找及判断"></a>文件上传漏洞如何查找及判断</h4><p>明确功能点具有上传功能<br>1、黑盒测试-不知道对方源码其他信息得情况下进行测试<br>    对功能点进行测试<br>    根据公开漏洞<br>2、白盒测试-知道对方源码得情况下进行代码审计</p>
+<h4 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h4><h5 id="①常规类"><a href="#①常规类" class="headerlink" title="①常规类"></a>①常规类</h5><p>​    a)扫描获取上传<br>​    b)会员中心上传<br>​    c)后台系统上传<br>​    d)各种途径上传</p>
+<h5 id="②CMS类–根据已知CMS源码"><a href="#②CMS类–根据已知CMS源码" class="headerlink" title="②CMS类–根据已知CMS源码"></a>②CMS类–根据已知CMS源码</h5><h5 id="③编辑器类"><a href="#③编辑器类" class="headerlink" title="③编辑器类"></a>③编辑器类</h5><p>​    a)Ckeditor<br>​    b)Fckeditor<br>​    c)Kindeditor<br>​    d)xxxxeditor</p>
+<h5 id="④其他类-CVE"><a href="#④其他类-CVE" class="headerlink" title="④其他类/CVE"></a>④其他类/CVE</h5><p>​    a)代码审计<br>​    b)平台/三方应用等</p>
+<h4 id="前端验证和后端验证"><a href="#前端验证和后端验证" class="headerlink" title="前端验证和后端验证"></a>前端验证和后端验证</h4><p>前端验证是运行在本地，可以人工绕过，比如浏览器禁用js<br>后端验证是前端数提交到服务器上进行验证</p>
+<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>①常规文件上传地址的获取    inurl:upload.php<br>②不同格式下的文件类型后门测试<br>      配合解析漏洞下的文件类型后门测试<br>③本地文件上传漏洞靶场环境搭建测试<br>④finecms_v5文件上传漏洞测试<br>      Weblogic任意文件上传漏洞(CVE-2018-2894) </p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://github.com/c0ny1/upload-labs">https://github.com/c0ny1/upload-labs</a><br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1h2_1gZN6V_vCou9fDwOEBg">https://pan.baidu.com/s/1h2_1gZN6V_vCou9fDwOEBg</a>  提取码：1111    finecms_v5.0源码</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckumn8pbx000xg0vj3re98sil" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sql漏洞注入扩展和Access数据库" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" class="article-date">
@@ -115,7 +160,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckuhtvvn6000mt0vjam8i1pvs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckumn8pbn000ig0vj4pql7uqb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -174,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckuhtvvn1000jt0vj1w0w0p3m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckumn8pbo000jg0vj2pz46hu8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -220,7 +265,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckuhtvvmx000ht0vjevplfrq8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckumn8pbp000kg0vj4ie1hidb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -263,7 +308,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckuhtvvn2000kt0vj1u9fdb4c" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckumn8pbr000ng0vj2q4pd6v5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -319,7 +364,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckuhtvvmv000gt0vjb6684zlw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckumn8pbn000hg0vj0qnt4fe5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -373,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckuhtvvn9000pt0vj31mg6yzy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckumn8pbv000ug0vj1744ho8c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -419,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckuhtvvnc000rt0vj4ohreyt4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckumn8pbt000rg0vj5vx8fify" class="article-share-link">Share</a>
       
       
     </footer>
@@ -458,7 +503,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckuhtvvmc0007t0vj87ld7wvc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckumn8pau0009g0vjbstv1jhn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -514,50 +559,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckuhtvvnj000zt0vjfole3ael" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-WEB安全基础" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" class="article-date">
-  <time datetime="2021-09-07T14:07:39.000Z" itemprop="datePublished">2021-09-07</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">WEB安全基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>WEB:在互联网上面看到的所有网站，建立在http协议之上的<br>WEB软件  代码<br>软件：<br>操作系统软件：Windows，linux，unix，mac os<br>应用软件：淘宝、QQ、VX<br>架构：<br>C/S架构：客户端和服务器  安装、运行、更新  客户端<br>B/S架构：浏览器和服务器  开发、运行、更新  服务器</p>
-<p>网站相关的语言：<br>前端：HTML CSS JavaScript 前端三剑客<br>后端：PHP、Java、Python</p>
-<p>超文本：超级文本，用超链接的方式，将各种不同空间的文字信息组织在一起的网状文本。超文本的格式有很多，  HTML(超文本标记语言)</p>
-<p>URL：统一资源定位符，是资源标识符常见的一种，URL用来描述一台特定服务器上某个资源的特定位置<br><a target="_blank" rel="noopener" href="https://www.baidu.com/index.php?tn=monline_3_dg">https://www.baidu.com/index.php?tn=monline_3_dg</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/ucms_1.4.8/admin/login.php">http://127.0.0.1/ucms_1.4.8/admin/login.php</a><br><a target="_blank" rel="noopener" href="http://192.168.4.178:8060/">http://192.168.4.178:8060/</a><br>协议：https  http  ftp<br>主机、服务器：<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a>  192.168.4.155<br>本地资源：index.php<br>端口：8060</p>
-<p>http协议：Hyper Text Transfer Protocol（超文本传输协议）<br>在浏览器上访问网站，都得遵循这个协议<br>基于B/S架构<br>http报文分为三个部分：<br>①起始行<br>在请求报文中，用来说明需要做些什么<br>在响应报文中，用来说明结果是什么<br>②首部字段<br>起始行后面有0个或多个首部字段 首部字段最终以一个空行结束<br>③主体</p>
-<p>Cookie: 是某些网站，为了辨别用户的身份，进行会话跟踪，用来储存在用户本地终端上的数据，由客户端暂时或者永久保存，通常是经过加密的</p>
-<p>渗透测试：以“黑客”的身份，去对网站、服务器做渗透“攻击”，找到其中的漏洞，并进行反馈<br>黑盒测试：在不知道源代码、服务器环境的情况下，去进行渗透<br>白盒测试：在知道源代码、服务器环境的情况下，去进行渗透<br>代码审计</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckuhtvvme0008t0vj2uuy1cbo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckumn8pc20010g0vj12vbd4pv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -603,6 +605,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/">文件上传漏洞的利用和验证过滤</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/">sql漏洞注入扩展和Access数据库</a>
           </li>
         
@@ -616,10 +622,6 @@
         
           <li>
             <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">sql注入请求方法</a>
-          </li>
-        
-          <li>
-            <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">sql注入基础</a>
           </li>
         
       </ul>
