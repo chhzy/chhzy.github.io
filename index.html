@@ -64,6 +64,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-文件上传漏洞的上传逻辑安全" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" class="article-date">
+  <time datetime="2021-10-20T07:15:32.000Z" itemprop="datePublished">2021-10-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="文件头检测"><a href="#文件头检测" class="headerlink" title="文件头检测"></a>文件头检测</h5><p>各个文件格式的二进制流<br>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/babycool/p/3531696.html">https://www.cnblogs.com/babycool/p/3531696.html</a></p>
+<h5 id="图像文件信息判断"><a href="#图像文件信息判断" class="headerlink" title="图像文件信息判断"></a>图像文件信息判断</h5><p> Pass-15 getimagesize函数   Pass-16 exif_imagetype函数   Pass-17 imagecreatefromjpeg函数</p>
+<h5 id="逻辑安全-二次渲染-https-www-58pic-com"><a href="#逻辑安全-二次渲染-https-www-58pic-com" class="headerlink" title="逻辑安全-二次渲染  https://www.58pic.com"></a>逻辑安全-二次渲染  <a target="_blank" rel="noopener" href="https://www.58pic.com/">https://www.58pic.com</a></h5><p>二次渲染就是根据用户上传的图片，新生成一个图片，将原始图片删除，将新图片添加到数据库中。比如一些网站根据用户上传的头像生成大中小不同尺寸的图像。</p>
+<h5 id="逻辑安全-条件竞争-Pass-18"><a href="#逻辑安全-条件竞争-Pass-18" class="headerlink" title="逻辑安全-条件竞争 Pass-18"></a>逻辑安全-条件竞争 Pass-18</h5><p>条件竞争漏洞是一种服务器端的漏洞，是由于开发者设计应用程序并发处理时操作逻辑不合理而造成。当应用面临高并发的请求时未能同步好所有请求，导致请求与请求之间产生等待时出现逻辑缺陷</p>
+<h5 id="目录命名绕过-Pass-20"><a href="#目录命名绕过-Pass-20" class="headerlink" title="目录命名绕过   Pass-20"></a>目录命名绕过   Pass-20</h5><h5 id="数组接受-目录命名-Pass-21"><a href="#数组接受-目录命名-Pass-21" class="headerlink" title="数组接受+目录命名   Pass-21"></a>数组接受+目录命名   Pass-21</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">upload-20.php</span><br><span class="line">upload-20   .    jpg</span><br><span class="line"></span><br><span class="line">save_name[0]&#x3D;upload-20</span><br><span class="line">save_name[1]&#x3D;.</span><br><span class="line">save_name[2]&#x3D;php</span><br><span class="line"></span><br><span class="line">upload-20.php&#x2F;.jpg</span><br><span class="line"></span><br><span class="line">1.php&#x2F;.jpg</span><br><span class="line"></span><br><span class="line">-----------------------------231102717837736124334110320076</span><br><span class="line">Content-Disposition: form-data; name&#x3D;&quot;save_name[0]&quot;</span><br><span class="line"></span><br><span class="line">upload-20.php&#x2F;</span><br><span class="line">-----------------------------231102717837736124334110320076</span><br><span class="line">Content-Disposition: form-data; name&#x3D;&quot;save_name[2]&quot;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.smi1e.top/2018/06/16/%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">https://www.smi1e.top/2018/06/16/%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</a><br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1cb4agMZonkfUkz_2R_-GxA">https://pan.baidu.com/s/1cb4agMZonkfUkz_2R_-GxA</a>  提取码：teb8   Web中间件常见漏洞总结.pdf</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckuz6wd7m000w5kvj4h141lcv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-文件上传漏洞的后端绕过方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" class="article-date">
@@ -107,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckutpr5wf000xpkvj6xuhf18w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckuz6wd7n000x5kvje5co7zac" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckutpr5wa000vpkvjfa954tn9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckuz6wd7n000y5kvjbflke55o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -213,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckutpr5rt000opkvj6bia3cd9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckuz6wd77000k5kvj5534aezl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -272,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckutpr5rp000ipkvj8rlk9ukr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckuz6wd77000j5kvjhcmwbrbr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -318,7 +363,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckutpr5rq000jpkvj7gfx94si" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckuz6wd78000l5kvj9jutcd42" class="article-share-link">Share</a>
       
       
     </footer>
@@ -361,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckutpr5rr000kpkvjhj0lca7w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckuz6wd76000i5kvj5pqsd6mi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -417,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckutpr5ro000gpkvj4o1n3toc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckuz6wd76000h5kvj432zes33" class="article-share-link">Share</a>
       
       
     </footer>
@@ -471,7 +516,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckutpr5ru000qpkvjgp17dkyh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckuz6wd7i000o5kvj0roz13d6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -517,46 +562,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckutpr5rw000tpkvj73uiegcd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Web网站框架安全" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" class="article-date">
-  <time datetime="2021-09-12T14:44:46.000Z" itemprop="datePublished">2021-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">Web网站框架安全</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>基础知识：<br>【网站搭建】<br>     由操作系统、web源码、中间件、数据库四大部分组成<br>     ASP+Access<br>     php+mysql<br>     aspx+mssql<br>     jsp+mssql,oracle<br>     python+mongodb<br>下载phpstudy(同样还有宝塔，wmap，Inmap)，一体化集合php+mysql+apache/nginx/iis，模拟搭建网站<br>【操作系统】<br>1、Windows   大小写不敏感<br>2、Linux(70%)   大小写敏感<br>nmap -O [IP或域名]<br>【web源码】<br>1、CMS：开源的网站内容管理系统   开放[开源]：能下载到的   内部：见不到，找不到<br>     关于源码获取的相关途径：搜索(国内dedecms、74cms、phpcms等  国外：WordPress)，咸鱼淘宝(花钱买)，第三方源码站<br>2、脚本类型：asp、aspx、php、jsp、python等<br>     不同网站源码采用不同脚本类型去编写，脚本类型选择上不同造成安全漏洞不同，某些语言能造成的安全漏洞也不一样<br>3、目录结构：后台目录模板目录、数据库目录、数据库配置文件等<br>4、网站系统的应用分类：商城（逻辑漏洞）、论坛（上传漏洞）、博客、第三方(查IP、查域名)（命令执行漏洞）、其他<br>      网站功能决定漏洞类型<br>5、框架<br>【中间件常见安全问题与防护】<br>1、配置导致安全问题<br>      IP 或域名解析目录对应下的存在的安全问题<br>      域名访问，IP访问<br>      脚本后缀解析<br>2、安全配置防护<br>      常见防护中的IP域名验证</p>
-<p>C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\aspnet_isapi.dll  asp<br>C:\WINDOWS\system32\inetsrv\asp.dll   axd</p>
-<p>查看md5值命令：certutil -hashfile C:\Users\kayven\Desktop\none.gif md5<br>【演示实验】<br>    域名解析目录与IP解析目录安全<br>    文件后缀解析设置    中国菜刀<br>    常见安全测试中的安全防护<br>    WEB 后门与用户及文件权限<br>    CMS识别(人工、在线工具、平台)<br>【涉及资源】<br><a target="_blank" rel="noopener" href="https://nmap.org/">https://nmap.org/</a><br><a target="_blank" rel="noopener" href="https://w.ddosi.workers.dev/">https://w.ddosi.workers.dev/</a>    雨苁<a target="_blank" rel="noopener" href="http://www.ddosi.com/">www.ddosi.com</a><br><a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/">http://whatweb.bugscaner.com/</a>     在线cms识别</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckutpr5rg0006pkvj42evbdfn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckuz6wd7l000t5kvjhhj5fqza" class="article-share-link">Share</a>
       
       
     </footer>
@@ -602,6 +608,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/">文件上传漏洞的后端绕过方法</a>
           </li>
         
@@ -615,10 +625,6 @@
         
           <li>
             <a href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/">sql漏洞查询方式和报错盲注</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">高低权限注入和敏感文件读写</a>
           </li>
         
       </ul>

