@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  <icon>http://yoursite.com/icon.png</icon>
+  
+  <link href="http://yoursite.com/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2021-10-20T07:23:43.243Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>John Doe</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>文件上传漏洞的上传逻辑安全</title>
+    <link href="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/"/>
+    <id>http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/</id>
+    <published>2021-10-20T07:15:32.000Z</published>
+    <updated>2021-10-20T07:23:43.243Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h5 id=&quot;文件头检测&quot;&gt;&lt;a href=&quot;#文件头检测&quot; class=&quot;headerlink&quot; title=&quot;文件头检测&quot;&gt;&lt;/a&gt;文件头检测&lt;/h5&gt;&lt;p&gt;各个文件格式的二进制流&lt;br&gt;参考：&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>文件上传漏洞的后端绕过方法</title>
+    <link href="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/</id>
+    <published>2021-10-16T11:21:06.000Z</published>
+    <updated>2021-10-16T11:24:48.432Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;文件上传之后端黑白名单绕过&quot;&gt;&lt;a href=&quot;#文件上传之后端黑白名单绕过&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>文件上传漏洞的利用和验证过滤</title>
+    <link href="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/"/>
+    <id>http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/</id>
+    <published>2021-10-11T12:35:57.000Z</published>
+    <updated>2021-10-11T12:40:09.319Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;什么是文件上传漏洞&quot;&gt;&lt;a href=&quot;#什么是文件上传漏洞&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>sql漏洞注入扩展和Access数据库</title>
+    <link href="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    <id>http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/</id>
+    <published>2021-10-08T03:41:42.000Z</published>
+    <updated>2021-10-08T03:47:19.813Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;注入扩展&quot;&gt;&lt;a href=&quot;#注入扩展&quot; class=&quot;headerlink&quot; title=&quot;注入扩展&quot;&gt;&lt;/a&gt;注入扩展&lt;/h4&gt;&lt;h5 id=&quot;加解密注入&quot;&gt;&lt;a href=&quot;#加解密注入&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>sql漏洞查询方式和报错盲注</title>
+    <link href="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/"/>
+    <id>http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/</id>
+    <published>2021-10-05T13:57:54.000Z</published>
+    <updated>2021-10-05T14:06:23.563Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;数据库查询方式&quot;&gt;&lt;a href=&quot;#数据库查询方式&quot; class=&quot;headerlink&quot; title=&quot;数据库查询方式&quot;&gt;&lt;/a&gt;数据库查询方式&lt;/h4&gt;&lt;h5 id=&quot;select-查询数据&quot;&gt;&lt;a href=&quot;#select-查询数据&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>高低权限注入和敏感文件读写</title>
+    <link href="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/"/>
+    <id>http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/</id>
+    <published>2021-10-01T00:56:26.000Z</published>
+    <updated>2021-10-01T01:02:33.404Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;高权限注入及低权限注入&quot;&gt;&lt;a href=&quot;#高权限注入及低权限注入&quot; class=&quot;headerlink&quot; title=&quot;高权限注入及低权限注入&quot;&gt;&lt;/a&gt;高权限注入及低权限注入&lt;/h4&gt;&lt;p&gt;高用户权限和低用户权限的不同&lt;/p&gt;
+&lt;p&gt;跨库查询思路 </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>sql注入请求方法</title>
+    <link href="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/</id>
+    <published>2021-09-27T11:44:29.000Z</published>
+    <updated>2021-09-27T11:49:13.938Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;参数类型&quot;&gt;&lt;a href=&quot;#参数类型&quot; class=&quot;headerlink&quot; title=&quot;参数类型&quot;&gt;&lt;/a&gt;参数类型&lt;/h4&gt;&lt;p&gt;1、数字类型&lt;br&gt;select * from user where id=1&lt;br&gt;2、字符类型&lt;br&gt;select *</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>sql注入基础</title>
+    <link href="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/</id>
+    <published>2021-09-23T14:56:58.000Z</published>
+    <updated>2021-09-23T15:02:24.356Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;数据库类型&quot;&gt;&lt;a href=&quot;#数据库类型&quot; class=&quot;headerlink&quot; title=&quot;数据库类型&quot;&gt;&lt;/a&gt;数据库类型&lt;/h4&gt;&lt;p&gt;  </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>信息资产收集</title>
+    <link href="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/"/>
+    <id>http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/</id>
+    <published>2021-09-19T02:44:32.000Z</published>
+    <updated>2021-09-19T02:52:57.028Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;CMS识别技术&quot;&gt;&lt;a href=&quot;#CMS识别技术&quot; class=&quot;headerlink&quot; title=&quot;CMS识别技术&quot;&gt;&lt;/a&gt;CMS识别技术&lt;/h3&gt;&lt;p&gt;1、人工指纹字典识别&lt;br&gt;2、在线工具&lt;br&gt;3、平台&lt;br&gt;   源码获取技术&lt;br&gt;  </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>加密编码算法和CDN绕过</title>
+    <link href="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/"/>
+    <id>http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/</id>
+    <published>2021-09-15T00:45:34.000Z</published>
+    <updated>2021-09-15T00:50:53.117Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;常见加密编码等算法解析&quot;&gt;&lt;a href=&quot;#常见加密编码等算法解析&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Web网站框架安全</title>
+    <link href="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/"/>
+    <id>http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/</id>
+    <published>2021-09-12T14:44:46.000Z</published>
+    <updated>2021-09-12T14:45:38.380Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;基础知识：&lt;br&gt;【网站搭建】&lt;br&gt;     由操作系统、web源码、中间件、数据库四大部分组成&lt;br&gt;     ASP+Access&lt;br&gt;     php+mysql&lt;br&gt;     aspx+mssql&lt;br&gt;     jsp+mssql,oracle&lt;br&gt;  </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>网站数据包结构分析</title>
+    <link href="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/"/>
+    <id>http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/</id>
+    <published>2021-09-10T07:49:32.000Z</published>
+    <updated>2021-09-10T07:52:03.724Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;【HTTP/HTTPS数据包】&lt;br&gt;HTTP 是超文本传输协议，信息是明文传输，HTTPS 则是具有安全性的 SSL</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>WEB安全基础</title>
+    <link href="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/</id>
+    <published>2021-09-07T14:07:39.000Z</published>
+    <updated>2021-09-07T14:09:58.768Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;WEB:在互联网上面看到的所有网站，建立在http协议之上的&lt;br&gt;WEB软件  代码&lt;br&gt;软件：&lt;br&gt;操作系统软件：Windows，linux，unix，mac os&lt;br&gt;应用软件：淘宝、QQ、VX&lt;br&gt;架构：&lt;br&gt;C/S架构：客户端和服务器 </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>横向移动</title>
+    <link href="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/"/>
+    <id>http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/</id>
+    <published>2021-09-04T14:18:26.000Z</published>
+    <updated>2021-09-04T14:18:41.782Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;横向移动的概念&quot;&gt;&lt;a href=&quot;#横向移动的概念&quot; class=&quot;headerlink&quot; title=&quot;横向移动的概念&quot;&gt;&lt;/a&gt;横向移动的概念&lt;/h2&gt;&lt;p&gt;红队和蓝队: &lt;/p&gt;
+&lt;p&gt;​    红队(APT) ==&amp;gt; 攻击方 &lt;/p&gt;
+&lt;p&gt;​ </summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>黄金票据</title>
+    <link href="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/"/>
+    <id>http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/</id>
+    <published>2021-09-02T14:15:35.000Z</published>
+    <updated>2021-09-02T14:16:01.682Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;kerberos协议和黄金票据&quot;&gt;&lt;a href=&quot;#kerberos协议和黄金票据&quot; class=&quot;headerlink&quot; title=&quot;kerberos协议和黄金票据&quot;&gt;&lt;/a&gt;kerberos协议和黄金票据&lt;/h1&gt;&lt;p&gt;VM克隆: 右键选项卡</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>域渗透基础</title>
+    <link href="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/</id>
+    <published>2021-08-31T11:25:35.000Z</published>
+    <updated>2021-08-31T11:26:05.643Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;域渗透基础&lt;/p&gt;
+&lt;h2 id=&quot;NTLM&quot;&gt;&lt;a href=&quot;#NTLM&quot; class=&quot;headerlink&quot; title=&quot;NTLM&quot;&gt;&lt;/a&gt;NTLM&lt;/h2&gt;&lt;p&gt; NTLM协议的认证过程分为三步： &lt;/p&gt;
+&lt;p&gt;1、协商：主要用于确认双方协议版本(NTLM</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>端口转发和代理</title>
+    <link href="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/"/>
+    <id>http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/</id>
+    <published>2021-08-26T07:01:12.000Z</published>
+    <updated>2021-08-26T07:04:11.494Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;pip&quot;&gt;&lt;a href=&quot;#pip&quot; class=&quot;headerlink&quot; title=&quot;pip&quot;&gt;&lt;/a&gt;pip&lt;/h2&gt;&lt;p&gt;pip分python2 和 python3 版本&lt;/p&gt;
+&lt;p&gt;pip3: apt-get install</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>empire会话传递和代理</title>
+    <link href="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/"/>
+    <id>http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/</id>
+    <published>2021-08-24T04:23:30.000Z</published>
+    <updated>2021-08-24T04:24:21.650Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;empire会话传递&quot;&gt;&lt;a href=&quot;#empire会话传递&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>empire提权和持久化</title>
+    <link href="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/"/>
+    <id>http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/</id>
+    <published>2021-08-21T13:28:18.000Z</published>
+    <updated>2021-08-21T13:29:16.639Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;stager的几种用法&quot;&gt;&lt;a href=&quot;#stager的几种用法&quot; class=&quot;headerlink&quot; title=&quot;stager的几种用法&quot;&gt;&lt;/a&gt;stager的几种用法&lt;/h2&gt;&lt;p&gt;windows/launcher_sct&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>empire基操</title>
+    <link href="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/"/>
+    <id>http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/</id>
+    <published>2021-08-18T04:33:41.000Z</published>
+    <updated>2021-08-18T04:34:48.942Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;基操&quot;&gt;&lt;a href=&quot;#基操&quot; class=&quot;headerlink&quot; title=&quot;基操&quot;&gt;&lt;/a&gt;基操&lt;/h2&gt;&lt;p&gt;&lt;code&gt;可以用tab补全查看指令&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;uselistener  使用监听器&lt;/p&gt;
+&lt;p&gt;usemodule</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+</feed>
