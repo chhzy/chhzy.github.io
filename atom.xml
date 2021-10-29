@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-10-26T06:56:08.089Z</updated>
+  <updated>2021-10-29T06:59:47.867Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>xss漏洞-过滤绕过及工具使用</title>
+    <link href="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"/>
+    <id>http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</id>
+    <published>2021-10-29T06:55:11.000Z</published>
+    <updated>2021-10-29T06:59:47.867Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;简单介绍Beef工具&quot;&gt;&lt;a href=&quot;#简单介绍Beef工具&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>xss漏洞-基础分类及利用</title>
@@ -414,27 +435,6 @@
         
     <summary type="html">&lt;h2 id=&quot;pip&quot;&gt;&lt;a href=&quot;#pip&quot; class=&quot;headerlink&quot; title=&quot;pip&quot;&gt;&lt;/a&gt;pip&lt;/h2&gt;&lt;p&gt;pip分python2 和 python3 版本&lt;/p&gt;
 &lt;p&gt;pip3: apt-get install</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>empire会话传递和代理</title>
-    <link href="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/"/>
-    <id>http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/</id>
-    <published>2021-08-24T04:23:30.000Z</published>
-    <updated>2021-08-24T04:24:21.650Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;empire会话传递&quot;&gt;&lt;a href=&quot;#empire会话传递&quot; class=&quot;headerlink&quot;</summary>
         
       
     
