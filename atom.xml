@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-10-29T06:59:47.867Z</updated>
+  <updated>2021-11-01T08:43:23.483Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CSRF</title>
+    <link href="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/"/>
+    <id>http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/</id>
+    <published>2021-11-01T08:32:30.000Z</published>
+    <updated>2021-11-01T08:43:23.483Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;CSRF漏洞解释，原理&quot;&gt;&lt;a href=&quot;#CSRF漏洞解释，原理&quot; class=&quot;headerlink&quot; title=&quot;CSRF漏洞解释，原理&quot;&gt;&lt;/a&gt;CSRF漏洞解释，原理&lt;/h4&gt;&lt;p&gt;CSRF（Cross-site request</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>xss漏洞-过滤绕过及工具使用</title>
@@ -413,28 +434,6 @@
     <summary type="html">&lt;p&gt;域渗透基础&lt;/p&gt;
 &lt;h2 id=&quot;NTLM&quot;&gt;&lt;a href=&quot;#NTLM&quot; class=&quot;headerlink&quot; title=&quot;NTLM&quot;&gt;&lt;/a&gt;NTLM&lt;/h2&gt;&lt;p&gt; NTLM协议的认证过程分为三步： &lt;/p&gt;
 &lt;p&gt;1、协商：主要用于确认双方协议版本(NTLM</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>端口转发和代理</title>
-    <link href="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/"/>
-    <id>http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/</id>
-    <published>2021-08-26T07:01:12.000Z</published>
-    <updated>2021-08-26T07:04:11.494Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;pip&quot;&gt;&lt;a href=&quot;#pip&quot; class=&quot;headerlink&quot; title=&quot;pip&quot;&gt;&lt;/a&gt;pip&lt;/h2&gt;&lt;p&gt;pip分python2 和 python3 版本&lt;/p&gt;
-&lt;p&gt;pip3: apt-get install</summary>
         
       
     
