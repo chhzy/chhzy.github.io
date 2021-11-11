@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-11-04T14:58:12.813Z</updated>
+  <updated>2021-11-11T04:59:19.172Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>文件操作之文件下载读取</title>
+    <link href="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/"/>
+    <id>http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/</id>
+    <published>2021-11-11T04:52:26.000Z</published>
+    <updated>2021-11-11T04:59:19.172Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;文件下载，读取&quot;&gt;&lt;a href=&quot;#文件下载，读取&quot; class=&quot;headerlink&quot; title=&quot;文件下载，读取&quot;&gt;&lt;/a&gt;文件下载，读取&lt;/h4&gt;&lt;p&gt;原理，检测，利用，修复等&lt;/p&gt;
+&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>RCE代码命令执行漏洞</title>
@@ -411,27 +433,6 @@
     <summary type="html">&lt;h2 id=&quot;横向移动的概念&quot;&gt;&lt;a href=&quot;#横向移动的概念&quot; class=&quot;headerlink&quot; title=&quot;横向移动的概念&quot;&gt;&lt;/a&gt;横向移动的概念&lt;/h2&gt;&lt;p&gt;红队和蓝队: &lt;/p&gt;
 &lt;p&gt;​    红队(APT) ==&amp;gt; 攻击方 &lt;/p&gt;
 &lt;p&gt;​ </summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>黄金票据</title>
-    <link href="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/"/>
-    <id>http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/</id>
-    <published>2021-09-02T14:15:35.000Z</published>
-    <updated>2021-09-02T14:16:01.682Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;kerberos协议和黄金票据&quot;&gt;&lt;a href=&quot;#kerberos协议和黄金票据&quot; class=&quot;headerlink&quot; title=&quot;kerberos协议和黄金票据&quot;&gt;&lt;/a&gt;kerberos协议和黄金票据&lt;/h1&gt;&lt;p&gt;VM克隆: 右键选项卡</summary>
         
       
     
