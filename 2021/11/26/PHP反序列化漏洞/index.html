@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>PHP反序列化漏洞 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="PHP 反序列化概念：序列化就是将对象转换成字符串，反序列化相反，数据的格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象原理：未对用户输入的序列化字符串进行检测，导致攻击者可以控制反序列化过程，从而导致代码执行，SQL 注入，目录遍历等不可控后果。在反序列化的过程中自动触发了某些魔术方法。当进行反序列化的时候就有可能会触发对象中的一些魔术方法。serialize()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP反序列化漏洞">
+<meta property="og:url" content="http://yoursite.com/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="PHP 反序列化概念：序列化就是将对象转换成字符串，反序列化相反，数据的格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象原理：未对用户输入的序列化字符串进行检测，导致攻击者可以控制反序列化过程，从而导致代码执行，SQL 注入，目录遍历等不可控后果。在反序列化的过程中自动触发了某些魔术方法。当进行反序列化的时候就有可能会触发对象中的一些魔术方法。serialize()">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-26T11:06:00.000Z">
+<meta property="article:modified_time" content="2021-11-26T11:10:48.216Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.0.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-PHP反序列化漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" class="article-date">
+  <time datetime="2021-11-26T11:06:00.000Z" itemprop="datePublished">2021-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      PHP反序列化漏洞
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="PHP-反序列化"><a href="#PHP-反序列化" class="headerlink" title="PHP 反序列化"></a>PHP 反序列化</h4><p>概念：序列化就是将对象转换成字符串，反序列化相反，数据的格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象<br>原理：未对用户输入的序列化字符串进行检测，导致攻击者可以控制反序列化过程，从而导致代码执行，SQL 注入，目录遍历等不可控后果。在反序列化的过程中自动触发了某些魔术方法。当进行反序列化的时候就有可能会触发对象中的一些魔术方法。<br>serialize()        //将一个对象转换成一个字符串–序列化<br>unserialize()   //将字符串还原成一个对象–反序列化</p>
+<h4 id="有类与无类"><a href="#有类与无类" class="headerlink" title="有类与无类"></a>有类与无类</h4><h5 id="1、有类-class"><a href="#1、有类-class" class="headerlink" title="1、有类  class"></a>1、有类  class</h5><p>​     触发魔术方法<br>​    __construct()<br>​    __destruct()<br>​    __wakeup()<br>​    __toString()<br>​    ……</p>
+<h5 id="2、无类-不具有魔术方法"><a href="#2、无类-不具有魔术方法" class="headerlink" title="2、无类  不具有魔术方法"></a>2、无类  不具有魔术方法</h5><?php
+class user{
+    public $name='yucedu';
+    public $age=18;
+}
+$a = new user();
+$b = serialize($a);
+echo $b;
+
+?>
+
+<h4 id="序列化格式"><a href="#序列化格式" class="headerlink" title="序列化格式"></a>序列化格式</h4><p>O:4:”user”:2:{s:3:”age”;i:18;s:4:”name”;s:3:”yucedu”;}<br>O代表对象；4代表对象名长度；2代表2个成员变量；</p>
+<h4 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h4><p>1、真实应用   java环境<br>2、各种CTF比赛</p>
+<h4 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h4><p>1、SQL注入<br>2、代码执行<br>3、目录遍历<br>4、……</p>
+<p>触发：unserialize 函数的变量可控，文件中存在可利用的类，类中有魔术方法：<br>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11403397.html">https://www.cnblogs.com/20175211lyz/p/11403397.html</a><br>__construct()//创建对象时触发<br>__destruct() //对象被销毁时触发<br>__call() //在对象上下文中调用不可访问的方法时触发<br>__callStatic() //在静态上下文中调用不可访问的方法时触发<br>__get() //用于从不可访问的属性读取数据<br>__set() //用于将数据写入不可访问的属性<br>__isset() //在不可访问的属性上调用 isset()或 empty()触发<br>__unset() //在不可访问的属性上使用 unset()时触发<br>__invoke() //当脚本尝试将对象调用为函数时触发</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p> PHP反序列化无类本地测试<br>PHP反序列化有类魔术方法本地测试<br> 网鼎杯-AreUSerialz-有类魔术方法触发<br>    =   赋值<br>    ==  判断是否相等<br>    ===  全等，类型和数值都要一样</p>
+<?php
+class FileHandler{
+public $op=' 2';
+public $filename="flag.php";//文件开头调用的是 flag.php
+public $content="yucedu";
+}
+$flag = new FileHandler();
+$flag1 = serialize($flag);
+echo $flag1;
+?>
+
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.ctfhub.com/#/challenge">https://www.ctfhub.com/#/challenge</a>   ctf网鼎杯反序列化题目<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11403397.html">https://www.cnblogs.com/20175211lyz/p/11403397.html</a>    PHP反序列化基本知识</p>
+<p>测试代码：<br>&lt;?php<br>error_reporting(0);<br>include “flag.php”;<br>$KEY = “yucedu”;<br>$str = $<em>GET[‘str’];<br>if (unserialize($str) ===$KEY)<br>{<br> echo “$flag”;<br>}<br>show_source(__FILE_</em>);</p>
+<p>class ABC{<br> public $test;<br> function __construct(){<br> $test =1;<br> echo ‘调用了构造函数</br>‘;<br> }<br> function __destruct(){<br> echo ‘调用了析构函数</br>‘;<br> }<br> function __wakeup(){<br> echo ‘调用了苏醒函数</br>‘;<br> }<br>}<br>echo ‘创建对象 a</br>‘;<br>$a = new ABC;<br>echo ‘序列化<br>‘;<br>$a_ser=serialize($a);<br>echo ‘反序列化</br>‘;<br>$a_unser = unserialize($a_ser);<br>echo ‘GoodBye’;<br>?&gt;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" data-id="ckwgaav540007govj71zj1wol" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">逻辑越权漏洞-验证码和token安全及找回机制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">PHP反序列化漏洞</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/">逻辑越权漏洞-验证码和token安全及找回机制</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/">文件操作之文件下载读取</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

