@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-11-28T15:11:34.021Z</updated>
+  <updated>2021-12-03T05:54:03.506Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WAF-安全狗绕过SQL注入</title>
+    <link href="http://yoursite.com/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/"/>
+    <id>http://yoursite.com/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/</id>
+    <published>2021-12-03T05:51:16.000Z</published>
+    <updated>2021-12-03T05:54:03.506Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;WAF绕过-安全狗&quot;&gt;&lt;a href=&quot;#WAF绕过-安全狗&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>XXE漏洞-利用检测绕过</title>
@@ -410,27 +431,6 @@
         
         
     <summary type="html">&lt;h3 id=&quot;CMS识别技术&quot;&gt;&lt;a href=&quot;#CMS识别技术&quot; class=&quot;headerlink&quot; title=&quot;CMS识别技术&quot;&gt;&lt;/a&gt;CMS识别技术&lt;/h3&gt;&lt;p&gt;1、人工指纹字典识别&lt;br&gt;2、在线工具&lt;br&gt;3、平台&lt;br&gt;   源码获取技术&lt;br&gt;  </summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>加密编码算法和CDN绕过</title>
-    <link href="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/"/>
-    <id>http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/</id>
-    <published>2021-09-15T00:45:34.000Z</published>
-    <updated>2021-09-15T00:50:53.117Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;常见加密编码等算法解析&quot;&gt;&lt;a href=&quot;#常见加密编码等算法解析&quot; class=&quot;headerlink&quot;</summary>
         
       
     

