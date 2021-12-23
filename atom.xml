@@ -6,7 +6,7 @@
   <link href="http://yoursite.com/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-12-03T05:54:03.506Z</updated>
+  <updated>2021-12-23T07:16:32.734Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WAF-安全狗绕过文件上传</title>
+    <link href="http://yoursite.com/2021/12/23/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/"/>
+    <id>http://yoursite.com/2021/12/23/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</id>
+    <published>2021-12-23T07:11:21.000Z</published>
+    <updated>2021-12-23T07:16:32.734Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h4 id=&quot;大多WAF-匹配原则&quot;&gt;&lt;a href=&quot;#大多WAF-匹配原则&quot; class=&quot;headerlink&quot; title=&quot;大多WAF 匹配原则&quot;&gt;&lt;/a&gt;大多WAF</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>WAF-安全狗绕过SQL注入</title>
@@ -410,27 +431,6 @@
         
         
     <summary type="html">&lt;h4 id=&quot;数据库类型&quot;&gt;&lt;a href=&quot;#数据库类型&quot; class=&quot;headerlink&quot; title=&quot;数据库类型&quot;&gt;&lt;/a&gt;数据库类型&lt;/h4&gt;&lt;p&gt;  </summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>信息资产收集</title>
-    <link href="http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/"/>
-    <id>http://yoursite.com/2021/09/19/%E4%BF%A1%E6%81%AF%E8%B5%84%E4%BA%A7%E6%94%B6%E9%9B%86/</id>
-    <published>2021-09-19T02:44:32.000Z</published>
-    <updated>2021-09-19T02:52:57.028Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h3 id=&quot;CMS识别技术&quot;&gt;&lt;a href=&quot;#CMS识别技术&quot; class=&quot;headerlink&quot; title=&quot;CMS识别技术&quot;&gt;&lt;/a&gt;CMS识别技术&lt;/h3&gt;&lt;p&gt;1、人工指纹字典识别&lt;br&gt;2、在线工具&lt;br&gt;3、平台&lt;br&gt;   源码获取技术&lt;br&gt;  </summary>
         
       
     

